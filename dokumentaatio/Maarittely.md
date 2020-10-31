@@ -8,7 +8,7 @@ Dokumentointikieli: __suomi__
 
 ## Ratkaistava ongelma
 
-Tarkoituksenani on toteuttaa tiedonpakkausalgoritmi. Ensisijaisesti tulen toteuttamaan __Huffmanin algortmiin__ perustuvan pakkauksen. Mikäli aikaa riittää, saatan toteuttaa myös vaihtoehtoiseen algoritmiin perustuvan pakkauksen (esim. LZ) taikka jonkin Huffman-algoritmin variaatioista, sekä vertailla näiden tehokkuutta (pakkausteho, aikavaativuus) keskenään. Pääasiallisena tavoitteena on kuitenkin hyvin toimivan Huffman-pakkauksen toteuttaminen.
+Tarkoituksenani on toteuttaa tiedonpakkausalgoritmi. Ensisijaisesti tulen toteuttamaan __Huffmanin algortmiin__ perustuvan pakkauksen. Mikäli aikaa riittää, saatan toteuttaa myös esim. Lempel-Ziv-pakkauksen taikka jonkin Huffman-algoritmin variaatioista, sekä vertailla näiden tehokkuutta (pakkausteho, aikavaativuus) keskenään. Pääasiallisena tavoitteena on kuitenkin hyvin toimivan Huffman-pakkauksen toteuttaminen.
 
 Huffman-algoritmilla päästään 20-90 % pakkaustehoon, mutta todellinen pakkausteho riippuu suuresti lähtöaineistosta - mitä suurempi merkkimäärä ja merkkien vaihtelu, sitä pienempi pakkausteho.
 
