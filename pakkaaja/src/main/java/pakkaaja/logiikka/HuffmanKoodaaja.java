@@ -11,11 +11,26 @@ import pakkaaja.logiikka.huffmanpuu.*;
  */
 public class HuffmanKoodaaja {
     
-    public static Puu rakennaPuu(HashMap<Character, Integer> aakkosto) {
+    private HashMap<Character, Integer> aakkosto;
+    private HashMap<Character, String> koodisto;
+    private Puu puu;
+    
+    public HuffmanKoodaaja(HashMap<Character, Integer> aakkosto) {
+        this.aakkosto = aakkosto;
+        this.puu = rakennaPuu();
+        this.koodisto = new HashMap<>();
+        luoKoodisto(this.puu, "");
+    }
+    
+    public HashMap<Character, String> getKoodisto() {
+        return this.koodisto;
+    }
+    
+    public Puu rakennaPuu() {
         PriorityQueue<Puu> puut = new PriorityQueue<>();
         
-        for (char merkki : aakkosto.keySet()) {
-            Lehti lehti = new Lehti(merkki, aakkosto.get(merkki));
+        for (char merkki : this.aakkosto.keySet()) {
+            Lehti lehti = new Lehti(merkki, this.aakkosto.get(merkki));
             puut.add(lehti);
         }
         
@@ -45,18 +60,18 @@ public class HuffmanKoodaaja {
         }
     }
     
-    public static void luoMerkisto(Puu puu, String koodijono, HashMap<Character, String> merkisto) {
+    public void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti)puu;
-            merkisto.put(lehti.merkki, koodijono);
+            koodisto.put(lehti.merkki, koodijono);
         } else {
             Solmu solmu = (Solmu)puu;
             
             String koodijonoVasen = koodijono + "0";
-            tulostaKoodit(solmu.vasen, koodijonoVasen);
+            luoKoodisto(solmu.vasen, koodijonoVasen);
             
             String koodijonoOikea = koodijono + "1";
-            tulostaKoodit(solmu.oikea, koodijonoOikea);
+            luoKoodisto(solmu.oikea, koodijonoOikea);
         }
     }
     

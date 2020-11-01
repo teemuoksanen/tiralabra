@@ -30,10 +30,13 @@ public class Pakkaaja {
     
     public static void tulostaKoodisto(File tiedosto) throws FileNotFoundException {
         HashMap<Character, Integer> aakkosto = luoAakkosto(tiedosto);
-        Puu puu = HuffmanKoodaaja.rakennaPuu(aakkosto);
+        HuffmanKoodaaja koodaaja = new HuffmanKoodaaja(aakkosto);
+        HashMap<Character, String> koodisto = koodaaja.getKoodisto();
         
         System.out.println("MERKKI\tMÄÄRÄ\tKOODI");
-        HuffmanKoodaaja.tulostaKoodit(puu, "");
+        for (char merkki : aakkosto.keySet()) {
+            System.out.println(merkki + "\t" + aakkosto.get(merkki) + "\t" + koodisto.get(merkki));
+        }
     }
     
     
