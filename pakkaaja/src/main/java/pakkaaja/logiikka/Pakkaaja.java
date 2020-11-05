@@ -35,6 +35,7 @@ public class Pakkaaja {
     
     /**
      * Metodi tulostaa syötteenä annetusta tiedostosta jokaisen merkin sekä kunkin merkin määrän ja Huffman-algoritmilla luodun binäärikoodin.
+     * Tämä metodi on tarkoitus poistaa jatkokehityksen aikana, sillä sille ei ole lopullisessa ohjelmassa tarvetta.
      * @param tiedosto tiedosto, josta Huffman-koodisto haluataan luoda
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
      */

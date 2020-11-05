@@ -2,8 +2,7 @@
 package pakkaaja.logiikka;
 
 /**
- *
- * @author teemu
+ * Luokka lukee annetun tiedoston sisällön.
  */
 public class Lukija {
     

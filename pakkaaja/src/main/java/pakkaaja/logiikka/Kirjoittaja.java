@@ -2,8 +2,7 @@
 package pakkaaja.logiikka;
 
 /**
- *
- * @author teemu
+ * Luokka kirjoittaa pakatun tiedoston.
  */
 public class Kirjoittaja {
     
