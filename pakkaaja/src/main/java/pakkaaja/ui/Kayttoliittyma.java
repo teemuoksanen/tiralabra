@@ -13,6 +13,9 @@ import pakkaaja.logiikka.Pakkaaja;
  */
 public class Kayttoliittyma {
     
+    /**
+     * Tekstikäyttöliittymän sisältävä luokka.
+     */
     public void kaynnista() {
         
         Scanner lukija = new Scanner(System.in);

@@ -6,8 +6,7 @@ import java.util.PriorityQueue;
 import pakkaaja.logiikka.huffmanpuu.*;
 
 /**
- *
- * @author teemu
+ * Luokka muodostaa aakkostolle Huffman-koodiston (merkki- ja Huffman-binäärikoodi -pari hajautustauluna).
  */
 public class HuffmanKoodaaja {
     
@@ -15,6 +14,10 @@ public class HuffmanKoodaaja {
     private HashMap<Character, String> koodisto;
     private Puu puu;
     
+    /**
+     * HuffmanKoodaajan konstruktori, joka kutsuttaessa samalla luo Huffman-puun sekä -koodiston sille syötteenä annetusta aakkostosta.
+     * @param aakkosto  aakkosto, josta Huffman-koodisto muodostetaan
+     */
     public HuffmanKoodaaja(HashMap<Character, Integer> aakkosto) {
         this.aakkosto = aakkosto;
         this.puu = rakennaPuu();
@@ -22,11 +25,15 @@ public class HuffmanKoodaaja {
         luoKoodisto(this.puu, "");
     }
     
+    /**
+     * Palauttaa Huffman-koodiston.
+     * @return koodisto eli merkki- ja Huffman-binäärikoodi -pari hajautustauluna
+     */
     public HashMap<Character, String> getKoodisto() {
         return this.koodisto;
     }
     
-    public Puu rakennaPuu() {
+    private Puu rakennaPuu() {
         PriorityQueue<Puu> puut = new PriorityQueue<>();
         
         for (char merkki : this.aakkosto.keySet()) {
@@ -44,28 +51,13 @@ public class HuffmanKoodaaja {
         
         return puut.poll();
     }
-    
-    public static void tulostaKoodit(Puu puu, String koodijono) {
+
+    private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
-            Lehti lehti = (Lehti)puu;
-            System.out.println(lehti.merkki + "\t" + lehti.maara + "\t" + koodijono);
-        } else {
-            Solmu solmu = (Solmu)puu;
-            
-            String koodijonoVasen = koodijono + "0";
-            tulostaKoodit(solmu.vasen, koodijonoVasen);
-            
-            String koodijonoOikea = koodijono + "1";
-            tulostaKoodit(solmu.oikea, koodijonoOikea);
-        }
-    }
-    
-    public void luoKoodisto(Puu puu, String koodijono) {
-        if (puu instanceof Lehti) {
-            Lehti lehti = (Lehti)puu;
+            Lehti lehti = (Lehti) puu;
             koodisto.put(lehti.merkki, koodijono);
         } else {
-            Solmu solmu = (Solmu)puu;
+            Solmu solmu = (Solmu) puu;
             
             String koodijonoVasen = koodijono + "0";
             luoKoodisto(solmu.vasen, koodijonoVasen);
