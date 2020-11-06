@@ -13,6 +13,8 @@ public class Pakkaaja {
     private String tiedostonimi;
     private File tiedosto;
     private HashMap<Character, Integer> aakkosto;
+    private HuffmanKoodaaja koodaaja;
+    private HashMap<Character, String> koodisto;
     
     /**
      * Pakkaajan konstruktori, joka kutsuttaessa samalla luo aakoston syötteenä annetusta tiedostosta.
@@ -23,6 +25,9 @@ public class Pakkaaja {
         this.tiedostonimi = tiedostonimi;
         this.tiedosto = new File(tiedostonimi);
         this.aakkosto = luoAakkosto();
+        this.koodaaja = new HuffmanKoodaaja(this.aakkosto);
+        this.koodisto = koodaaja.getKoodisto();
+        
     }
     
     /**
@@ -51,12 +56,9 @@ public class Pakkaaja {
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
      */
     public void tulostaKoodisto() throws FileNotFoundException {
-        HuffmanKoodaaja koodaaja = new HuffmanKoodaaja(this.aakkosto);
-        HashMap<Character, String> koodisto = koodaaja.getKoodisto();
-        
         System.out.println("MERKKI\tMÄÄRÄ\tKOODI");
-        for (char merkki : aakkosto.keySet()) {
-            System.out.println(merkki + "\t" + aakkosto.get(merkki) + "\t" + koodisto.get(merkki));
+        for (char merkki : this.aakkosto.keySet()) {
+            System.out.println(merkki + "\t" + this.aakkosto.get(merkki) + "\t" + this.koodisto.get(merkki));
         }
     }
     
