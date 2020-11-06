@@ -20,8 +20,8 @@ public class PakkaajaTest {
     
     @Before
     public void setUpClass() {
-        String testitiedosto1 = "src/test/resources/test.txt";
-        String testitiedosto2 = "src/test/resources/test2.txt";
+        File testitiedosto1 = new File("src/test/resources/test.txt");
+        File testitiedosto2 = new File("src/test/resources/test2.txt");
         
         try {
             pakkaaja1 = new Pakkaaja(testitiedosto1);

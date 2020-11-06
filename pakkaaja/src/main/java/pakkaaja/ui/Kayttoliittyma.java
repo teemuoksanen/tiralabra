@@ -57,7 +57,7 @@ public class Kayttoliittyma {
                 }
                 
                 try {
-                    pakkaaja = new Pakkaaja(tiedostonimi);
+                    pakkaaja = new Pakkaaja(tiedosto);
                     
                     System.out.println("En osaa vielä pakata, mutta tässä on koodisto:");
                     pakkaaja.tulostaKoodisto();

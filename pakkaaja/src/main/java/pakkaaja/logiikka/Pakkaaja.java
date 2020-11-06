@@ -10,10 +10,8 @@ import java.util.Scanner;
  */
 public class Pakkaaja {
     
-    private String tiedostonimi;
     private File tiedosto;
     private HashMap<Character, Integer> aakkosto;
-    private HuffmanKoodaaja koodaaja;
     private HashMap<Character, String> koodisto;
     
     /**
@@ -21,13 +19,10 @@ public class Pakkaaja {
      * @param tiedostonimi pakattavan tiedoston nimi
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
      */
-    public Pakkaaja(String tiedostonimi) throws FileNotFoundException {
-        this.tiedostonimi = tiedostonimi;
-        this.tiedosto = new File(tiedostonimi);
+    public Pakkaaja(File tiedosto) throws FileNotFoundException {
+        this.tiedosto = tiedosto;
         this.aakkosto = luoAakkosto();
-        this.koodaaja = new HuffmanKoodaaja(this.aakkosto);
-        this.koodisto = koodaaja.getKoodisto();
-        
+        this.koodisto = new HuffmanKoodaaja(this.aakkosto).getKoodisto();
     }
     
     /**
