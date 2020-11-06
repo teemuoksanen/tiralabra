@@ -7,25 +7,25 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-import static pakkaaja.logiikka.Pakkaaja.luoAakkosto;
 import pakkaaja.logiikka.huffmanpuu.Lehti;
 import pakkaaja.logiikka.huffmanpuu.Puu;
 import pakkaaja.logiikka.huffmanpuu.Solmu;
 
 public class PakkaajaTest {
     
-    HashMap<Character, Integer> aakkosto1;
-    HashMap<Character, Integer> aakkosto2;
+    Pakkaaja pakkaaja1;
+    Pakkaaja pakkaaja2;
     
     AakkostoMock aakkostoMock = new AakkostoMock();
     
     @Before
     public void setUpClass() {
-        File lahdetiedosto1 = new File("src/test/resources/test.txt");
-        File lahdetiedosto2 = new File("src/test/resources/test2.txt");
+        String testitiedosto1 = "src/test/resources/test.txt";
+        String testitiedosto2 = "src/test/resources/test2.txt";
+        
         try {
-            aakkosto1 = luoAakkosto(lahdetiedosto1);
-            aakkosto2 = luoAakkosto(lahdetiedosto2);
+            pakkaaja1 = new Pakkaaja(testitiedosto1);
+            pakkaaja2 = new Pakkaaja(testitiedosto2);
         } catch (FileNotFoundException ex) {
             System.out.println("VIRHE! Testitiedostoja ei löytynyt.");
         }
@@ -42,8 +42,8 @@ public class PakkaajaTest {
     
     @Test
     public void luoOikeanAakkoston() {
-        assertEquals(aakkosto1, aakkostoMock.getAakkosto(1));
-        assertEquals(aakkosto2, aakkostoMock.getAakkosto(2));
+        assertEquals(pakkaaja1.getAakkosto(), aakkostoMock.getAakkosto(1));
+        assertEquals(pakkaaja2.getAakkosto(), aakkostoMock.getAakkosto(2));
     }
     
     @Test
@@ -81,7 +81,7 @@ public class PakkaajaTest {
     
     @Test
     public void palauttaaOikeanKoodiston() {
-        HuffmanKoodaaja koodaaja = new HuffmanKoodaaja(aakkosto1);
+        HuffmanKoodaaja koodaaja = new HuffmanKoodaaja(pakkaaja1.getAakkosto());
         HashMap<Character, String> koodisto = koodaaja.getKoodisto();
         assertEquals(koodisto.keySet().size(), 5);
         assertEquals(koodisto.get('a'), "11");

@@ -2,7 +2,6 @@
 package pakkaaja.ui;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.*;
 import pakkaaja.logiikka.Pakkaaja;
@@ -12,6 +11,8 @@ import pakkaaja.logiikka.Pakkaaja;
  * @author teemu
  */
 public class Kayttoliittyma {
+    
+    private Pakkaaja pakkaaja;
     
     /**
      * Tekstikäyttöliittymän sisältävä luokka.
@@ -56,11 +57,12 @@ public class Kayttoliittyma {
                 }
                 
                 try {
+                    pakkaaja = new Pakkaaja(tiedostonimi);
+                    
                     System.out.println("En osaa vielä pakata, mutta tässä on koodisto:");
-
-                    Pakkaaja.tulostaKoodisto(tiedosto);
+                    pakkaaja.tulostaKoodisto();
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Pakkaaja.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("VIRHE: " + ex);
                 }
                 
             } else if (komento.equals("2")) {

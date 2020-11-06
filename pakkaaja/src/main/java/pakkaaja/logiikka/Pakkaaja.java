@@ -4,44 +4,54 @@ package pakkaaja.logiikka;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
-import pakkaaja.logiikka.HuffmanKoodaaja;
-import pakkaaja.logiikka.huffmanpuu.Puu;
 
 /**
  * Luokka pakkaa sille syötteenä annetun tiedoston Huffman-algoritmin mukaisesti.
  */
 public class Pakkaaja {
     
+    private String tiedostonimi;
+    private File tiedosto;
+    private HashMap<Character, Integer> aakkosto;
+    
+    /**
+     * Pakkaajan konstruktori, joka kutsuttaessa samalla luo aakoston syötteenä annetusta tiedostosta.
+     * @param tiedostonimi pakattavan tiedoston nimi
+     * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
+     */
+    public Pakkaaja(String tiedostonimi) throws FileNotFoundException {
+        this.tiedostonimi = tiedostonimi;
+        this.tiedosto = new File(tiedostonimi);
+        this.aakkosto = luoAakkosto();
+    }
+    
     /**
      * Metodi luo aakoston (merkit ja niiden määrät) annetun tiedoston sisällöstä.
-     * @param tiedosto tiedosto, jonka aakosto halutaan luoda
      * @return aakkosto ja kunkin aakkostoon sisältyvän merkin määrät hajautustauluna
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
      */
-    public static HashMap<Character, Integer> luoAakkosto(File tiedosto) throws FileNotFoundException {
-        HashMap<Character, Integer> aakkosto = new HashMap<>();
+    public HashMap<Character, Integer> luoAakkosto() throws FileNotFoundException {
+        HashMap<Character, Integer> abc = new HashMap<>();
         
-        Scanner tiedostonlukija = new Scanner(tiedosto);
+        Scanner tiedostonlukija = new Scanner(this.tiedosto);
         tiedostonlukija.useDelimiter("");
         
         while (tiedostonlukija.hasNext()) {
             char merkki = tiedostonlukija.next().charAt(0);            
-            int nykyinenMaara = aakkosto.getOrDefault(merkki, 0);
-            aakkosto.put(merkki, nykyinenMaara + 1);
+            int nykyinenMaara = abc.getOrDefault(merkki, 0);
+            abc.put(merkki, nykyinenMaara + 1);
         }        
         
-        return aakkosto;
+        return abc;
     }
     
     /**
      * Metodi tulostaa syötteenä annetusta tiedostosta jokaisen merkin sekä kunkin merkin määrän ja Huffman-algoritmilla luodun binäärikoodin.
      * Tämä metodi on tarkoitus poistaa jatkokehityksen aikana, sillä sille ei ole lopullisessa ohjelmassa tarvetta.
-     * @param tiedosto tiedosto, josta Huffman-koodisto haluataan luoda
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
      */
-    public static void tulostaKoodisto(File tiedosto) throws FileNotFoundException {
-        HashMap<Character, Integer> aakkosto = luoAakkosto(tiedosto);
-        HuffmanKoodaaja koodaaja = new HuffmanKoodaaja(aakkosto);
+    public void tulostaKoodisto() throws FileNotFoundException {
+        HuffmanKoodaaja koodaaja = new HuffmanKoodaaja(this.aakkosto);
         HashMap<Character, String> koodisto = koodaaja.getKoodisto();
         
         System.out.println("MERKKI\tMÄÄRÄ\tKOODI");
@@ -50,6 +60,8 @@ public class Pakkaaja {
         }
     }
     
-    
+    public HashMap<Character, Integer> getAakkosto() {
+        return this.aakkosto;
+    }
     
 }
