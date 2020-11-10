@@ -1,7 +1,9 @@
 
 package pakkaaja.logiikka;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.PriorityQueue;
 import pakkaaja.logiikka.huffmanpuu.*;
 
@@ -13,6 +15,7 @@ public class HuffmanKoodaaja {
     private HashMap<Character, Integer> aakkosto;
     private HashMap<Character, String> koodisto;
     private Puu puu;
+    private List<Object> avain;
     
     /**
      * HuffmanKoodaajan konstruktori, joka kutsuttaessa samalla luo Huffman-puun sekä -koodiston sille syötteenä annetusta aakkostosta.
@@ -22,6 +25,7 @@ public class HuffmanKoodaaja {
         this.aakkosto = aakkosto;
         this.puu = rakennaPuu();
         this.koodisto = new HashMap<>();
+        this.avain = new ArrayList<>();
         luoKoodisto(this.puu, "");
     }
     
@@ -31,6 +35,13 @@ public class HuffmanKoodaaja {
      */
     public HashMap<Character, String> getKoodisto() {
         return this.koodisto;
+    }
+    /**
+     * Palauttaa Huffman-avaimen.
+     * @return avain eli Huffman-puu lyhyeksi koodattuna
+     */
+    public List<Object> getAvain() {
+        return this.avain;
     }
     
     private Puu rakennaPuu() {
@@ -56,8 +67,12 @@ public class HuffmanKoodaaja {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti) puu;
             koodisto.put(lehti.merkki, koodijono);
+            avain.add((int) 1);
+            avain.add((char) lehti.merkki);
         } else {
             Solmu solmu = (Solmu) puu;
+            
+            avain.add((int) 0);
             
             String koodijonoVasen = koodijono + "0";
             luoKoodisto(solmu.vasen, koodijonoVasen);

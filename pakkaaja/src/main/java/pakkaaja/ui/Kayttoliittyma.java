@@ -61,7 +61,9 @@ public class Kayttoliittyma {
                     
                     System.out.println("En osaa vielä pakata, mutta tässä on koodisto:");
                     pakkaaja.tulostaKoodisto();
-                } catch (FileNotFoundException ex) {
+                    System.out.println("");
+                    pakkaaja.pakkaaTiedosto();
+                } catch (Exception ex) {
                     System.out.println("VIRHE: " + ex);
                 }
                 
