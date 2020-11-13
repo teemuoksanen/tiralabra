@@ -30,10 +30,23 @@ public class Purkaja {
      */
     public Purkaja(File tiedosto) {
         this.tiedostoPakattu = tiedosto;
-        String tiedostoPurettuNimi = "puretut/" + this.tiedostoPakattu.getName().replace(".pakattu", "");
+        String tiedostoPurettuNimi = muodostaPurettuNimi();
         this.tiedostoPurettu = new File(tiedostoPurettuNimi);
         this.merkit = 0;
         this.koodisto = new HashMap<>();
+    }
+    
+    private String muodostaPurettuNimi() {
+        String polku = this.tiedostoPakattu.getParent() + "/";
+        String nimi = this.tiedostoPakattu.getName().replace(".pakattu", "");
+        String paate = "";
+        int erotin = nimi.lastIndexOf('.');
+        if (erotin != -1) {
+            paate = nimi.substring(erotin);
+            nimi = nimi.substring(0, erotin);
+        }
+        String uusiNimi = polku + nimi + "-purettu" + paate;
+        return uusiNimi;
     }
     
     /**
@@ -115,6 +128,14 @@ public class Purkaja {
             kirjoittaja.kirjoitaTavu(merkki);
         }
         kirjoittaja.close();
+    }
+    
+    /**
+     * Metodi palauttaa puretun tiedoston.
+     * @return purettu tiedosto
+     */
+    public File getTiedostoPurettu() {
+        return this.tiedostoPurettu;
     }
     
 }

@@ -28,7 +28,7 @@ public class Pakkaaja {
      */
     public Pakkaaja(File tiedosto) throws FileNotFoundException, IOException {
         this.tiedostoPakattava = tiedosto;
-        String tiedostoPakattuNimi = "pakatut/" + this.tiedostoPakattava.getName() + ".pakattu";
+        String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".pakattu";
         this.tiedostoPakattu = new File(tiedostoPakattuNimi);
         this.merkit = 0;
         this.aakkosto = luoAakkosto();
@@ -119,6 +119,14 @@ public class Pakkaaja {
      */
     public HashMap<Character, Integer> getAakkosto() {
         return this.aakkosto;
+    }
+    
+    /**
+     * Metodi palauttaa pakatun tiedoston.
+     * @return pakattu tiedosto
+     */
+    public File getTiedostoPakattu() {
+        return this.tiedostoPakattu;
     }
     
 }

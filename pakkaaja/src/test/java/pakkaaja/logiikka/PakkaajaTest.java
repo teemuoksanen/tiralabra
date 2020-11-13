@@ -4,6 +4,8 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -13,6 +15,8 @@ import pakkaaja.logiikka.huffmanpuu.Solmu;
 
 public class PakkaajaTest {
     
+    File testitiedosto1;
+    File testitiedosto2;
     Pakkaaja pakkaaja1;
     Pakkaaja pakkaaja2;
     
@@ -20,8 +24,8 @@ public class PakkaajaTest {
     
     @Before
     public void setUpClass() {
-        File testitiedosto1 = new File("src/test/resources/test.txt");
-        File testitiedosto2 = new File("src/test/resources/test2.txt");
+        testitiedosto1 = new File("src/test/resources/test.txt");
+        testitiedosto2 = new File("src/test/resources/test2.txt");
         
         try {
             pakkaaja1 = new Pakkaaja(testitiedosto1);
@@ -29,7 +33,7 @@ public class PakkaajaTest {
         } catch (FileNotFoundException ex) {
             System.out.println("VIRHE! Testitiedostoja ei löytynyt.");
         } catch (IOException ex) {
-            System.out.println("VIRHE! Bittivirran lukeminen ei onnistunut.");
+            System.out.println("VIRHE! Bittivirran lukeminen tai kirjoittaminen ei onnistunut.");
         }
     }
     
@@ -91,8 +95,18 @@ public class PakkaajaTest {
     }
     
     @Test
-    public void testinNimi() {
-        
+    public void sisaltoMuuttumatonPakkaamisenJaPurkamisenJalkeen() throws IOException {
+        File alkuperainen = testitiedosto1;
+        pakkaaja1.pakkaaTiedosto();
+        File pakattu = pakkaaja1.getTiedostoPakattu();
+        Purkaja purkaja1 = new Purkaja(pakattu);
+        purkaja1.puraTiedosto();
+        File purettu = purkaja1.getTiedostoPurettu();
+        byte[] alkuperainenByte = Files.readAllBytes(alkuperainen.toPath());
+        byte[] purettuByte = Files.readAllBytes(purettu.toPath());
+        assertTrue(Arrays.equals(alkuperainenByte, purettuByte));
+        pakattu.delete();
+        purettu.delete();
     }
     
 }
