@@ -12,7 +12,7 @@ import pakkaaja.logiikka.io.BittiKirjoittaja;
 import pakkaaja.logiikka.io.BittiLukija;
 
 /**
- * 
+ * Luokka purkaa sille syötteenä annetun Huffman-algoritmilla pakatun tiedoston.
  */
 public class Purkaja {
     
@@ -22,6 +22,12 @@ public class Purkaja {
     private HashMap<String, Character> koodisto;
     private Puu puu;
     
+    /**
+     * Purkajan konstruktori, joka alustaa tarvittavat muuttujat ja oliot.
+     * @param tiedosto purettava tiedosto
+     * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran lukeminen tai kirjoittaminen ei onnistu.
+     */
     public Purkaja(File tiedosto) {
         this.tiedostoPakattu = tiedosto;
         String tiedostoPurettuNimi = "puretut/" + this.tiedostoPakattu.getName().replace(".pakattu", "");
@@ -30,6 +36,11 @@ public class Purkaja {
         this.koodisto = new HashMap<>();
     }
     
+    /**
+     * Metodi hoitaa pakatun tiedoston purkamisen apumetodiensa avulla ja ilmoittaa puretun tiedoston nimen, kun purkaminen on valmis.
+     * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     */
     public void puraTiedosto() throws FileNotFoundException, IOException {
         if (this.tiedostoPurettu.exists()) {
             System.out.println("Tiedosto '" + this.tiedostoPurettu.getName() + "' löytyy jo purettuna.");
@@ -47,6 +58,9 @@ public class Purkaja {
         }
     }
     
+    /**
+     * Apumetodi, joka lukee alkuperäisen tiedoston merkkimäärän pakattusta tiedostosta.
+     */
     private void lueMerkkimaara(BittiLukija lukija) throws IOException {
         String merkitBitteina = "";
         for (int i = 0; i < 4; i++) {
@@ -55,6 +69,9 @@ public class Purkaja {
         this.merkit = Integer.parseInt(merkitBitteina, 2);
     }
     
+    /**
+     * Apumetodi, joka lukee Huffman-algoritmin avaimen pakatusta tiedostosta ja muuntaa sen Huffman-puuksi.
+     */
     private Puu luePuu(BittiLukija lukija) throws IOException {
         int bitti = lukija.lueBitti();
         if (bitti == 1) {
@@ -65,6 +82,9 @@ public class Purkaja {
         }
     }
     
+    /**
+     * Apumetodi, joka luo Huffman-puusta koodiston hajautustauluun.
+     */
     private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti) puu;
@@ -80,6 +100,9 @@ public class Purkaja {
         }
     }
     
+    /**
+     * Apumetodi, joka lukee alkuperäisen tiedoston sisällön pakattusta tiedostosta.
+     */
     private void lueTiedosto(BittiLukija lukija) throws IOException {
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
         

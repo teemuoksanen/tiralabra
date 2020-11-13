@@ -24,6 +24,7 @@ public class Pakkaaja {
      * Pakkaajan konstruktori, joka kutsuttaessa samalla luo aakoston, koodiston ja avaimen syötteenä annetusta tiedostosta.
      * @param tiedosto pakattava tiedosto
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
     public Pakkaaja(File tiedosto) throws FileNotFoundException, IOException {
         this.tiedostoPakattava = tiedosto;
@@ -57,12 +58,17 @@ public class Pakkaaja {
         return abc;
     }
     
+    /**
+     * Metodi hoitaa tiedoston pakkaamisen apumetodiensa avulla ja ilmoittaa pakatun tiedoston nimen, kun pakkaminen on valmis.
+     * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     */
     public void pakkaaTiedosto() throws FileNotFoundException, IOException {
         if (tiedostoPakattu.exists()) {
             System.out.println("Tiedosto '" + this.tiedostoPakattava.getName() + "' löytyy jo pakattuna.");
             System.out.println("Poista pakattu tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
         } else {
-            System.out.println("Pakataan tiedostoa '" + this.tiedostoPakattava.getName() + "'...\n");
+            System.out.println("Pakataan tiedosto '" + this.tiedostoPakattava.getName() + "'...\n");
             BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
             kirjoitaMerkkimaara(kirjoittaja);
             kirjoitaAvain(kirjoittaja);
@@ -73,11 +79,17 @@ public class Pakkaaja {
         }
     }
     
+    /**
+     * Apumetodi, joka kirjoituttaa pakattavan tiedoston merkkimäärän pakattuun tiedstoon.
+     */
     private void kirjoitaMerkkimaara(BittiKirjoittaja kirjoittaja) throws IOException {
         String merkitBitteina = String.format("%32s", Integer.toBinaryString(this.merkit)).replaceAll(" ", "0");
         kirjoittaja.kirjoitaBittijono(merkitBitteina);
     }
     
+    /**
+     * Apumetodi, joka kirjoituttaa Huffman-puun avaimen pakattuun tiedstoon.
+     */
     private void kirjoitaAvain(BittiKirjoittaja kirjoittaja) throws IOException {
         for (Object o : this.avain) {
             if (o instanceof Integer) {
@@ -88,6 +100,9 @@ public class Pakkaaja {
         }
     }
     
+    /**
+     * Apumetodi, joka kirjoituttaa varsinaisen tiedoston sisällön pakattuun tiedstoon.
+     */
     private void kirjoitaTiedosto(BittiKirjoittaja kirjoittaja) throws IOException {
         Scanner tiedostonlukija = new Scanner(this.tiedostoPakattava);
         tiedostonlukija.useDelimiter("");
@@ -99,18 +114,9 @@ public class Pakkaaja {
     }
     
     /**
-     * Metodi tulostaa syötteenä annetusta tiedostosta jokaisen merkin sekä kunkin merkin määrän ja Huffman-algoritmilla luodun binäärikoodin.
-     * Tämä metodi on tarkoitus poistaa jatkokehityksen aikana, sillä sille ei ole lopullisessa ohjelmassa tarvetta.
-     * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
+     * Metodi palauttaa aakkoston.
+     * @return aakkosto hajautustauluna
      */
-    public void tulostaKoodisto() throws FileNotFoundException {
-        System.out.println("MERKKI\tMÄÄRÄ\tKOODI");
-        for (char merkki : this.aakkosto.keySet()) {
-            System.out.println(merkki + "\t" + this.aakkosto.get(merkki) + "\t" + this.koodaaja.getKoodisto().get(merkki));
-        }
-        System.out.println("\nHuffman-avain: " + this.koodaaja.getAvain());
-    }
-    
     public HashMap<Character, Integer> getAakkosto() {
         return this.aakkosto;
     }
