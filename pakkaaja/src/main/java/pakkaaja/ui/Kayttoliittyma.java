@@ -3,8 +3,8 @@ package pakkaaja.ui;
 
 import java.io.*;
 import java.util.Scanner;
-import java.util.logging.*;
 import pakkaaja.logiikka.Pakkaaja;
+import pakkaaja.logiikka.Purkaja;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.
@@ -13,6 +13,7 @@ import pakkaaja.logiikka.Pakkaaja;
 public class Kayttoliittyma {
     
     private Pakkaaja pakkaaja;
+    private Purkaja purkaja;
     
     /**
      * Tekstikäyttöliittymän sisältävä luokka.
@@ -49,7 +50,7 @@ public class Kayttoliittyma {
                         System.out.println("VIRHE: Tiedostoa '" + tiedostonimi + "' ei löytynyt.\n");
                     }
                     
-                    System.out.println("Anna pakattavan tiedoston nimi (sisältäen polun suhteessa juurihakemistoon):");
+                    System.out.println("Anna pakattavan tiedoston nimi (ja polku suhteessa ohjelman juurihakemistoon):");
                     
                     tiedostonimi = lukija.nextLine();
                     tiedosto = new File(tiedostonimi);
@@ -58,18 +59,34 @@ public class Kayttoliittyma {
                 
                 try {
                     pakkaaja = new Pakkaaja(tiedosto);
-                    
-                    System.out.println("En osaa vielä pakata, mutta tässä on koodisto:");
-                    pakkaaja.tulostaKoodisto();
-                    System.out.println("");
                     pakkaaja.pakkaaTiedosto();
                 } catch (Exception ex) {
-                    System.out.println("VIRHE: " + ex);
+                    System.out.println("VIRHE! " + ex.toString());
                 }
                 
             } else if (komento.equals("2")) {
 
-                System.out.println("VIRHE: Purkaminen ei ole vielä käytössä.");
+                String tiedostonimi = "tyhja";
+                File tiedosto = null;
+                
+                while (tiedosto == null || !tiedosto.exists()) {
+                    if (tiedosto != null) {
+                        System.out.println("VIRHE: Pakattua tiedostoa '" + tiedostonimi + "' ei löytynyt.\n");
+                    }
+                    
+                    System.out.println("Anna purettavan tiedoston nimi (ja polku suhteessa ohjelman juurihakemistoon):");
+                    
+                    tiedostonimi = lukija.nextLine();
+                    tiedosto = new File(tiedostonimi);
+                    System.out.println("");
+                }
+                
+                try {
+                    purkaja = new Purkaja(tiedosto);
+                    purkaja.puraTiedosto();
+                } catch (Exception ex) {
+                    System.out.println("VIRHE! " + ex.toString());
+                }
                 
             } else {
                 

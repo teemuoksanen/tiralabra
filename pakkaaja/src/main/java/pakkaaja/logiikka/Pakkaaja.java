@@ -62,27 +62,23 @@ public class Pakkaaja {
             System.out.println("Tiedosto '" + this.tiedostoPakattava.getName() + "' löytyy jo pakattuna.");
             System.out.println("Poista pakattu tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
         } else {
-            System.out.println("Aloitetaan pakatun tiedoston tallentaminen.");
+            System.out.println("Pakataan tiedostoa '" + this.tiedostoPakattava.getName() + "'...\n");
             BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
             kirjoitaMerkkimaara(kirjoittaja);
             kirjoitaAvain(kirjoittaja);
             kirjoitaTiedosto(kirjoittaja);
             kirjoittaja.close();
-            System.out.println("Pakattu tiedosto on tallennettu.");
+            System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
+            System.out.println(this.tiedostoPakattu.getAbsoluteFile());
         }
     }
     
     private void kirjoitaMerkkimaara(BittiKirjoittaja kirjoittaja) throws IOException {
-        System.out.print("Kirjoitetaan merkkimäärä... ");
         String merkitBitteina = String.format("%32s", Integer.toBinaryString(this.merkit)).replaceAll(" ", "0");
-        // int takaisin = Integer.parseInt(merkitBitteina, 2);
         kirjoittaja.kirjoitaBittijono(merkitBitteina);
-        System.out.println("Kirjoitettu.");
     }
     
     private void kirjoitaAvain(BittiKirjoittaja kirjoittaja) throws IOException {
-        System.out.print("Kirjoitetaan koodistoa... ");
-        
         for (Object o : this.avain) {
             if (o instanceof Integer) {
                 kirjoittaja.kirjoitaBitti((int) o);
@@ -90,24 +86,16 @@ public class Pakkaaja {
                 kirjoittaja.kirjoitaTavu((char) o);
             }
         }
-        
-        // Välimerkkinä toistaiseksi kaksi ykköstä
-        kirjoittaja.kirjoitaBitti(1);
-        kirjoittaja.kirjoitaBitti(1);
-        
-        System.out.println("Kirjoitettu.");
     }
     
     private void kirjoitaTiedosto(BittiKirjoittaja kirjoittaja) throws IOException {
-        System.out.print("Kirjoitetaan pakattua tiedostoa... ");
         Scanner tiedostonlukija = new Scanner(this.tiedostoPakattava);
         tiedostonlukija.useDelimiter("");
         
         while (tiedostonlukija.hasNext()) {
             char merkki = tiedostonlukija.next().charAt(0);
             kirjoittaja.kirjoitaBittijono(this.koodisto.get(merkki));
-        }
-        System.out.println("Kirjoitettu.");        
+        }      
     }
     
     /**

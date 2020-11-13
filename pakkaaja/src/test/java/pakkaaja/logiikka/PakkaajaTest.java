@@ -28,6 +28,8 @@ public class PakkaajaTest {
             pakkaaja2 = new Pakkaaja(testitiedosto2);
         } catch (FileNotFoundException ex) {
             System.out.println("VIRHE! Testitiedostoja ei löytynyt.");
+        } catch (IOException ex) {
+            System.out.println("VIRHE! Bittivirran lukeminen ei onnistunut.");
         }
     }
     
