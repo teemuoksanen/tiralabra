@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
 
 import pakkaaja.logiikka.huffmanpuu.Lehti;
 import pakkaaja.logiikka.huffmanpuu.Puu;
@@ -88,10 +89,9 @@ public class PakkaajaTest {
     @Test
     public void palauttaaOikeanKoodiston() {
         HuffmanKoodaaja koodaaja = new HuffmanKoodaaja(pakkaaja1.getAakkosto());
-        HashMap<Character, String> koodisto = koodaaja.getKoodisto();
-        assertEquals(koodisto.keySet().size(), 5);
-        assertEquals(koodisto.get('a'), "11");
-        assertEquals(koodisto.get('e'), "010");
+        Hajautustaulu<Character, String> koodisto = koodaaja.getKoodisto();
+        assertEquals(koodisto.hae('a'), "11");
+        assertEquals(koodisto.hae('e'), "010");
     }
     
     @Test

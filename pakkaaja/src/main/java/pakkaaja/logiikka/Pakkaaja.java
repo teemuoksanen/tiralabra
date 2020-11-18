@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
 import pakkaaja.logiikka.io.BittiKirjoittaja;
 
 /**
@@ -17,7 +18,7 @@ public class Pakkaaja {
     private int merkit;
     private HashMap<Character, Integer> aakkosto;
     private HuffmanKoodaaja koodaaja;
-    private HashMap<Character, String> koodisto;
+    private Hajautustaulu<Character, String> koodisto;
     private List<Object> avain;
     
     /**
@@ -109,7 +110,7 @@ public class Pakkaaja {
         
         while (tiedostonlukija.hasNext()) {
             char merkki = tiedostonlukija.next().charAt(0);
-            kirjoittaja.kirjoitaBittijono(this.koodisto.get(merkki));
+            kirjoittaja.kirjoitaBittijono(this.koodisto.hae(merkki));
         }      
     }
     

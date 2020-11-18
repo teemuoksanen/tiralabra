@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
+import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
 import pakkaaja.logiikka.huffmanpuu.*;
 
 /**
@@ -13,7 +14,7 @@ import pakkaaja.logiikka.huffmanpuu.*;
 public class HuffmanKoodaaja {
     
     private HashMap<Character, Integer> aakkosto;
-    private HashMap<Character, String> koodisto;
+    private Hajautustaulu<Character, String> koodisto;
     private Puu puu;
     private List<Object> avain;
     
@@ -24,7 +25,7 @@ public class HuffmanKoodaaja {
     public HuffmanKoodaaja(HashMap<Character, Integer> aakkosto) {
         this.aakkosto = aakkosto;
         this.puu = rakennaPuu();
-        this.koodisto = new HashMap<>();
+        this.koodisto = new Hajautustaulu<>();
         this.avain = new ArrayList<>();
         luoKoodisto(this.puu, "");
     }
@@ -33,7 +34,7 @@ public class HuffmanKoodaaja {
      * Palauttaa Huffman-koodiston.
      * @return koodisto eli merkki- ja Huffman-binäärikoodi -pari hajautustauluna
      */
-    public HashMap<Character, String> getKoodisto() {
+    public Hajautustaulu<Character, String> getKoodisto() {
         return this.koodisto;
     }
     /**
@@ -66,7 +67,7 @@ public class HuffmanKoodaaja {
     private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti) puu;
-            koodisto.put(lehti.merkki, koodijono);
+            koodisto.lisaa(lehti.merkki, koodijono);
             avain.add((int) 1);
             avain.add((char) lehti.merkki);
         } else {
