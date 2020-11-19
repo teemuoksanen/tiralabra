@@ -5,9 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import pakkaaja.logiikka.huffmanpuu.Lehti;
-import pakkaaja.logiikka.huffmanpuu.Puu;
-import pakkaaja.logiikka.huffmanpuu.Solmu;
+import pakkaaja.tietorakenteet.puu.Lehti;
+import pakkaaja.tietorakenteet.puu.Puu;
+import pakkaaja.tietorakenteet.puu.Solmu;
 import pakkaaja.logiikka.io.BittiKirjoittaja;
 import pakkaaja.logiikka.io.BittiLukija;
 

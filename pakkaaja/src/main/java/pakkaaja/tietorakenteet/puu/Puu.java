@@ -1,4 +1,4 @@
-package pakkaaja.logiikka.huffmanpuu;
+package pakkaaja.tietorakenteet.puu;
 
 /**
  * Huffman-koodauksessa käytettävän puun yleisluokkaa, joka laajentuu joko Solmuksi tai Lehdeksi.

@@ -7,11 +7,11 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.PriorityQueue;
-import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
+import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 
-import pakkaaja.logiikka.huffmanpuu.Lehti;
-import pakkaaja.logiikka.huffmanpuu.Puu;
-import pakkaaja.logiikka.huffmanpuu.Solmu;
+import pakkaaja.tietorakenteet.puu.Lehti;
+import pakkaaja.tietorakenteet.puu.Puu;
+import pakkaaja.tietorakenteet.puu.Solmu;
 
 public class PakkaajaTest {
     

@@ -1,11 +1,13 @@
 
 package pakkaaja.logiikka;
 
+import pakkaaja.tietorakenteet.puu.Lehti;
+import pakkaaja.tietorakenteet.puu.Solmu;
+import pakkaaja.tietorakenteet.puu.Puu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
-import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
-import pakkaaja.logiikka.huffmanpuu.*;
+import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 
 /**
  * Luokka muodostaa aakkostolle Huffman-koodiston (merkki- ja Huffman-binäärikoodi -pari hajautustauluna).

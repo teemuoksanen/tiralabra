@@ -1,5 +1,5 @@
 
-package pakkaaja.logiikka.hajautustaulu;
+package pakkaaja.tietorakenteet.hajautustaulu;
 
 /**
  * Hajautustaulun muodostava luokka.

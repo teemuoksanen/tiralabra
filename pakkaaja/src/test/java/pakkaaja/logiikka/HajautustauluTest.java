@@ -2,7 +2,7 @@ package pakkaaja.logiikka;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
+import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 
 public class HajautustauluTest {
     

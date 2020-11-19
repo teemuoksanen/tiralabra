@@ -1,5 +1,5 @@
 
-package pakkaaja.logiikka.huffmanpuu;
+package pakkaaja.tietorakenteet.puu;
 
 /**
  * Huffman-puun solmu, jolla on vasen ja oikea lapsisolmu.

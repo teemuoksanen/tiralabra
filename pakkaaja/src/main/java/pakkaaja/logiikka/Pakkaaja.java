@@ -4,7 +4,7 @@ package pakkaaja.logiikka;
 import java.io.*;
 import java.util.List;
 import java.util.Scanner;
-import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
+import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.logiikka.io.BittiKirjoittaja;
 
 /**

@@ -1,6 +1,6 @@
 package pakkaaja.logiikka;
 
-import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
+import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 
 public class AakkostoMock {
     

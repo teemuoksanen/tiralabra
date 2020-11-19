@@ -1,5 +1,5 @@
 
-package pakkaaja.logiikka.huffmanpuu;
+package pakkaaja.tietorakenteet.puu;
 
 /**
  * Huffman-puun solmu, jolla ei ole lapsisolmuja, eli edustaa yksittäistä merkkiä.
