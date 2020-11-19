@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.PriorityQueue;
 import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
 
@@ -43,14 +42,25 @@ public class PakkaajaTest {
     }
     
     @After
-    public void tearDown() {
-        
+    public void tearDown() {        
     }
     
     @Test
     public void luoOikeanAakkoston() {
-        assertEquals(pakkaaja1.getAakkosto(), aakkostoMock.getAakkosto(1));
-        assertEquals(pakkaaja2.getAakkosto(), aakkostoMock.getAakkosto(2));
+        Hajautustaulu<Character, Integer> aakkosto = pakkaaja1.getAakkosto();
+        Hajautustaulu<Character, Integer> vertailuaakkosto = aakkostoMock.getAakkosto(1);
+        
+        assertEquals(aakkosto.koko(), vertailuaakkosto.koko());
+        
+        Object[] avaimet = aakkosto.avaimet();
+        Object[] vertailuavaimet = vertailuaakkosto.avaimet();
+        
+        for (int i = 0; i < avaimet.length; i++) {
+            char avain = (Character) avaimet[i];
+            char vertailuavain = (Character) vertailuavaimet[i];
+            assertEquals(avain, vertailuavain);
+            assertEquals(aakkosto.hae(avain), vertailuaakkosto.hae(vertailuavain));
+        }
     }
     
     @Test

@@ -61,7 +61,8 @@ public class Kayttoliittyma {
                     pakkaaja = new Pakkaaja(tiedosto);
                     pakkaaja.pakkaaTiedosto();
                 } catch (Exception ex) {
-                    System.out.println("VIRHE! " + ex.toString());
+                    System.out.println("VIRHE: " + ex.toString());
+                    ex.printStackTrace();
                 }
                 
             } else if (komento.equals("2")) {

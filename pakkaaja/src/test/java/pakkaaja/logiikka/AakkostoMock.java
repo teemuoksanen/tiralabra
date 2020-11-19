@@ -1,28 +1,28 @@
 package pakkaaja.logiikka;
 
-import java.util.HashMap;
+import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
 
 public class AakkostoMock {
     
-    private HashMap<Character, Integer> aakkosto1;
-    private HashMap<Character, Integer> aakkosto2;
+    private Hajautustaulu<Character, Integer> aakkosto1;
+    private Hajautustaulu<Character, Integer> aakkosto2;
     
     public AakkostoMock() {
-        aakkosto1 = new HashMap<>();
-        aakkosto1.put('a', 5);
-        aakkosto1.put('b', 4);
-        aakkosto1.put('c', 3);
-        aakkosto1.put('d', 2);
-        aakkosto1.put('e', 1);
-        aakkosto2 = new HashMap<>();
-        aakkosto2.put('a', 1);
-        aakkosto2.put('b', 2);
-        aakkosto2.put('c', 3);
-        aakkosto2.put('d', 4);
-        aakkosto2.put('e', 5);
+        aakkosto1 = new Hajautustaulu<>();
+        aakkosto1.lisaa('a', 5);
+        aakkosto1.lisaa('b', 4);
+        aakkosto1.lisaa('c', 3);
+        aakkosto1.lisaa('d', 2);
+        aakkosto1.lisaa('e', 1);
+        aakkosto2 = new Hajautustaulu<>();
+        aakkosto2.lisaa('a', 1);
+        aakkosto2.lisaa('b', 2);
+        aakkosto2.lisaa('c', 3);
+        aakkosto2.lisaa('d', 4);
+        aakkosto2.lisaa('e', 5);
     }
     
-    public HashMap<Character, Integer> getAakkosto(int a) {
+    public Hajautustaulu<Character, Integer> getAakkosto(int a) {
         if (a == 1) {
             return aakkosto1;
         }

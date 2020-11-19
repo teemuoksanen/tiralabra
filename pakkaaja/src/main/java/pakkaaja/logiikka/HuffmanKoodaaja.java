@@ -2,7 +2,6 @@
 package pakkaaja.logiikka;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
 import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
@@ -13,7 +12,7 @@ import pakkaaja.logiikka.huffmanpuu.*;
  */
 public class HuffmanKoodaaja {
     
-    private HashMap<Character, Integer> aakkosto;
+    private Hajautustaulu<Character, Integer> aakkosto;
     private Hajautustaulu<Character, String> koodisto;
     private Puu puu;
     private List<Object> avain;
@@ -22,7 +21,7 @@ public class HuffmanKoodaaja {
      * HuffmanKoodaajan konstruktori, joka kutsuttaessa samalla luo Huffman-puun sekä -koodiston sille syötteenä annetusta aakkostosta.
      * @param aakkosto  aakkosto, josta Huffman-koodisto muodostetaan
      */
-    public HuffmanKoodaaja(HashMap<Character, Integer> aakkosto) {
+    public HuffmanKoodaaja(Hajautustaulu<Character, Integer> aakkosto) {
         this.aakkosto = aakkosto;
         this.puu = rakennaPuu();
         this.koodisto = new Hajautustaulu<>();
@@ -48,8 +47,10 @@ public class HuffmanKoodaaja {
     private Puu rakennaPuu() {
         PriorityQueue<Puu> puut = new PriorityQueue<>();
         
-        for (char merkki : this.aakkosto.keySet()) {
-            Lehti lehti = new Lehti(merkki, this.aakkosto.get(merkki));
+        Object[] merkit = this.aakkosto.avaimet();
+        for (int i = 0; i < merkit.length; i++) {
+            char merkki = (Character) merkit[i];
+            Lehti lehti = new Lehti(merkki, this.aakkosto.hae(merkki));
             puut.add(lehti);
         }
         

@@ -2,7 +2,6 @@
 package pakkaaja.logiikka;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import pakkaaja.logiikka.hajautustaulu.Hajautustaulu;
@@ -16,7 +15,7 @@ public class Pakkaaja {
     private File tiedostoPakattava;
     private File tiedostoPakattu;
     private int merkit;
-    private HashMap<Character, Integer> aakkosto;
+    private Hajautustaulu<Character, Integer> aakkosto;
     private HuffmanKoodaaja koodaaja;
     private Hajautustaulu<Character, String> koodisto;
     private List<Object> avain;
@@ -43,16 +42,16 @@ public class Pakkaaja {
      * @return aakkosto ja kunkin aakkostoon sisältyvän merkin määrät hajautustauluna
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
      */
-    public HashMap<Character, Integer> luoAakkosto() throws FileNotFoundException {
-        HashMap<Character, Integer> abc = new HashMap<>();
+    public Hajautustaulu<Character, Integer> luoAakkosto() throws FileNotFoundException {
+        Hajautustaulu<Character, Integer> abc = new Hajautustaulu();
         
         Scanner tiedostonlukija = new Scanner(this.tiedostoPakattava);
         tiedostonlukija.useDelimiter("");
         
         while (tiedostonlukija.hasNext()) {
             char merkki = tiedostonlukija.next().charAt(0);            
-            int nykyinenMaara = abc.getOrDefault(merkki, 0);
-            abc.put(merkki, nykyinenMaara + 1);
+            int nykyinenMaara = abc.haeTaiPalautaVakio(merkki, 0);
+            abc.lisaa(merkki, nykyinenMaara + 1);
             this.merkit++;
         }
         
@@ -118,7 +117,7 @@ public class Pakkaaja {
      * Metodi palauttaa aakkoston.
      * @return aakkosto hajautustauluna
      */
-    public HashMap<Character, Integer> getAakkosto() {
+    public Hajautustaulu<Character, Integer> getAakkosto() {
         return this.aakkosto;
     }
     
