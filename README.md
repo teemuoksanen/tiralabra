@@ -5,9 +5,12 @@ Huffman-pakkaaja on Helsingin yliopiston _Aineopintojen harjoitustyö: Tietorake
 ## Dokumentaatio
 
 - [Määrittelydokumentti](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Maarittely.md)
+- [Toteutusdokumentti](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Toteutusdokumentti.md)
+- [Testausdokumentti](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Testausdokumentti.md)
 
 ## Viikkoraportit
 
 - [Viikkoraportti 1](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Viikkoraportti1.md)
 - [Viikkoraportti 2](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Viikkoraportti2.md)
 - [Viikkoraportti 3](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Viikkoraportti3.md)
+- [Viikkoraportti 4](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Viikkoraportti4.md)
