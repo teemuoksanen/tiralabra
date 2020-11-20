@@ -41,7 +41,7 @@ public class Lista<T> {
     }
     
     /**
-     * Palauttaa listan alkiot.
+     * Palauttaa listan alkiot. Palautettavassa listassa ei ole lopun tyhjiä alkioita.
      * @return arvot taulukkona
      */
     public T[] listaa() {
@@ -50,6 +50,14 @@ public class Lista<T> {
             palautettavaLista[i] = this.lista[i];
         }
         return palautettavaLista;
+    }
+    
+    /**
+     * Palauttaa listan alkioiden määrän.
+     * @return alkioiden määrä
+     */
+    public int koko() {
+        return this.laskuri;
     }
     
     /**

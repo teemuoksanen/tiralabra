@@ -2,10 +2,10 @@
 package pakkaaja.logiikka;
 
 import java.io.*;
-import java.util.List;
 import java.util.Scanner;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.logiikka.io.BittiKirjoittaja;
+import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
  * Luokka pakkaa sille syötteenä annetun tiedoston Huffman-algoritmin mukaisesti.
@@ -18,7 +18,7 @@ public class Pakkaaja {
     private Hajautustaulu<Character, Integer> aakkosto;
     private HuffmanKoodaaja koodaaja;
     private Hajautustaulu<Character, String> koodisto;
-    private List<Object> avain;
+    private Lista<Object> avain;
     
     /**
      * Pakkaajan konstruktori, joka kutsuttaessa samalla luo aakoston, koodiston ja avaimen syötteenä annetusta tiedostosta.
@@ -91,7 +91,8 @@ public class Pakkaaja {
      * Apumetodi, joka kirjoituttaa Huffman-puun avaimen pakattuun tiedstoon.
      */
     private void kirjoitaAvain(BittiKirjoittaja kirjoittaja) throws IOException {
-        for (Object o : this.avain) {
+        for (int i = 0; i < this.avain.koko(); i++) {
+            Object o = this.avain.listaa()[i];
             if (o instanceof Integer) {
                 kirjoittaja.kirjoitaBitti((int) o);
             } else {

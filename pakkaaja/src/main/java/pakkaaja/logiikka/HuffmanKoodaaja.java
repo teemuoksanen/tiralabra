@@ -4,10 +4,9 @@ package pakkaaja.logiikka;
 import pakkaaja.tietorakenteet.puu.Lehti;
 import pakkaaja.tietorakenteet.puu.Solmu;
 import pakkaaja.tietorakenteet.puu.Puu;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.PriorityQueue;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
+import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
  * Luokka muodostaa aakkostolle Huffman-koodiston (merkki- ja Huffman-binäärikoodi -pari hajautustauluna).
@@ -17,7 +16,7 @@ public class HuffmanKoodaaja {
     private Hajautustaulu<Character, Integer> aakkosto;
     private Hajautustaulu<Character, String> koodisto;
     private Puu puu;
-    private List<Object> avain;
+    private Lista<Object> avain;
     
     /**
      * HuffmanKoodaajan konstruktori, joka kutsuttaessa samalla luo Huffman-puun sekä -koodiston sille syötteenä annetusta aakkostosta.
@@ -27,7 +26,7 @@ public class HuffmanKoodaaja {
         this.aakkosto = aakkosto;
         this.puu = rakennaPuu();
         this.koodisto = new Hajautustaulu<>();
-        this.avain = new ArrayList<>();
+        this.avain = new Lista();
         luoKoodisto(this.puu, "");
     }
     
@@ -42,7 +41,7 @@ public class HuffmanKoodaaja {
      * Palauttaa Huffman-avaimen.
      * @return avain eli Huffman-puu lyhyeksi koodattuna
      */
-    public List<Object> getAvain() {
+    public Lista<Object> getAvain() {
         return this.avain;
     }
     
@@ -70,13 +69,13 @@ public class HuffmanKoodaaja {
     private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti) puu;
-            koodisto.lisaa(lehti.merkki, koodijono);
-            avain.add((int) 1);
-            avain.add((char) lehti.merkki);
+            this.koodisto.lisaa(lehti.merkki, koodijono);
+            this.avain.lisaa((int) 1);
+            this.avain.lisaa((char) lehti.merkki);
         } else {
             Solmu solmu = (Solmu) puu;
             
-            avain.add((int) 0);
+            this.avain.lisaa((int) 0);
             
             String koodijonoVasen = koodijono + "0";
             luoKoodisto(solmu.vasen, koodijonoVasen);

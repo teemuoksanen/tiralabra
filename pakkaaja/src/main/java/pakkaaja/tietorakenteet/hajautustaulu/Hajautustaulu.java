@@ -2,7 +2,7 @@
 package pakkaaja.tietorakenteet.hajautustaulu;
 
 /**
- * Hajautustaulun muodostava luokka.
+ * Hajautustaulun muodostava luokka, jonka avain ja arvo ovat geneeristä tyyppiä.
  * @param <K> avaimen tyyppi
  * @param <V> arvon tyyppi
  */

@@ -1,4 +1,4 @@
-package pakkaaja.logiikka;
+package pakkaaja.tietorakenteet;
 
 import org.junit.*;
 import static org.junit.Assert.*;
