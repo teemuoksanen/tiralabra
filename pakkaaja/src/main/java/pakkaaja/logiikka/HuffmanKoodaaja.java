@@ -69,19 +69,19 @@ public class HuffmanKoodaaja {
     private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti) puu;
-            this.koodisto.lisaa(lehti.merkki, koodijono);
+            this.koodisto.lisaa(lehti.getMerkki(), koodijono);
             this.avain.lisaa((int) 1);
-            this.avain.lisaa((char) lehti.merkki);
+            this.avain.lisaa((char) lehti.getMerkki());
         } else {
             Solmu solmu = (Solmu) puu;
             
             this.avain.lisaa((int) 0);
             
             String koodijonoVasen = koodijono + "0";
-            luoKoodisto(solmu.vasen, koodijonoVasen);
+            luoKoodisto(solmu.getVasen(), koodijonoVasen);
             
             String koodijonoOikea = koodijono + "1";
-            luoKoodisto(solmu.oikea, koodijonoOikea);
+            luoKoodisto(solmu.getOikea(), koodijonoOikea);
         }
     }
     

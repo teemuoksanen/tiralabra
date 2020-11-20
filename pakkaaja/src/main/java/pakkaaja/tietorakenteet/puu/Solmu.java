@@ -8,14 +8,8 @@ package pakkaaja.tietorakenteet.puu;
  */
 public class Solmu extends Puu {
     
-    /**
-     * Solmun vasen lapsipuu (Solmu tai Lehti).
-     */
-    public Puu vasen;
-    /**
-     * Solmun oikea lapsipuu (Solmu tai Lehti).
-     */
-    public Puu oikea;
+    private Puu vasen;
+    private Puu oikea;
     
     /**
      * Solmun konstruktori.
@@ -23,9 +17,25 @@ public class Solmu extends Puu {
      * @param o oikea lapsipuu
      */
     public Solmu(Puu v, Puu o) {
-        super(v.maara + o.maara);
+        super(v.getMaara() + o.getMaara());
         this.vasen = v;
         this.oikea = o;
+    }
+    
+    /**
+     * Palauttaa Solmun vasemman lapsipuun (Solmu tai Lehti).
+     * @return vasen lapsipuu
+     */
+    public Puu getVasen() {
+        return this.vasen;
+    }
+    
+    /**
+     * Palauttaa Solmun oikean lapsipuun (Solmu tai Lehti).
+     * @return oikea lapsipuu
+     */
+    public Puu getOikea() {
+        return this.oikea;
     }
     
 }

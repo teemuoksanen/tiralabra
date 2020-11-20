@@ -7,10 +7,7 @@ package pakkaaja.tietorakenteet.puu;
  */
 public class Puu implements Comparable<Puu> {
     
-    /**
-     * Merkkien määrä (yksittäisen merkin määrä, jos kyse on Lehdestä, tai Solmun lapsina olevien Lehtien merkkien yhteismäärä).
-     */
-    public int maara;
+    private int maara;
     
     /**
      * Puun konstruktori.
@@ -20,9 +17,24 @@ public class Puu implements Comparable<Puu> {
         this.maara = maara;
     }
     
+    /**
+     * Palauttaa merkkien määrän. Jos kyse on Lehdestä, palautetaan yksittäisen merkin määrä;
+     * jos kyse on Solmusta, palautetaan Solmun lapsina olevien Lehtien merkkien yhteismäärä.
+     * @return merkkien määrä
+     */
+    public int getMaara() {
+        return this.maara;
+    }
+    
+    /**
+     * Vertaa syötteenä annettavan Puun merkkien määrää tämän Puun merkkien määrään.
+     * @param puu verrattava Puu
+     * @return negatiivinen luku, jos verrattavan Puun merkkien määrä on suurempi;
+     * nolla (0), jos Puiden merkkien määrä on sama; positiivinen luku muuten
+     */
     @Override
     public int compareTo(Puu puu) {
-        return this.maara - puu.maara;
+        return this.maara - puu.getMaara();
     }
     
 }

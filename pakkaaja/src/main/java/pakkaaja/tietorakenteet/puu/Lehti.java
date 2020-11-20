@@ -8,10 +8,7 @@ package pakkaaja.tietorakenteet.puu;
  */
 public class Lehti extends Puu {
     
-    /**
-     * Yksittäinen aakkoston merkki, jota puun lehti edustaa.
-     */
-    public char merkki;
+    private char merkki;
     
     /**
      * Lehden konstruktori.
@@ -21,6 +18,14 @@ public class Lehti extends Puu {
     public Lehti(char merkki, int maara) {
         super(maara);
         this.merkki = merkki;
+    }
+    
+    /**
+     * Palauttaa aakkoston merkin, jota Puun lehti edustaa.
+     * @return merkki
+     */
+    public char getMerkki() {
+        return this.merkki;
     }
     
 }

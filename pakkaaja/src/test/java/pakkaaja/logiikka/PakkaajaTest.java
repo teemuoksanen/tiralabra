@@ -66,7 +66,7 @@ public class PakkaajaTest {
     @Test
     public void puunLuontiOnnistuu() {
         Puu puu = new Puu(1);
-        assertEquals(puu.maara, 1);
+        assertEquals(puu.getMaara(), 1);
     }
     
     @Test
@@ -84,8 +84,8 @@ public class PakkaajaTest {
     @Test
     public void lehdenLuontiOnnistuu() {
         Lehti lehti = new Lehti('a', 1);
-        assertEquals(lehti.maara, 1);
-        assertEquals(lehti.merkki, 'a');
+        assertEquals(lehti.getMaara(), 1);
+        assertEquals(lehti.getMerkki(), 'a');
     }
     
     @Test
@@ -93,7 +93,7 @@ public class PakkaajaTest {
         Puu vasen = new Puu(1);
         Puu oikea = new Puu(2);
         Solmu solmu = new Solmu(vasen, oikea);
-        assertEquals(solmu.maara, 3);
+        assertEquals(solmu.getMaara(), 3);
     }
     
     @Test

@@ -101,15 +101,15 @@ public class Purkaja {
     private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti) puu;
-            this.koodisto.put(koodijono, lehti.merkki);
+            this.koodisto.put(koodijono, lehti.getMerkki());
         } else {
             Solmu solmu = (Solmu) puu;
             
             String koodijonoVasen = koodijono + "0";
-            luoKoodisto(solmu.vasen, koodijonoVasen);
+            luoKoodisto(solmu.getVasen(), koodijonoVasen);
             
             String koodijonoOikea = koodijono + "1";
-            luoKoodisto(solmu.oikea, koodijonoOikea);
+            luoKoodisto(solmu.getOikea(), koodijonoOikea);
         }
     }
     
