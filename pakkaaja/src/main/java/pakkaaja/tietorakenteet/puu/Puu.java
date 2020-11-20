@@ -27,6 +27,14 @@ public class Puu implements Comparable<Puu> {
     }
     
     /**
+     * Kertoo, onko tämä Puu pienempi kuin syötteenä annettu Puu.
+     * @return true, jos tämä Puu on pienempi; muuten false
+     */
+    public boolean pienempiKuin(Puu puu) {
+        return this.compareTo(puu) < 0;
+    }
+    
+    /**
      * Vertaa syötteenä annettavan Puun merkkien määrää tämän Puun merkkien määrään.
      * @param puu verrattava Puu
      * @return negatiivinen luku, jos verrattavan Puun merkkien määrä on suurempi;
