@@ -4,7 +4,7 @@ Käytetyt tunnit: __16__
 
 ## Mitä tein tällä viikolla?
 
-Tällä viikolla korvasin Javan HashMapit omalla Hajautustaulu-luokalla sekä ArrayListin omalla Lista-luokalla. Lisäksi Keko-luokan rakentaminen on aloitettu, mutta sitä ei ole vielä kunnolla testattu eikä siten otettu käyttöön. Toteutus- ja testausdokumentaatiota on hieman aloitettu.
+Tällä viikolla korvasin Javan HashMapit omalla Hajautustaulu-luokalla, ArrayListin omalla Lista-luokalla sekä PriorityQueuen omalla Keko-luokalla. Keko-luokan sisäinen yksikkötestaus jäi vielä tekemättä. Toteutus- ja testausdokumentaatiota on hieman aloitettu.
 
 ## Miten ohjelma on edistynyt?
 
@@ -12,7 +12,7 @@ Ohjelman perustoiminnallisuudet valmistuivat viime viikolla, joten tällä viiko
 
 Oman hajautustaulun käyttöönoton myötä jouduin tekemään yllättävän paljon muokkauksia toiminnallisuuksista vastaavaan koodiin. Oma Hajautustauluni ja Listani eivät toimi ihan yhtä näppärästi erityyppisten luokkien kanssa kuin Javan HashMap ja ArrayList, mutta koska ne ovat melko rajatussa käytössä ohjelmassa, totesin järkevämmäksi muuttaa toiminnalista koodia lisäämällä sinne tyypityksiä kuin parantaa Hajautustaulu- ja Lista-luokkia tältä osin.
 
-Aloittamani Keko-luokan on tarkoitus korvata Javan PriorityQueue, mutta se ei ole vielä valmis käyttöönotettavaksi.
+Hajautustaulu ja Lista on rakennettu toimimaan geneerisillä tyypeillä, mutta Keko-luokan rakensin toimimaan vain Puiden kanssa, koska sitä ei (ainakaan toistaiseksi) tarvita muussa käytössä.
 
 ## Mitä opin tällä viikolla?
 
@@ -26,4 +26,4 @@ Pakkaus-algoritmi kaatui jostain syystä muutamalla testitiedostolla nullPointer
 
 ## Mitä seuraavaksi?
 
-Seuraavalla viikolla jatkan aluksi Keko-luokan testaamista ja korvaan sillä PriorityQueuen. Sen jälkeen yritän lisätä mukaan muita pakkaamisalgoritmeja.
+Seuraavalla viikolla jatkan aluksi Keko-luokan testaamista ja kirjoitan dokumentaatiota eteenpäin. Sen jälkeen tarkoitus on lisätä mukaan muita pakkaamisalgoritmeja.
