@@ -4,7 +4,8 @@ package pakkaaja.tietorakenteet.keko;
 import pakkaaja.tietorakenteet.puu.Puu;
 
 /**
- * 
+ * Keon muodostava luokka. Toteutukseltaan minimikeko, jonka alkiot ovat Puita.
+ * @see Puu
  */
 public class Keko {
     
@@ -12,32 +13,71 @@ public class Keko {
     private Puu[] keko;
     private int laskuri;
     
+    /**
+     * Keon konstruktori, joka alustaa oletuskoon mukaisen taulun kekoa varten.
+     */
     public Keko() {
         this.keko = new Puu[OLETUSKOKO];
         this.laskuri = 0;
     }
     
+    /**
+     * Keon konstruktori, joka alustaa halutun kokoisen taulun kekoa varten.
+     * @param koko keon haluttu koko
+     */
     public Keko(int koko) {
         this.keko = new Puu[koko];
         this.laskuri = 0;
     }
     
+    /**
+     * Lisää uuden alkion kekoon.
+     * @param puu lisättävä puu
+     */
     public void lisaa(Puu puu) {
-        keko[laskuri++] = puu;
+        this.laskuri++;
+        this.keko[this.laskuri] = puu;
+        System.out.println("Lisätty puu " + laskuri);
         if (this.laskuri >= this.keko.length) {
             kasvataKekoa();
         }
         
-        if (this.laskuri == 1) {
-            laskuri++;
-        } else {
+        if (this.laskuri != 1) {
             jarjestaYlospain();
         }
     }
     
+    /**
+     * Palauttaa keon juurialkion.
+     * @return juurialkiona oleva Puu
+     */
+    public Puu kurkista() {
+        return this.keko[1];
+    }
+    
+    /**
+     * Palauttaa keon juurialkion, poistaa sen ja järjestää keon uudelleen.
+     * @return juurialkiona oleva Puu
+     */
+    public Puu poista() {
+        Puu poistettava = this.keko[1];
+        this.keko[1] = this.keko[this.laskuri - 1];
+        this.keko[this.laskuri--] = null;
+        jarjestaAlaspain(1);
+        return poistettava;
+    }
+    
+    /**
+     * Palauttaa keon sisältämien alkoiden määrän.
+     * @return alkioiden määrä
+     */
+    public int koko() {
+        return this.laskuri - 1;
+    }
+    
     private void jarjestaYlospain() {
         int solmu = this.laskuri - 1;
-        while (solmu > 1 && keko[solmu].pienempiKuin(keko[vanhempi(solmu)])) {
+        while (solmu > 1 && this.keko[solmu].pienempiKuin(this.keko[vanhempi(solmu)])) {
             vaihda(solmu, vanhempi(solmu));
             solmu = vanhempi(solmu);
         }
@@ -48,10 +88,10 @@ public class Keko {
         int vasen = vasenLapsi(solmu);
         int oikea = oikeaLapsi(solmu);
         
-        if (vasen < this.laskuri && keko[vasen].pienempiKuin(keko[pienin])) {
+        if (vasen < this.laskuri && this.keko[vasen].pienempiKuin(this.keko[pienin])) {
             pienin = vasen;
         }
-        if (oikea < this.laskuri && keko[oikea].pienempiKuin(keko[pienin])) {
+        if (oikea < this.laskuri && this.keko[oikea].pienempiKuin(this.keko[pienin])) {
             pienin = oikea;
         }
         if (pienin != solmu) {
@@ -61,9 +101,9 @@ public class Keko {
     }
     
     private void vaihda(int a, int b) {
-        Puu apuri = keko[a];
-        keko[a] = keko[b];
-        keko[b] = apuri;
+        Puu apuri = this.keko[a];
+        this.keko[a] = this.keko[b];
+        this.keko[b] = apuri;
     }
     
     private int vanhempi(int solmu) {

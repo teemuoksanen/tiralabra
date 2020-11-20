@@ -28,6 +28,7 @@ public class Puu implements Comparable<Puu> {
     
     /**
      * Kertoo, onko tämä Puu pienempi kuin syötteenä annettu Puu.
+     * @param puu puu, jonka kokoon verrataan
      * @return true, jos tämä Puu on pienempi; muuten false
      */
     public boolean pienempiKuin(Puu puu) {
