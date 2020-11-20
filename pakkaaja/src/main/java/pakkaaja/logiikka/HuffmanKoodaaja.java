@@ -4,8 +4,8 @@ package pakkaaja.logiikka;
 import pakkaaja.tietorakenteet.puu.Lehti;
 import pakkaaja.tietorakenteet.puu.Solmu;
 import pakkaaja.tietorakenteet.puu.Puu;
-import java.util.PriorityQueue;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
+import pakkaaja.tietorakenteet.keko.Keko;
 import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
@@ -46,24 +46,24 @@ public class HuffmanKoodaaja {
     }
     
     private Puu rakennaPuu() {
-        PriorityQueue<Puu> puut = new PriorityQueue<>();
+        Keko puut = new Keko();
         
         Object[] merkit = this.aakkosto.avaimet();
         for (int i = 0; i < merkit.length; i++) {
             char merkki = (Character) merkit[i];
             Lehti lehti = new Lehti(merkki, this.aakkosto.hae(merkki));
-            puut.add(lehti);
+            puut.lisaa(lehti);
         }
         
-        while (puut.size() > 1) {
-            Puu a = puut.poll();
-            Puu b = puut.poll();
+        while (puut.koko() > 1) {
+            Puu a = puut.poista();
+            Puu b = puut.poista();
             
             Solmu uusiSolmu = new Solmu(a, b);
-            puut.add(uusiSolmu);
+            puut.lisaa(uusiSolmu);
         }
         
-        return puut.poll();
+        return puut.poista();
     }
 
     private void luoKoodisto(Puu puu, String koodijono) {

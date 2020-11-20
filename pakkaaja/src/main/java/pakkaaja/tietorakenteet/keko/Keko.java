@@ -37,7 +37,7 @@ public class Keko {
     public void lisaa(Puu puu) {
         this.laskuri++;
         this.keko[this.laskuri] = puu;
-        System.out.println("Lisätty puu " + laskuri);
+        
         if (this.laskuri >= this.keko.length) {
             kasvataKekoa();
         }
@@ -61,7 +61,7 @@ public class Keko {
      */
     public Puu poista() {
         Puu poistettava = this.keko[1];
-        this.keko[1] = this.keko[this.laskuri - 1];
+        this.keko[1] = this.keko[this.laskuri];
         this.keko[this.laskuri--] = null;
         jarjestaAlaspain(1);
         return poistettava;
@@ -72,11 +72,11 @@ public class Keko {
      * @return alkioiden määrä
      */
     public int koko() {
-        return this.laskuri - 1;
+        return this.laskuri;
     }
     
     private void jarjestaYlospain() {
-        int solmu = this.laskuri - 1;
+        int solmu = this.laskuri;
         while (solmu > 1 && this.keko[solmu].pienempiKuin(this.keko[vanhempi(solmu)])) {
             vaihda(solmu, vanhempi(solmu));
             solmu = vanhempi(solmu);
@@ -88,10 +88,10 @@ public class Keko {
         int vasen = vasenLapsi(solmu);
         int oikea = oikeaLapsi(solmu);
         
-        if (vasen < this.laskuri && this.keko[vasen].pienempiKuin(this.keko[pienin])) {
+        if (vasen <= this.laskuri && this.keko[vasen].pienempiKuin(this.keko[pienin])) {
             pienin = vasen;
         }
-        if (oikea < this.laskuri && this.keko[oikea].pienempiKuin(this.keko[pienin])) {
+        if (oikea <= this.laskuri && this.keko[oikea].pienempiKuin(this.keko[pienin])) {
             pienin = oikea;
         }
         if (pienin != solmu) {
