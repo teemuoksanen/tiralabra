@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.Scanner;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
+import pakkaaja.logiikka.TiedostoOlemassaPoikkeus;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.
@@ -59,10 +60,14 @@ public class Kayttoliittyma {
                 
                 try {
                     pakkaaja = new Pakkaaja(tiedosto);
-                    pakkaaja.pakkaaTiedosto();
+                    System.out.println("Pakataan tiedosto '" + tiedosto.getName() + "'...\n");
+                    File pakattu = pakkaaja.pakkaaTiedosto();
+                    System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
+                    System.out.println(pakattu.getAbsoluteFile());
                 } catch (Exception ex) {
-                    System.out.println("VIRHE: " + ex.toString());
-                    ex.printStackTrace();
+                    System.out.println("VIRHE:");
+                    System.out.println(ex.toString());
+                    // ex.printStackTrace();
                 }
                 
             } else if (komento.equals("2")) {
@@ -84,9 +89,14 @@ public class Kayttoliittyma {
                 
                 try {
                     purkaja = new Purkaja(tiedosto);
-                    purkaja.puraTiedosto();
+                    System.out.println("Puretaan tiedosto '" + tiedosto.getName() + "'...\n");
+                    File purettu = purkaja.puraTiedosto();
+                    System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
+                    System.out.println(purettu.getAbsoluteFile());
                 } catch (Exception ex) {
-                    System.out.println("VIRHE! " + ex.toString());
+                    System.out.println("VIRHE:");
+                    System.out.println(ex.toString());
+                    // ex.printStackTrace();
                 }
                 
             } else {

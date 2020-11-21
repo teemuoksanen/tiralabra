@@ -54,21 +54,17 @@ public class Purkaja {
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public void puraTiedosto() throws FileNotFoundException, IOException {
-        if (this.tiedostoPurettu.exists()) {
-            System.out.println("Tiedosto '" + this.tiedostoPurettu.getName() + "' löytyy jo purettuna.");
-            System.out.println("Poista purettu tiedosto tai siirrä se talteen ennen samannimisen tiedoston purkamista.");
-        } else {
-            System.out.println("Puretaan tiedosto '" + this.tiedostoPakattu.getName() + "'...\n");
-            BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
-            lueMerkkimaara(lukija);
-            this.puu = luePuu(lukija);
-            luoKoodisto(this.puu, "");
-            lueTiedosto(lukija);
-            lukija.close();
-            System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
-            System.out.println(this.tiedostoPurettu.getAbsoluteFile());
+    public File puraTiedosto() throws FileNotFoundException, IOException, TiedostoOlemassaPoikkeus {
+        if (tiedostoPurettu.exists()) {
+            throw new TiedostoOlemassaPoikkeus(tiedostoPurettu, "pakkaaja");
         }
+        BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
+        lueMerkkimaara(lukija);
+        this.puu = luePuu(lukija);
+        luoKoodisto(this.puu, "");
+        lueTiedosto(lukija);
+        lukija.close();
+        return this.tiedostoPurettu;
     }
     
     /**

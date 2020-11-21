@@ -63,20 +63,16 @@ public class Pakkaaja {
      * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public void pakkaaTiedosto() throws FileNotFoundException, IOException {
+    public File pakkaaTiedosto() throws FileNotFoundException, IOException, TiedostoOlemassaPoikkeus {
         if (tiedostoPakattu.exists()) {
-            System.out.println("Tiedosto '" + this.tiedostoPakattava.getName() + "' löytyy jo pakattuna.");
-            System.out.println("Poista pakattu tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
-        } else {
-            System.out.println("Pakataan tiedosto '" + this.tiedostoPakattava.getName() + "'...\n");
-            BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
-            kirjoitaMerkkimaara(kirjoittaja);
-            kirjoitaAvain(kirjoittaja);
-            kirjoitaTiedosto(kirjoittaja);
-            kirjoittaja.close();
-            System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
-            System.out.println(this.tiedostoPakattu.getAbsoluteFile());
+            throw new TiedostoOlemassaPoikkeus(tiedostoPakattu, "pakkaaja");
         }
+        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
+        kirjoitaMerkkimaara(kirjoittaja);
+        kirjoitaAvain(kirjoittaja);
+        kirjoitaTiedosto(kirjoittaja);
+        kirjoittaja.close();
+        return this.tiedostoPakattu;
     }
     
     /**

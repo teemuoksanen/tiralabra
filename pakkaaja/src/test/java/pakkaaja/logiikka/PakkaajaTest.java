@@ -7,6 +7,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.PriorityQueue;
+import pakkaaja.logiikka.io.BittiKirjoittaja;
+import pakkaaja.logiikka.io.BittiLukija;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 
 import pakkaaja.tietorakenteet.puu.Lehti;
@@ -105,7 +107,7 @@ public class PakkaajaTest {
     }
     
     @Test
-    public void sisaltoMuuttumatonPakkaamisenJaPurkamisenJalkeen() throws IOException {
+    public void sisaltoMuuttumatonPakkaamisenJaPurkamisenJalkeen() throws IOException, FileNotFoundException, TiedostoOlemassaPoikkeus {
         File alkuperainen = testitiedosto1;
         pakkaaja1.pakkaaTiedosto();
         File pakattu = pakkaaja1.getTiedostoPakattu();
@@ -117,6 +119,22 @@ public class PakkaajaTest {
         assertTrue(Arrays.equals(alkuperainenByte, purettuByte));
         pakattu.delete();
         purettu.delete();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void epakelpoKirjoitettavaBittiHeittaaPoikkeuksen() throws FileNotFoundException, IOException {
+        File tiedosto = new File("src/test/resources/bittikirjoittaja.txt");
+        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedosto);
+        tiedosto.delete();
+        kirjoittaja.kirjoitaBitti(2);
+    }
+    
+    @Test
+    public void tyhjastaTiedostostaLukeminenEiPalautaBittia() throws FileNotFoundException, IOException {
+        File tiedosto = new File("src/test/resources/tyhja.txt");
+        BittiLukija lukija = new BittiLukija(tiedosto);
+        int tulos = lukija.lueBitti();
+        assertEquals(tulos, -1);
     }
     
 }
