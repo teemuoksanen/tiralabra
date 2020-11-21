@@ -25,8 +25,6 @@ public class Purkaja {
     /**
      * Purkajan konstruktori, joka alustaa tarvittavat muuttujat ja oliot.
      * @param tiedosto purettava tiedosto
-     * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
-     * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran lukeminen tai kirjoittaminen ei onnistu.
      */
     public Purkaja(File tiedosto) {
         this.tiedostoPakattu = tiedosto;
@@ -51,8 +49,10 @@ public class Purkaja {
     
     /**
      * Metodi hoitaa pakatun tiedoston purkamisen apumetodiensa avulla ja ilmoittaa puretun tiedoston nimen, kun purkaminen on valmis.
-     * @throws FileNotFoundException Heittää FileNotFoundException -poikkeuksen, jos tiedostoa ei löydy.
-     * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     * @return purettu tiedosto
+     * @throws TiedostoOlemassaPoikkeus Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen purettu tiedosto on jo olemassa.
+     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
     public File puraTiedosto() throws FileNotFoundException, IOException, TiedostoOlemassaPoikkeus {
         if (tiedostoPurettu.exists()) {

@@ -121,6 +121,20 @@ public class PakkaajaTest {
         purettu.delete();
     }
     
+    @Test(expected = TiedostoOlemassaPoikkeus.class)
+    public void joPakatunTiedostonPakkaaminenHeittaaPoikkeuksen() throws IOException, FileNotFoundException, TiedostoOlemassaPoikkeus {
+        File tiedosto = new File("src/test/resources/olemassa.txt");
+        Pakkaaja olemassa = new Pakkaaja(tiedosto);
+        olemassa.pakkaaTiedosto();
+    }
+    
+    @Test(expected = TiedostoOlemassaPoikkeus.class)
+    public void joPuretunTiedostonPurkaminenHeittaaPoikkeuksen() throws IOException, FileNotFoundException, TiedostoOlemassaPoikkeus {
+        File tiedosto = new File("src/test/resources/olemassa.txt.pakattu");
+        Purkaja olemassa = new Purkaja(tiedosto);
+        olemassa.puraTiedosto();
+    }
+    
     @Test(expected = IllegalArgumentException.class)
     public void epakelpoKirjoitettavaBittiHeittaaPoikkeuksen() throws FileNotFoundException, IOException {
         File tiedosto = new File("src/test/resources/bittikirjoittaja.txt");

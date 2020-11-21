@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.Scanner;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
-import pakkaaja.logiikka.TiedostoOlemassaPoikkeus;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.
