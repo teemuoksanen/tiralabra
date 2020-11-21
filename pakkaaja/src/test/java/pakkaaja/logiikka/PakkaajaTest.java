@@ -11,9 +11,9 @@ import pakkaaja.logiikka.io.BittiKirjoittaja;
 import pakkaaja.logiikka.io.BittiLukija;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 
-import pakkaaja.tietorakenteet.puu.Lehti;
-import pakkaaja.tietorakenteet.puu.Puu;
-import pakkaaja.tietorakenteet.puu.Solmu;
+import pakkaaja.tietorakenteet.keko.Lehti;
+import pakkaaja.tietorakenteet.keko.Puu;
+import pakkaaja.tietorakenteet.keko.Solmu;
 
 public class PakkaajaTest {
     

@@ -1,8 +1,6 @@
 
 package pakkaaja.tietorakenteet.keko;
 
-import pakkaaja.tietorakenteet.puu.Puu;
-
 /**
  * Keon muodostava luokka. Toteutukseltaan minimikeko, jonka alkiot ovat Puita.
  * @see Puu

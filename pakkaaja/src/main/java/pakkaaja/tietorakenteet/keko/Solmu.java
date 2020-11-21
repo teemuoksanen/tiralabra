@@ -1,5 +1,5 @@
 
-package pakkaaja.tietorakenteet.puu;
+package pakkaaja.tietorakenteet.keko;
 
 /**
  * Huffman-puun solmu, jolla on vasen ja oikea lapsisolmu.

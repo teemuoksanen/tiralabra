@@ -1,9 +1,9 @@
 
 package pakkaaja.logiikka;
 
-import pakkaaja.tietorakenteet.puu.Lehti;
-import pakkaaja.tietorakenteet.puu.Solmu;
-import pakkaaja.tietorakenteet.puu.Puu;
+import pakkaaja.tietorakenteet.keko.Lehti;
+import pakkaaja.tietorakenteet.keko.Solmu;
+import pakkaaja.tietorakenteet.keko.Puu;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.keko.Keko;
 import pakkaaja.tietorakenteet.lista.Lista;
