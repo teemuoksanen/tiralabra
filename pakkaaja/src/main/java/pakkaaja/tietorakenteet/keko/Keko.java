@@ -17,7 +17,7 @@ public class Keko {
      * Keon konstruktori, joka alustaa oletuskoon mukaisen taulun kekoa varten.
      */
     public Keko() {
-        this.keko = new Puu[OLETUSKOKO];
+        this.keko = new Puu[OLETUSKOKO + 1];
         this.laskuri = 0;
     }
     
@@ -26,7 +26,7 @@ public class Keko {
      * @param koko keon haluttu koko
      */
     public Keko(int koko) {
-        this.keko = new Puu[koko];
+        this.keko = new Puu[koko + 1];
         this.laskuri = 0;
     }
     
@@ -38,7 +38,7 @@ public class Keko {
         this.laskuri++;
         this.keko[this.laskuri] = puu;
         
-        if (this.laskuri >= this.keko.length) {
+        if (this.laskuri >= this.keko.length - 1) {
             kasvataKekoa();
         }
         
@@ -75,6 +75,9 @@ public class Keko {
         return this.laskuri;
     }
     
+    /**
+    * Apumetodi, joka järjestää alkiot uudelleen, kun kekoon lisätään uusi alkio.
+    */
     private void jarjestaYlospain() {
         int solmu = this.laskuri;
         while (solmu > 1 && this.keko[solmu].pienempiKuin(this.keko[vanhempi(solmu)])) {
@@ -83,6 +86,9 @@ public class Keko {
         }
     }
     
+    /**
+    * Apumetodi, joka järjestää alkiot uudelleen, kun keosta poistetaan juurialkio.
+    */
     private void jarjestaAlaspain(int solmu) {
         int pienin = solmu;
         int vasen = vasenLapsi(solmu);
@@ -100,20 +106,25 @@ public class Keko {
         }
     }
     
+    /**
+    * Apumetodi, joka vaihtaa syötteenä annettujen indeksien sisällön keossa keskenään.
+    */
     private void vaihda(int a, int b) {
         Puu apuri = this.keko[a];
         this.keko[a] = this.keko[b];
         this.keko[b] = apuri;
     }
     
+    /**
+    * Apumetodit, jotka palauttavat syötteenä annetussa indeksissä sijaitsevan alkion 
+    * vanhemman, vasemman lapsen tai oikean lapsen indeksinumeron.
+    */
     private int vanhempi(int solmu) {
         return solmu / 2;
     }
-    
     private int vasenLapsi(int solmu) {
         return solmu * 2;
     }
-    
     private int oikeaLapsi(int solmu) {
         return solmu * 2 + 1;
     }

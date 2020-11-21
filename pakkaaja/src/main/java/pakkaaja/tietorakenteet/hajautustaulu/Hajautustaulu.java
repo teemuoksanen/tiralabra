@@ -142,6 +142,9 @@ public class Hajautustaulu<K, V> {
         return this.alkioidenMaara;
     }
     
+    /**
+    * Apumetodi, joka palauttaa avaimen perusteella lasketun hajautustaulun indeksinumeron.
+    */
     private int indeksi(K avain) {
         if (avain == null) {
             return 0;

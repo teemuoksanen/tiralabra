@@ -103,6 +103,16 @@ public class HajautustauluTest {
     }
     
     @Test
+    public void vakiohakuPalauttaaVakionJosAlkiotaEiOle() {
+        assertEquals(numerotaulu.haeTaiPalautaVakio(9, "tyhjä"), "tyhjä");
+    }
+    
+    @Test
+    public void vakiohakuPalauttaaAlkionArvonJosLoytyy() {
+        assertEquals(numerotaulu.haeTaiPalautaVakio(3, "tyhjä"), "kolme");
+    }
+    
+    @Test
     public void samanHajautusarvonAlkiotLoytyvatHaussa() {
         Hajautustaulu<Integer, String> taulu = new Hajautustaulu(1);
         taulu.lisaa(11, "yksiyksi");
