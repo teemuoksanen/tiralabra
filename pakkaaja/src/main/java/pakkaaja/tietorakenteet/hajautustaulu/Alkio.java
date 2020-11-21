@@ -1,8 +1,6 @@
 
 package pakkaaja.tietorakenteet.hajautustaulu;
 
-import java.util.Objects;
-
 /**
  * Hajautustaulun yhtä alkiota vastaava olio.
  * @param <K> avain
