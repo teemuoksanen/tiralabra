@@ -4,7 +4,7 @@ Huffman-pakkaaja on Helsingin yliopiston _Aineopintojen harjoitustyö: Tietorake
 
 ## Korjattavia asioita
 
-[ ] Suuria tiedostoja pakatessa alkuperäisen tiedoston koko ei tallennu oikein
+- [ ] Suuria tiedostoja pakatessa alkuperäisen tiedoston koko ei tallennu oikein
 
 ## Dokumentaatio
 
