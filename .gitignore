@@ -2,6 +2,7 @@
 /build/
 *.pakattu
 */puretut/*
+*/lisaesimerkit/*
 
 # Ignore Gradle GUI config
 gradle-app.setting

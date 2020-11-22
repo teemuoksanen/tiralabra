@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+  
+  <meta charset="UTF-8">
+
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Git ohje | Tiralabra - 2020 p2</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Git ohje" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Git on laajalti käytetty versionhallinnan työkalu, jota tarvitset esimerkiksi harjoitustöitä tehdessäsi. Versionhallinnan avulla tiedostoihin tekemäsi muutokset ovat aina tallessa, ja voit palata edelliseen versioon, jos jokin menee pieleen." />
+<meta property="og:description" content="Git on laajalti käytetty versionhallinnan työkalu, jota tarvitset esimerkiksi harjoitustöitä tehdessäsi. Versionhallinnan avulla tiedostoihin tekemäsi muutokset ovat aina tallessa, ja voit palata edelliseen versioon, jos jokin menee pieleen." />
+<link rel="canonical" href="https://tiralabra.github.io/2020_p2//2020_p2/fi/git-ohje/" />
+<meta property="og:url" content="https://tiralabra.github.io/2020_p2//2020_p2/fi/git-ohje/" />
+<meta property="og:site_name" content="Tiralabra - 2020 p2" />
+<script type="application/ld+json">
+{"@type":"WebPage","headline":"Git ohje","url":"https://tiralabra.github.io/2020_p2//2020_p2/fi/git-ohje/","description":"Git on laajalti käytetty versionhallinnan työkalu, jota tarvitset esimerkiksi harjoitustöitä tehdessäsi. Versionhallinnan avulla tiedostoihin tekemäsi muutokset ovat aina tallessa, ja voit palata edelliseen versioon, jos jokin menee pieleen.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="/2020_p2/assets/css/style.css?v=c0e4572475efc426b6ed834a6d74e5645a6587c5">
+  <script src=/2020_p2/assets/js/main.js ></script>
+
+</head>
+
+<body>
+
+  
+  <nav class="upper-nav" id="nav">
+    <button id="hide" onclick="hideNav()"> &#x2715;</button>
+    <button id="show" onclick="showNav()"> </button>
+    <ol>
+        <li class="upper-nav-obj"><a href="/2020_p2/index">Etusivu</a>
+
+            
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/aiheet/">Aiheita</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/aikataulu/">Aikataulu</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/bug_bounty/">Puutteista materiaalissa</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/dokumentaatio/">Dokumentaatio</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/faq/">FAQ</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/git-ohje/">Git ohje</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/issuet/">Issueiden salliminen</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/labtool/">Labtool</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/maven-gradle/">Maven ja Gradle</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/palautukset/">Palautukset</a>
+            
+
+        </li>
+        
+
+            
+        <li class="upper-nav-obj"><a href="/2020_p2/fi/vertaisarvioinnit/">Vertaisarvioinnit</a>
+            
+
+        </li>
+        
+    </ol>
+</nav>
+  
+
+  <header class="page-header" role="banner">
+    <h1 class="project-name">Git ohje</h1>
+    <h2 class="project-tagline">
+      Helsingin yliopiston Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit - kurssin kurssisivu</h2>
+    
+    <a href="https://github.com/TiraLabra/2020_p2" class="btn">View on GitHub</a>
+    
+    
+  </header>
+
+  <main id="content" class="main-content" role="main">
+    <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <script src="../../assets/fuu.js"></script>
+    <h1 class="post-title p-name" itemprop="name headline">Git ohje</h1>
+    <p class="post-meta"></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Git on laajalti käytetty versionhallinnan työkalu, jota tarvitset esimerkiksi harjoitustöitä tehdessäsi. Versionhallinnan avulla tiedostoihin tekemäsi muutokset ovat aina tallessa, ja voit palata edelliseen versioon, jos jokin menee pieleen.</p>
+
+<p>Verkossa on paljon loistavaa, paremmin kuvitettua ja jopa videoilla varustettua kunnollista materiaalia gitin käytöstä. Suosittelemme ennemmin tutustumaan siihen, mikäli englanninkielinen materiaali ei tuota liikaa vaikeuksia.</p>
+
+<p>Alkuun pääsee hyvin seuraamalla GitHubin ohjetta <a href="http://try.github.io/">TryGit</a> .</p>
+
+<p>Suosittelemme myös lukemaan:</p>
+
+<p><a href="https://help.github.com/articles/set-up-git">Aloita lukemalla GitHubin ohje gitin käytöstä</a></p>
+
+<p><a href="https://help.github.com/articles/create-a-repo">Repon luominen githubiin</a></p>
+
+<p><a href="https://help.github.com/articles/fork-a-repo">Repositorion forkkaaminen</a></p>
+
+<p><a href="http://git-scm.com/documentation">Kattavan ohjeen kaikkeen</a></p>
+
+<p>Näiden jälkeen voi alla olevaa ohjettakin vilkaista, mutta siinä ei oikeastaan ole enää mitään uutta gitistä.</p>
+
+<h2 id="yksityiskohtainen-kädestä-pitäen--ohje-gitin-käyttöön">Yksityiskohtainen “kädestä pitäen” -ohje Gitin käyttöön</h2>
+<p>Alkuperäinen ohje: Mika Huttunen ja Silja Polvi</p>
+
+<h3 id="aloittaminen">Aloittaminen</h3>
+
+<p><em>ÄLÄ</em> käytä Netbeansin tarjoamaa Git-lisäosaa <em>ÄLÄKÄ</em> graafisia ohjelmia. Tähän asti kaikki kurssilla päivän koodaustyönsä menettäneiden ongelmat ovat johtuneet näistä. Käytä aina Linuxissa/OSX:ssä terminaalia tai Windowsissa Git Bashia, ja tee Commitit sekä Pushit käsin.</p>
+
+<ol>
+  <li>Jos et ole koulun koneella ja koneessasi ei ole valmiiksi Gitiä, voit ladata sen täältä: <a href="http://help.github.com/win-set-up-git/">http://help.github.com/win-set-up-git/</a>. Ohje on Windowsille, mutta sen alussa on linkit myös muita käyttöjärjestelmiä varten.</li>
+  <li>Mene osoitteeseen <a href="https://github.com/pricing">Github.com/plans</a></li>
+  <li>Paina oikealla ylhäällä olevaa nappia “Create a free account”</li>
+  <li>Täytä vaadittavat neljä kenttää ja klikkaa “Create an account”</li>
+  <li>Paina oikealla olevaa harmaata nappia “New repository”</li>
+  <li>Laita repositorion nimeksi esimerkiksi “HarjoitusRepo”, harjoitustyösi aihe tai oma nimiehdotuksesi ohjelmalle
+** Valitse pallura “Public”
+** Valitse ruutu “Initialize this repository with a README”</li>
+  <li>Klikkaa lopuksi “Create repository”.</li>
+</ol>
+
+<h3 id="ssh-avaimen-luominen-omalla-koneella">SSH-avaimen luominen omalla koneella</h3>
+
+<p>Katso ohje <a href="https://help.github.com/articles/generating-ssh-keys">tästä</a>. Mikäli latasit Gitin yllä olevan linkin takaa Githubin sivuilta, käytä komentorivinä Git Bashia!</p>
+
+<h3 id="ssh-avaimen-luominen-laitoksen-koneella">SSH-avaimen luominen laitoksen koneella</h3>
+
+<p><em>Huomaa:</em> Laitoksen sivuilla on tähänkin vähän lyhyemmät <a href="http://www.cs.helsinki.fi/group/kuje/compfac/ssh_avain.html">ohjeet</a>.
+SSH-avaimen luominen ei ole pakollista, mutta helpottaa versionhallinnan käyttöä. Toisinaan joillakin henkilöillä Github on evännyt yhteydenotot ilman SSH-avaimen luomista.</p>
+
+<ol>
+  <li>Avaa komentorivi (Konsole tai Terminal)</li>
+  <li>Anna komento <em>ssh-keygen</em></li>
+  <li>Ohjelma kysyy, mihin tiedostoon avain tallennetaan. Oletus on hyvä, joten hyväksy painamalla <em>enter</em>.</li>
+  <li>Ohjelma pyytää asettamaan salasanan avaimellesi. Anna salasana, jonka varmasti muistat. Salasana on pakollinen, muuten laitoksen ylläpito poistaa ssh-avaimesi.</li>
+  <li>Aseta ssh-hakemiston oikeudet antamalla ensin komento <em>chmod u=rwx,go= .ssh</em> ja antamalla seuraavaksi komento <em>chmod u=rwx,go= .ssh/*</em></li>
+  <li>Lisää avaimen julkinen pari Githubiin: anna ensin komento <em>less .ssh/id_rsa.pub</em> tai <em>gedit .ssh/id_rsa.pub</em> niin pääset tarkastelemaan tiedostoa</li>
+  <li>Kopioi koko tiedoston sisältö (eli teksti)</li>
+  <li>Avaa nettiselaimella Github ja kirjaudu sisään (jos et jo ole kirjautuneena)</li>
+  <li>Paina oikeassa yläkulmassa olevaa jakoavaimen ja ruuvimeisselin kuvaa (“Account Settings”)</li>
+  <li>Klikkaa vasemmalta “SSH Keys” ja sitten oikealta nappia “Add SSH key”</li>
+  <li>Anna nimeksi (Title) vaikka “Laitoksen avain” ja liitä Key-kenttään kohdassa 10 kopioimasi teksti. Poista tekstin seasta mahdolliset rivinvaihdot ja välilyönnit, jotta avaimesi sekaan ei jää “white spaceja”. Paina lopuksi nappia “Add key”.</li>
+  <li>Anna confirm-kentälle Githubin salasanasi</li>
+  <li>Avaimesi on nyt lisätty Githubiin!</li>
+</ol>
+
+<p><em>HUOM.</em> Joudut tekemään tämän jokaisella koneella, josta haluat käyttää Githubia. Laitoksella riittää, että ssh-avaimen luomisen tekee kerran yhdellä koneella.</p>
+
+<h3 id="repositorion-valmisteleminen-käyttöä-varten">Repositorion valmisteleminen käyttöä varten</h3>
+
+<p><em>HUOMAA:</em> Tässä ohjeessa komentorivillä tarkoitetaan Linuxilla terminaalia ja Windowsin tapauksessa Git Bashia! Windowsin omat komentorivit eivät tunnista git-alkuisia komentoja, mikäli otit Gitin käyttöön yllä olevan linkin takana olevan Windows-ohjeen mukaan. Käytä Git Bashia.</p>
+
+<ol>
+  <li>Hankkiudu Githubin sivulla luomasi repositorion näkymään. Sinne pääsee vaikkapa etusivulta kun olet kirjautunut, klikkaamalla repositorion nimeä.</li>
+  <li>Kopioi melko ylhäällä olevassa kentässä oleva osoite, joka on suunnilleen muotoa <em>git@github.com:käyttäjätunnuksesi/HarjoitusRepo.git</em></li>
+  <li>Avaa komentorivi ja anna komento tyyliin <em>git clone git@github.com:käyttäjätunnuksesi/HarjoitusRepo.git</em></li>
+  <li>Seuraavaksi ohjelma pyytää vahvistamaan äskeisen komennon (yes/no) - vastaa yes
+** Jos git push sanoo “Permission denied (publickey)”, kokeile ssh-avaimen generointia uudestaan tai komentoa ssh-add</li>
+  <li>Mene komentorivillä äsken kloonaamaasi kansioon (esim. HarjoitusRepo) komennolla <em>cd HarjoitusRepo</em> tms. Kaikki tiedostot voit listata komennolla <em>ls</em>.</li>
+  <li>Komennon <em>cd HarjoitusRepo</em> jälkeen olet kansiossa, johon tulet tallentamaan projektisi. Nyt komennolla <em>ls</em> tulisi näkyä tiedosto README.</li>
+</ol>
+
+<h3 id="pieni-repotreeni">Pieni repotreeni</h3>
+
+<ol>
+  <li>Varmista, että olet komentorivillä repositoriokansiossasi (esim. HarjoitusRepo)</li>
+  <li>Avaa README-tiedosto vaikkapa komennolla <em>notepad README.md</em> (Windowsissa), <em>nano README</em>(koulun koneella), tai ihan millä tekstieditorilla haluat</li>
+  <li>Tiedoston pitäisi aueta valitsemassasi editorissa. Kirjoita tiedostoon jotakin ja tallenna se. Nanossa tallenna tiedosto painamalla <em>Ctrl + o</em>, ja vahvista tallennus painamalla <em>enter</em>.</li>
+  <li>Anna komentorivillä komento <em>git status</em>. Nyt näet luettelon tiedostoista, joita olet muokannut (modified), tässä tapauksessa README-tiedosto.</li>
+  <li>Anna komento git commit -am “eka muokkaus”. Jos viesti (tässä eka muokkaus) unohtuu, avautuu editori. Poistu editorista komennolla :q. Anna antamasi commit-komento uudelleen, tällä kertaa viestin kera.</li>
+  <li>Nyt tekemäsi muokkaukset (README-tiedoston muokkaus) ovat paikallisessa repositoriossasi. Sieltä ne pitää vielä työntää verkossa olevaan Githubin repoosi komennolla <em>git push</em>.
+** Jos git push sanoo “Permission denied (publickey)”, kokeile ssh-avaimen generointia uudestaan tai komentoa <em>ssh-add</em></li>
+  <li>Mene Githubin sivulla olevaan repositoriosi näkymään (kuten edellisen ohjeen kohdassa 1) ja päivitä näkymä. Huomaat, että README-tiedostoon tekemäsi muokkaukset ovat nyt Githubissa asti, antamasi viestin kera!</li>
+</ol>
+
+<h3 id="toinen-repotreeni">Toinen repotreeni</h3>
+
+<ol>
+  <li>Hankkiudu komentorivillä repositorion kansioosi (esim. HarjoitusRepo). Anna komento <em>mkdir testikansio</em> luodaksesi uuden kansion.</li>
+  <li>Lisää testikansioosi jokin tiedosto: etsi tietokoneeltasi luomasi kansio ja luo tai siirrä sinne vaikkapa tekstitiedosto.</li>
+  <li>Lisää luomasi kansio versionhallinnoitavaksi antamalla komentoriville komento <em>git add testikansio</em>. Nyt versionhallinta seuraa kansiotasi siinä mielessä, että se näkyy status-komennolla, ja sen voi siirtää paikalliseen versionhallintaan (commit). Huomaa, että typötyhjä kansio ei tule hallinnoitavaksi add-komennolla.</li>
+  <li>Anna commit-komento (<em>git commit -m “uusi testitiedosto ja -kansio lisatty”</em>).</li>
+  <li>Anna push-komento (<em>git push</em>). Tarkista Githubin nettisivulta, että uusi kansiosi ja sen sisältämä tiedosto ilmestyvät repositorionäkymääsi.</li>
+</ol>
+
+<p><em>Huom:</em> Jos haluat lisätä useita tiedostoja kerralla, se onnistuu komennolla <em>git add .</em></p>
+
+<p>Nyt osaat lisätä Githubiin tiedostoja ja kansioita: add - commit - push! Tee samaan malliin harjoitustyöllesi dokumentaatiokansio ja sinne ensimmäisellä viikolla tarvittava dokumentointi.</p>
+
+<h3 id="kolmas-repotreeni-pull">Kolmas repotreeni: pull</h3>
+
+<p>Jos työskentelet useammalla kuin yhdellä koneella, voit versionhallinnan avulla pitää projektin ajan tasalla ilman että joudut siirtämään tiedostoja koneelta toiselle esimerkiksi muistitikulla. Sehän on yksi versionhallinnan hyödyistä! Tässä harjoituksessa pääset harjoittelemaan tiedostojen kopioimista Githubista koneellesi toisen repositoriokloonikansion avulla. Todellisessa tilanteessa harjoituksessa luotava toinen kloonikansio vastaa eri koneella olevaa kloonikansiota. Et siis tarvitse toista kloonia (varjorepo) muuhun kuin tähän harjoitukseen.</p>
+
+<ol>
+  <li>Luo uudella nimellä (esim. varjorepo) toinen klooni repositoriosta antamalla komentorivillä komento tyyliin <em>git clone git@github.com:käyttäjätunnuksesi/HarjoitusRepo.git varjorepo</em>. Klooni luodaan siis muuten kuten kohdassa “Repositorion valmistelu käyttöä varten”, paitsi että nyt kloonikansio nimetään itse.</li>
+  <li>Muokkaa alkuperäisessä repossa (esim. HarjoitusRepo) olevaa tiedostoa README. Anna add-komento, commit-komento ja push-komento alkuperäisessä repositoriokloonikansiossasi (HarjoitusRepo), jotta äsken tehty muutos päätyy Githubiin asti.</li>
+  <li>Mene tämän harjoituksen alussa luomaasi varjorepoon. Avaa nyt README-tiedosto tässä uudessa repossa, jolloin huomaat että se ei ole muuttunut.</li>
+  <li>Vedä alkuperäisessä kansiossasi (HarjoitusRepo) tekemäsi muutokset varjorepoon Githubista komennolla <em>git pull</em>. Huomaat, että README-tiedosto päivittyy niiden muutosten mukaan, jotka teit alkuperäisessä kloonissa (HarjoitusRepo)! Tarkista tämä vielä varjorepossa olevasta README-tiedostosta.</li>
+</ol>
+
+<h3 id="git--netbeans">Git &amp; Netbeans</h3>
+
+<p>Git ja Netbeans ovat hyviä kavereita. Käytä Netbeans-projektin tallennuspaikkana koneellasi olevaa repositoriokloonikansiota: aseta Netbeansissa kohtaan “Project Location” koneella oleva repositorion kansio (esim. HarjoitusRepo). Nyt tallennat projektiasi koko ajan repositorion kansioon.</p>
+<ol>
+  <li>Anna (kun olet ensin siirtynyt komentorivillä repositoriokansioosi) komentoriville komento <em>git status</em>. Huomaat kaksi uutta tiedostoa: harjoitustyösi lisäksi tiedoston .gitignore. Viimeksi mainittu on Netbeansin luoma tiedosto, joka antaa listan versionhallintaan kuulumattomista tiedostoista. Se pitää lisätä versionhallinnoitavaksi. Tiedostosta ei tarvitse ymmärtää enempää, mutta jos haluat tai tiedosto ei generoitunut automaattisesti, lue tämän dokumentin lopusta lyhyt .gitignore selite.</li>
+  <li>Anna komento <em>git add harkkatyöprojektisiNimi</em> ja sen jälkeen komento <em>git add .gitignore</em>.</li>
+  <li>Nyt komennon git status pitäisi näyttää sekä harkkatyöprojektisi sisältöineen että .gitignore
+Anna commit-komento ja push-komento. Nyt harjoitustyösi löytyy Githubistasi!</li>
+</ol>
+
+<p>Nyt voit aloittaa harjoitustyösi tekemisen.</p>
+
+<h3 id="nyrkkisäännöt">Nyrkkisäännöt</h3>
+
+<ul>
+  <li>Uudella koneella aloittaessasi luo ssh-avain ja kloonaa (clone) haluamasi repositorio koneelle</li>
+  <li>Työskentelyn aluksi vedä (pull) Githubista projektisi</li>
+  <li>Tehdessäsi muutoksia, lisää (add) uudet tiedostot ja muutetut tiedostot, sekä tee commit kuvaavalla kommentilla.</li>
+  <li>Add + Commit yhdistelmää voit ajatella työn tallentamisena.
+** Tee mieluummin liikaa kuin liian vähän committeja
+** git status komennolla voit kysellä mitä olet muuttanut ja mitä olet commitoimassa
+** Ongelmatilanteissa on mahdollista palata vanhaan committiin, vaikka viikon takaa!</li>
+  <li>Viimeistään lopettaessasi työskentelyn työnnä (push) muutoksesi Githubiin.</li>
+  <li>Tarkista selaimesta, että KAIKKI muutokset menivät repositorioosi: Muuten ohjaajat eivät niitä näe</li>
+  <li>Repositorio on myös varmuuskopio työstäsi - jos tietokoneesi hajoaa tai laitoksen palvelimet reistailevat, on kaikki vaivalla tekemäsi työ tallessa Githubissa!</li>
+  <li>Tiedoston poistaminen repositoriosta tehdään git rm tiedostonnimi komennon avulla. HUOM ole huolellinen tämän käytössä, sillä komento poistaa tiedoston myös paikallisesta repositoriosta (siis omalta koneeltasi)</li>
+  <li>MUISTA: Github-repositoriosi on julkinen. Sen näkee koko maailma. ÄLÄ pistä sinne esimerkiksi opiskelijanumerosi.</li>
+</ul>
+
+<p>Nyt voit jatkaa harjoitustyötäsi miltä tahansa tietokoneelta aina siitä mihin lopetit edellisellä kerralla.</p>
+
+<h3 id="lyhyt-gitignore--ohje">Lyhyt .gitignore -ohje</h3>
+
+<p>.gitignore on tiedosto, joka sisältää tiedon niistä tiedostoista ja kansioista, joita ei haluta versionhallintaan eikä Githubiin. Nämä esitetään sääntöinä, jokainen sääntö omalla rivillään. Yleensä nämä tiedostot ovat kehitysympäristöjen joka ajokerralla generoitavia tai arkaluontoista tietoa sisältäviä tiedostoja, joita ei haluta versionhallintaan viemään tilaa tai kaikkien nähtäville. <em>.gitignore tiedosto itsessään halutaan Githubiin.</em></p>
+
+<p>Netbeans luo .gitignore -tiedoston automaattisesti, kun Netbeans-projektin luo kansioon, joka on repositorio. Netbeans lisää sinne säännön <em>/projektikansiosi_nimi/nbproject/private/</em>, joka estää versionhallintaan menemästä tiedostoja, jotka Netbeans luo aina kun käännät ja ajat ohjelmasi. <em>git status</em> komento ei siis huomaa lainkaan, vaikka private/ -kansion sisällä tapahtuu muutoksia.</p>
+
+<p>Jos Netbeans jostain syystä ei tehnyt tällaista tiedostoa, voit luoda sen itse.</p>
+<ol>
+  <li>Tee tekstitiedosto, jolle annat nimeksi “.gitignore”
+** Tiedostolla ei ole tiedostopäätettä</li>
+  <li>Lisää tekstitiedostoon rivi <em>/projektikansiosi_nimi/nbproject/private/</em></li>
+  <li>Lisää myös rivi <em>/projektikansiosi_nimi/nbproject/dist/</em></li>
+</ol>
+
+<p>Vastaavasti .gitignore-tiedostoon voi lisätä omia sääntöjä. Jokainen sääntö tulee omalle rivilleen.</p>
+
+<p>Säännöistä löytää lisää esimerkkejä osoitteissa:</p>
+
+<p><a href="http://git-scm.com/docs/gitignore">http://git-scm.com/docs/gitignore</a></p>
+
+<p><a href="https://help.github.com/articles/ignoring-files">https://help.github.com/articles/ignoring-files</a></p>
+
+<p><a href="http://cfmumbojumbo.com/cf/index.cfm/coding/git-giving-files-the-cold-shoulder-gitignore/">http://cfmumbojumbo.com/cf/index.cfm/coding/git-giving-files-the-cold-shoulder-gitignore/</a></p>
+
+  </div><a class="u-url" href="/2020_p2/fi/git-ohje/" hidden></a>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var title = "Tiralabra - 2020 p2";
+      var description = "Helsingin yliopiston Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit - kurssin kurssisivu";
+      var refurl = "https://tiralabra.github.io/2020_p2/";
+      var eroot = document.getElementsByClassName("page-header")[0];
+      if (document.URL.includes("/en/")) {
+        refurl = refurl + "en/";
+        title = "Data Structures Lab, 2020 p2";
+        description = "Course page for the Data Structures Project course at the University of Helsinki";
+      }
+      var elem = document.getElementsByClassName("project-tagline")[0];
+      var a = document.createElement("a");
+      a.setAttribute("href", refurl);
+      a.setAttribute("style", "color: white;text-decoration: none");
+      a.appendChild(elem);
+      elem.innerHTML = description;
+      eroot.insertBefore(a, eroot.firstChild);
+  
+      elem = document.getElementsByClassName("project-name")[0];
+      a = document.createElement("a");
+      a.setAttribute("href", refurl);
+      a.setAttribute("style", "color: white;text-decoration: none");
+      a.appendChild(elem);
+      elem.innerHTML = title;
+      eroot.insertBefore(a, eroot.firstChild);
+    });
+    
+  </script>
+</article>
+
+
+    <footer class="site-footer">
+      
+      <span class="site-footer-owner"><a href="https://github.com/TiraLabra/2020_p2">2020_p2</a>
+        is maintained by <a href="https://github.com/TiraLabra">TiraLabra</a>.</span>
+      
+      <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub
+          Pages</a>.</span>
+    </footer>
+  </main>
+</body>
+
+</html>

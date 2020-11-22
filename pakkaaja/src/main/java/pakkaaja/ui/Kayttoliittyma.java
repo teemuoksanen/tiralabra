@@ -66,9 +66,9 @@ public class Kayttoliittyma {
         }
 
         try {
-            Pakkaaja pakkaaja = new Pakkaaja(tiedosto);
             System.out.println("Pakataan tiedosto '" + tiedosto.getName() + "'...\n");
             long alku = System.nanoTime();
+            Pakkaaja pakkaaja = new Pakkaaja(tiedosto);
             File pakattu = pakkaaja.pakkaaTiedosto();
             long loppu = System.nanoTime();
             System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
@@ -92,9 +92,9 @@ public class Kayttoliittyma {
         }
 
         try {
-            Purkaja purkaja = new Purkaja(tiedosto);
             System.out.println("Puretaan tiedosto '" + tiedosto.getName() + "'...\n");
             long alku = System.nanoTime();
+            Purkaja purkaja = new Purkaja(tiedosto);
             File purettu = purkaja.puraTiedosto();
             long loppu = System.nanoTime();
             System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
