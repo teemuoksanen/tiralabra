@@ -69,11 +69,13 @@ public class Purkaja {
      * Apumetodi, joka lukee alkuperäisen tiedoston merkkimäärän pakattusta tiedostosta.
      */
     private void lueMerkkimaara(BittiLukija lukija) throws IOException {
-        String merkitBitteina = "";
+        int merkitBitteina = 0;
         for (int i = 0; i < 4; i++) {
-            merkitBitteina += Integer.toBinaryString(lukija.lueTavu());
+            char tavu = lukija.lueTavu();
+            merkitBitteina <<= 8;
+            merkitBitteina |= tavu;
         }
-        this.merkit = Integer.parseInt(merkitBitteina, 2);
+        this.merkit = merkitBitteina;
     }
     
     /**
