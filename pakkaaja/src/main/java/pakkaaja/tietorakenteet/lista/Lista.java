@@ -52,6 +52,15 @@ public class Lista<T> {
         return palautettavaLista;
     }
     
+    
+    /**
+     * Palauttaa listan yksittäisen alkion.
+     * @return alkion arvo
+     */
+    public T hae(int i) {
+        return this.lista[i];
+    }
+    
     /**
      * Palauttaa listan alkioiden määrän.
      * @return alkioiden määrä

@@ -1,15 +1,13 @@
 
 package pakkaaja.logiikka;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
+import java.io.*;
 import pakkaaja.tietorakenteet.keko.Lehti;
 import pakkaaja.tietorakenteet.keko.Puu;
 import pakkaaja.tietorakenteet.keko.Solmu;
 import pakkaaja.logiikka.io.BittiKirjoittaja;
 import pakkaaja.logiikka.io.BittiLukija;
+import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 
 /**
  * Luokka purkaa sille syötteenä annetun Huffman-algoritmilla pakatun tiedoston.
@@ -18,8 +16,8 @@ public class Purkaja {
     
     private File tiedostoPakattu;
     private File tiedostoPurettu;
-    private int merkit;
-    private HashMap<String, Character> koodisto;
+    private long merkit;
+    private Hajautustaulu<String, Character> koodisto;
     private Puu puu;
     
     /**
@@ -31,7 +29,7 @@ public class Purkaja {
         String tiedostoPurettuNimi = muodostaPurettuNimi();
         this.tiedostoPurettu = new File(tiedostoPurettuNimi);
         this.merkit = 0;
-        this.koodisto = new HashMap<>();
+        this.koodisto = new Hajautustaulu();
     }
     
     private String muodostaPurettuNimi() {
@@ -97,7 +95,7 @@ public class Purkaja {
     private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti) puu;
-            this.koodisto.put(koodijono, lehti.getMerkki());
+            this.koodisto.lisaa(koodijono, lehti.getMerkki());
         } else {
             Solmu solmu = (Solmu) puu;
             
@@ -110,17 +108,17 @@ public class Purkaja {
     }
     
     /**
-     * Apumetodi, joka lukee alkuperäisen tiedoston sisällön pakattusta tiedostosta.
+     * Apumetodi, joka lukee alkuperäisen tiedoston sisällön pakatusta tiedostosta.
      */
     private void lueTiedosto(BittiLukija lukija) throws IOException {
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
         
         for (int i = 0; i < this.merkit; i++) {
             String avain = String.valueOf(lukija.lueBitti());
-            while (this.koodisto.get(avain) == null) {
+            while (this.koodisto.hae(avain) == null) {
                 avain += lukija.lueBitti();
             }
-            char merkki = this.koodisto.get(avain);
+            char merkki = this.koodisto.hae(avain);
             kirjoittaja.kirjoitaTavu(merkki);
         }
         kirjoittaja.close();

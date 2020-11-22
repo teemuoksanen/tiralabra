@@ -13,19 +13,21 @@ import pakkaaja.tietorakenteet.lista.Lista;
  */
 public class HuffmanKoodaaja {
     
-    private Hajautustaulu<Character, Integer> aakkosto;
+    private int[] aakkosto;
     private Hajautustaulu<Character, String> koodisto;
     private Puu puu;
+    private Lista<Character> merkkilista;
     private Lista<Object> avain;
     
     /**
      * HuffmanKoodaajan konstruktori, joka kutsuttaessa samalla luo Huffman-puun sekä -koodiston sille syötteenä annetusta aakkostosta.
      * @param aakkosto  aakkosto, josta Huffman-koodisto muodostetaan
      */
-    public HuffmanKoodaaja(Hajautustaulu<Character, Integer> aakkosto) {
-        this.aakkosto = aakkosto;
+    public HuffmanKoodaaja(Lista<Character> merkkilista) {
+        this.merkkilista = merkkilista;
+        this.aakkosto = luoAakkosto();
         this.puu = rakennaPuu();
-        this.koodisto = new Hajautustaulu<>();
+        this.koodisto = new Hajautustaulu();
         this.avain = new Lista();
         luoKoodisto(this.puu, "");
     }
@@ -37,6 +39,7 @@ public class HuffmanKoodaaja {
     public Hajautustaulu<Character, String> getKoodisto() {
         return this.koodisto;
     }
+    
     /**
      * Palauttaa Huffman-avaimen.
      * @return avain eli Huffman-puu lyhyeksi koodattuna
@@ -45,13 +48,29 @@ public class HuffmanKoodaaja {
         return this.avain;
     }
     
+    /**
+     * Apumetodi, joka laskee kunkin merkin määrät annetusta merkkilistasta.
+     */
+    private int[] luoAakkosto() {
+        int[] abc = new int[256];
+        
+        for (int i = 0; i < this.merkkilista.koko(); i++) {
+            char merkki = (char) this.merkkilista.hae(i);
+            abc[merkki]++;
+        }
+        
+        return abc;
+    }
+    
+    /**
+     * Apumetodi, joka rakentaa Puun ja palauttaa sen juurisolmun.
+     */
     private Puu rakennaPuu() {
         Keko puut = new Keko();
         
-        Object[] merkit = this.aakkosto.avaimet();
-        for (int i = 0; i < merkit.length; i++) {
-            char merkki = (Character) merkit[i];
-            Lehti lehti = new Lehti(merkki, this.aakkosto.hae(merkki));
+        for (int i = 0; i < aakkosto.length; i++) {
+            char merkki = (char) i;
+            Lehti lehti = new Lehti(merkki, aakkosto[i]);
             puut.lisaa(lehti);
         }
         
@@ -66,6 +85,9 @@ public class HuffmanKoodaaja {
         return puut.poista();
     }
 
+    /**
+     * Apumetodi, joka luo Huffman-koodiston ja -avaimen.
+     */
     private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
             Lehti lehti = (Lehti) puu;
