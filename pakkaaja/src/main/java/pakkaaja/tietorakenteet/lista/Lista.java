@@ -55,6 +55,7 @@ public class Lista<T> {
     
     /**
      * Palauttaa listan yksittäisen alkion.
+     * @param i haettavan alkion sijainti
      * @return alkion arvo
      */
     public T hae(int i) {

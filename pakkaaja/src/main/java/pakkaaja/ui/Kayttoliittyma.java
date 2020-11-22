@@ -14,6 +14,9 @@ public class Kayttoliittyma {
     private Scanner lukija;
     private boolean tilastot;
     
+    /**
+     * Tekstikäyttöliittymän konstruktori.
+     */
     public Kayttoliittyma() {
         lukija = new Scanner(System.in);
         tilastot = false;
@@ -27,20 +30,29 @@ public class Kayttoliittyma {
         System.out.println("TERVETULOA KÄYTTÄMÄÄN PAKKAAJAA!");
         
         while (true) {
-            tulostaKomennot();
+            this.tulostaKomennot();
 
             String komento = lukija.nextLine();
             System.out.println("");
             
-            if (komento.equals("q")) break;
-            else if (komento.equals("1")) pakkaa();
-            else if (komento.equals("2")) pura();
-            else if (komento.equals("3")) vaihdaTilastot();
-            else System.out.println("Virheellinen komento: " + komento);
+            switch (komento) {
+                case "q":
+                    this.exit();
+                    break;
+                case "1":
+                    this.pakkaa();
+                    break;
+                case "2":
+                    this.pura();
+                    break;
+                case "3":
+                    this.vaihdaTilastot();
+                    break;
+                default:
+                    System.out.println("Virheellinen komento: " + komento);
+                    break;
+            }
         }        
-        
-        System.out.println("Kiitos, kun käytit Pakkaajaa.");
-        System.exit(0);
     }
 
     
@@ -49,7 +61,9 @@ public class Kayttoliittyma {
      */
     private void pakkaa() {
         File tiedosto = kysyTiedostonimi(false);
-        if (tiedosto == null) return;
+        if (tiedosto == null) {
+            return;
+        }
 
         try {
             Pakkaaja pakkaaja = new Pakkaaja(tiedosto);
@@ -59,7 +73,9 @@ public class Kayttoliittyma {
             long loppu = System.nanoTime();
             System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
             System.out.println(pakattu.getAbsoluteFile());
-            if (tilastot) tulostaTilastot(alku, loppu, tiedosto, pakattu);
+            if (tilastot) {
+                tulostaTilastot(alku, loppu, tiedosto, pakattu);
+            }
         } catch (Exception ex) {
             kasittelePoikkeus(ex);
         }
@@ -71,7 +87,9 @@ public class Kayttoliittyma {
      */
     private void pura() {
         File tiedosto = kysyTiedostonimi(true);
-        if (tiedosto == null) return;
+        if (tiedosto == null) {
+            return;
+        }
 
         try {
             Purkaja purkaja = new Purkaja(tiedosto);
@@ -81,7 +99,9 @@ public class Kayttoliittyma {
             long loppu = System.nanoTime();
             System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
             System.out.println(purettu.getAbsoluteFile());
-            if (tilastot) tulostaTilastot(alku, loppu, null, null);
+            if (tilastot) {
+                tulostaTilastot(alku, loppu, null, null);
+            }
         } catch (Exception ex) {
             kasittelePoikkeus(ex);
         }
@@ -96,8 +116,11 @@ public class Kayttoliittyma {
         File tiedosto = null;
 
         while (true) {
-            if (purkaja) System.out.println("Anna purettavan tiedoston nimi (ja polku):");
-            else System.out.println("Anna pakattavan tiedoston nimi (ja polku):");
+            if (purkaja) {
+                System.out.println("Anna purettavan tiedoston nimi (ja polku):");
+            } else {
+                System.out.println("Anna pakattavan tiedoston nimi (ja polku):");
+            }
             
             System.out.println("(Jos haluat takaisin päävalikkoon, anna tyhjä nimi.)");
 
@@ -105,20 +128,27 @@ public class Kayttoliittyma {
             tiedosto = new File(tiedostonimi);
             System.out.println("");
             
-            if (tiedostonimi.equals("") || tiedosto == null) return null;
-            else if (!tiedosto.exists()) System.out.println("VIRHE: Tiedostoa '" + tiedostonimi + "' ei löytynyt.\n");
-            else if (tiedosto.isDirectory()) System.out.println("VIRHE: '" + tiedostonimi + "' on hakemisto. Anna yksittäisen tiedoston nimi.\n");
-            else if (!tiedosto.isFile()) System.out.println("VIRHE: '" + tiedostonimi + "' ei ole kelvollinen tiedosto.\n");
-            else return tiedosto;
+            if (tiedostonimi.equals("")) {
+                return null;
+            } else if (!tiedosto.exists()) {
+                System.out.println("VIRHE: Tiedostoa '" + tiedostonimi + "' ei löytynyt.\n");
+            } else if (tiedosto.isDirectory()) {
+                System.out.println("VIRHE: '" + tiedostonimi + "' on hakemisto. Anna yksittäisen tiedoston nimi.\n");
+            } else if (!tiedosto.isFile()) {
+                System.out.println("VIRHE: '" + tiedostonimi + "' ei ole kelvollinen tiedosto.\n");
+            } else {
+                return tiedosto;
+            }
         }
     }
+    
     
     /**
      * Tulostaa tilastot (käytetty aika ja pakkausteho).
      */
     private void tulostaTilastot(long alku, long loppu, File tiedosto, File pakattu) {
         System.out.println("\nTILASTOT:");
-        System.out.println("Aikaa kului: " + (loppu-alku) / 1e9 + " s");
+        System.out.println("Aikaa kului: " + (loppu - alku) / 1e9 + " s");
         if (tiedosto != null) {
             double pakkaus = 1.0 * pakattu.length() / tiedosto.length();
             System.out.println("Aluperäinen tiedosto: " + (double) tiedosto.length() / 1024 + " kt");
@@ -160,10 +190,22 @@ public class Kayttoliittyma {
         System.out.println("\nValitse, mitä haluaisit tehdä:\n");
         System.out.println("[1]\t pakkaa tiedosto");
         System.out.println("[2]\t pura pakattu tiedosto");
-        if (tilastot) System.out.println("[3]\t kytke tilastotulosteet pois päältä");
-        else System.out.println("[3]\t kytke tilastotulosteet päälle");
+        if (tilastot) {
+            System.out.println("[3]\t kytke tilastotulosteet pois päältä");
+        } else {
+            System.out.println("[3]\t kytke tilastotulosteet päälle");
+        }
         System.out.println("[q]\t poistu\n");
         System.out.println("Komento + enter: ");
+    }
+    
+    
+    /**
+     * Sulkee ohjelman.
+     */
+    private void exit() {
+        System.out.println("Kiitos, kun käytit Pakkaajaa.");
+        System.exit(0);
     }
     
 }

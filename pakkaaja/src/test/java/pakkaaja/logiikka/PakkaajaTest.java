@@ -21,8 +21,6 @@ public class PakkaajaTest {
     Pakkaaja pakkaaja1;
     Pakkaaja pakkaaja2;
     
-    AakkostoMock aakkostoMock = new AakkostoMock();
-    
     @Before
     public void setUpClass() {
         testitiedosto1 = new File("src/test/resources/test.txt");
@@ -45,25 +43,6 @@ public class PakkaajaTest {
     @After
     public void tearDown() {        
     }
-    
-    // Rakenteen muuttamisen jälkeen testi ei toimi - KORJAA
-    /* @Test
-    public void luoOikeanAakkoston() {
-        Hajautustaulu<Character, Integer> aakkosto = pakkaaja1.getAakkosto();
-        Hajautustaulu<Character, Integer> vertailuaakkosto = aakkostoMock.getAakkosto(1);
-        
-        assertEquals(aakkosto.koko(), vertailuaakkosto.koko());
-        
-        Object[] avaimet = aakkosto.avaimet();
-        Object[] vertailuavaimet = vertailuaakkosto.avaimet();
-        
-        for (int i = 0; i < avaimet.length; i++) {
-            char avain = (Character) avaimet[i];
-            char vertailuavain = (Character) vertailuavaimet[i];
-            assertEquals(avain, vertailuavain);
-            assertEquals(aakkosto.hae(avain), vertailuaakkosto.hae(vertailuavain));
-        }
-    } */
     
     @Test
     public void puunLuontiOnnistuu() {
@@ -97,15 +76,6 @@ public class PakkaajaTest {
         Solmu solmu = new Solmu(vasen, oikea);
         assertEquals(solmu.getMaara(), 3);
     }
-    
-    // Rakenteen muuttamisen jälkeen testi ei toimi - KORJAA
-    /* @Test
-    public void palauttaaOikeanKoodiston() {
-        HuffmanKoodaaja koodaaja = new HuffmanKoodaaja(pakkaaja1.getAakkosto());
-        Hajautustaulu<Character, String> koodisto = koodaaja.getKoodisto();
-        assertEquals(koodisto.hae('a'), "11");
-        assertEquals(koodisto.hae('e'), "010");
-    } */
     
     @Test
     public void sisaltoMuuttumatonPakkaamisenJaPurkamisenJalkeen() throws IOException, FileNotFoundException, TiedostoOlemassaPoikkeus {

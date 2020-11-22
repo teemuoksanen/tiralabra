@@ -11,7 +11,7 @@ import pakkaaja.tietorakenteet.lista.Lista;
 /**
  * Luokka muodostaa aakkostolle Huffman-koodiston (merkki- ja Huffman-binäärikoodi -pari hajautustauluna).
  */
-public class HuffmanKoodaaja {
+public class Huffman {
     
     private int[] aakkosto;
     private Hajautustaulu<Character, String> koodisto;
@@ -21,9 +21,9 @@ public class HuffmanKoodaaja {
     
     /**
      * HuffmanKoodaajan konstruktori, joka kutsuttaessa samalla luo Huffman-puun sekä -koodiston sille syötteenä annetusta aakkostosta.
-     * @param aakkosto  aakkosto, josta Huffman-koodisto muodostetaan
+     * @param merkkilista merkkilista, josta Huffman-koodisto muodostetaan
      */
-    public HuffmanKoodaaja(Lista<Character> merkkilista) {
+    public Huffman(Lista<Character> merkkilista) {
         this.merkkilista = merkkilista;
         this.aakkosto = luoAakkosto();
         this.puu = rakennaPuu();

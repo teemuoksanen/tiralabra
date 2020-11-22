@@ -29,7 +29,7 @@ public class Pakkaaja {
         String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".pakattu";
         this.tiedostoPakattu = new File(tiedostoPakattuNimi);
         this.merkkilista = lueTiedostoMerkkilistaksi();
-        HuffmanKoodaaja huffman = new HuffmanKoodaaja(this.merkkilista);
+        Huffman huffman = new Huffman(this.merkkilista);
         this.koodisto = huffman.getKoodisto();
         this.avain = huffman.getAvain();
     }
