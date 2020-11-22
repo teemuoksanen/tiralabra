@@ -1,6 +1,6 @@
-# Huffman-pakkaaja
+# Pakkaaja
 
-Huffman-pakkaaja on Helsingin yliopiston _Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit_ -kurssilla ([Tiralabra - 2020 p2](https://tiralabra.github.io/2020_p2/)) toteuttamani harjoitustyö.
+Pakkaaja on Helsingin yliopiston _Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit_ -kurssilla ([Tiralabra - 2020 p2](https://tiralabra.github.io/2020_p2/)) toteuttamani harjoitustyö.
 
 ## Dokumentaatio
 
