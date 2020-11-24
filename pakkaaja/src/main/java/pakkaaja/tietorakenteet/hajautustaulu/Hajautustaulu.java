@@ -81,6 +81,13 @@ public class Hajautustaulu<K, V> {
         return arvo;
     }
     
+    public boolean sisaltaaAvaimen(K avain) {
+        if (this.hae(avain) != null) {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Hakee alkion arvon annetun avaimen perusteella.
      * @param avain haettavan alkion avain

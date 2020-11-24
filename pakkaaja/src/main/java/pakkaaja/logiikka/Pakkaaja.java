@@ -26,7 +26,7 @@ public class Pakkaaja {
      */
     public Pakkaaja(File tiedosto) throws FileNotFoundException, IOException {
         this.tiedostoPakattava = tiedosto;
-        String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".pakattu";
+        String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".huff";
         this.tiedostoPakattu = new File(tiedostoPakattuNimi);
         this.merkkilista = lueTiedostoMerkkilistaksi();
         Huffman huffman = new Huffman(this.merkkilista);
