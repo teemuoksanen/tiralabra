@@ -10,6 +10,8 @@ Siirsin myös kaiken tulostamisen Pakkaaja- ja Purkaja-luokista käyttöliittym�
 
 Käyttöliittymää on lisäksi refaktoroitu, jotta sen jatkokehittäminen on helpompaa ja ymmärrettävyys parempaa.
 
+Toteutus- ja testausdokumentteja aloitin kirjoittamaan myös kunnolla tällä viikolla.
+
 ## Miten ohjelma on edistynyt?
 
 Viime viikon lopussa juuri ennen palautusta valmistuneesta Keko-tietorakenteesta paljastui muutamia puutteita - kiitos tekemäni yksikkötestauksen. Nämä puutteet on nyt korjattu.
