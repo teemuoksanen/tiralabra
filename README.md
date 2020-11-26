@@ -4,6 +4,7 @@ Pakkaaja on Helsingin yliopiston _Aineopintojen harjoitustyö: Tietorakenteet ja
 
 ## Dokumentaatio
 
+- [Käyttöohje](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Kayttoohje.md)
 - [Määrittelydokumentti](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Maarittely.md)
 - [Toteutusdokumentti](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Toteutusdokumentti.md)
 - [Testausdokumentti](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Testausdokumentti.md)
