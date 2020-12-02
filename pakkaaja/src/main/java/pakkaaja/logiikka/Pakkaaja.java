@@ -8,7 +8,7 @@ import pakkaaja.logiikka.io.BittiKirjoittaja;
 import pakkaaja.logiikka.io.BittiLukija;
 
 /**
- * Luokka pakkaa sille syötteenä annetun tiedoston Huffman-algoritmin mukaisesti.
+ * Luokka pakkaa sille syötteenä annetun tiedoston HuffmanPakkaaja-algoritmin mukaisesti.
  */
 public class Pakkaaja {
     
@@ -29,7 +29,7 @@ public class Pakkaaja {
         String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".huff";
         this.tiedostoPakattu = new File(tiedostoPakattuNimi);
         this.merkkilista = lueTiedostoMerkkilistaksi();
-        Huffman huffman = new Huffman(this.merkkilista);
+        HuffmanPakkaaja huffman = new HuffmanPakkaaja(this.merkkilista);
         this.koodisto = huffman.getKoodisto();
         this.avain = huffman.getAvain();
     }
@@ -80,7 +80,7 @@ public class Pakkaaja {
     }
     
     /**
-     * Apumetodi, joka kirjoituttaa Huffman-puun avaimen pakattuun tiedstoon.
+     * Apumetodi, joka kirjoituttaa HuffmanPakkaaja-puun avaimen pakattuun tiedstoon.
      */
     private void kirjoitaAvain(BittiKirjoittaja kirjoittaja) throws IOException {
         for (int i = 0; i < this.avain.koko(); i++) {

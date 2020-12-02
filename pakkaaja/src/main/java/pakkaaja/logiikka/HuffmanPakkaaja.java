@@ -9,9 +9,9 @@ import pakkaaja.tietorakenteet.keko.Keko;
 import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
- * Luokka muodostaa aakkostolle Huffman-koodiston (merkki- ja Huffman-binäärikoodi -pari hajautustauluna).
+ * Luokka muodostaa aakkostolle HuffmanPakkaaja-koodiston (merkki- ja HuffmanPakkaaja-binäärikoodi -pari hajautustauluna).
  */
-public class Huffman {
+public class HuffmanPakkaaja {
     
     private int[] aakkosto;
     private Hajautustaulu<Character, String> koodisto;
@@ -23,7 +23,7 @@ public class Huffman {
      * HuffmanKoodaajan konstruktori, joka kutsuttaessa samalla luo Huffman-puun sekä -koodiston sille syötteenä annetusta aakkostosta.
      * @param merkkilista merkkilista, josta Huffman-koodisto muodostetaan
      */
-    public Huffman(Lista<Character> merkkilista) {
+    public HuffmanPakkaaja(Lista<Character> merkkilista) {
         this.merkkilista = merkkilista;
         this.aakkosto = luoAakkosto();
         this.puu = rakennaPuu();
@@ -33,16 +33,16 @@ public class Huffman {
     }
     
     /**
-     * Palauttaa Huffman-koodiston.
-     * @return koodisto eli merkki- ja Huffman-binäärikoodi -pari hajautustauluna
+     * Palauttaa HuffmanPakkaaja-koodiston.
+     * @return koodisto eli merkki- ja HuffmanPakkaaja-binäärikoodi -pari hajautustauluna
      */
     public Hajautustaulu<Character, String> getKoodisto() {
         return this.koodisto;
     }
     
     /**
-     * Palauttaa Huffman-avaimen.
-     * @return avain eli Huffman-puu lyhyeksi koodattuna
+     * Palauttaa HuffmanPakkaaja-avaimen.
+     * @return avain eli HuffmanPakkaaja-puu lyhyeksi koodattuna
      */
     public Lista<Object> getAvain() {
         return this.avain;
@@ -86,7 +86,7 @@ public class Huffman {
     }
 
     /**
-     * Apumetodi, joka luo Huffman-koodiston ja -avaimen.
+     * Apumetodi, joka luo HuffmanPakkaaja-koodiston ja -avaimen.
      */
     private void luoKoodisto(Puu puu, String koodijono) {
         if (puu instanceof Lehti) {
