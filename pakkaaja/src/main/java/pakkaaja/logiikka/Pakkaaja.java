@@ -62,7 +62,7 @@ public class Pakkaaja {
     }
     
     /**
-     * Apumetodi, joka laskee kunkin merkin määrät annetun tiedoston sisällöstä.
+     * Apumetodi, joka lukee annetun tiedoston sisällön merkkilistaksi.
      */
     private Lista<Character> lueTiedostoMerkkilistaksi() throws FileNotFoundException, IOException {        
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattava);

@@ -3,8 +3,10 @@ package pakkaaja.ui;
 
 import java.io.*;
 import java.util.Scanner;
+import pakkaaja.logiikka.LzwPakkaaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
+import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.
@@ -48,6 +50,9 @@ public class Kayttoliittyma {
                 case "3":
                     this.vaihdaTilastot();
                     break;
+                case "4":
+                    this.lzwPakkaa();
+                    break;
                 default:
                     System.out.println("Virheellinen komento: " + komento);
                     break;
@@ -70,6 +75,31 @@ public class Kayttoliittyma {
             long alku = System.nanoTime();
             Pakkaaja pakkaaja = new Pakkaaja(tiedosto);
             File pakattu = pakkaaja.pakkaaTiedosto();
+            long loppu = System.nanoTime();
+            System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
+            System.out.println(pakattu.getAbsoluteFile());
+            if (tilastot) {
+                tulostaTilastot(alku, loppu, tiedosto, pakattu);
+            }
+        } catch (Exception ex) {
+            kasittelePoikkeus(ex);
+        }
+    }
+    
+    /**
+     * Ajaa pakaamistoiminnallisuuden LZW-menetelmällä - KESKEN.
+     */
+    private void lzwPakkaa() {
+        File tiedosto = kysyTiedostonimi(false);
+        if (tiedosto == null) {
+            return;
+        }
+
+        try {
+            System.out.println("Pakataan tiedosto '" + tiedosto.getName() + "'...\n");
+            long alku = System.nanoTime();
+            LzwPakkaaja lzwPakkaaja = new LzwPakkaaja(tiedosto);
+            File pakattu = lzwPakkaaja.pakkaaTiedosto();
             long loppu = System.nanoTime();
             System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
             System.out.println(pakattu.getAbsoluteFile());
