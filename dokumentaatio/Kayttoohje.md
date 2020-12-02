@@ -6,7 +6,7 @@ Lataa repositorion sisältö [ZIP-pakettina](https://github.com/teemuoksanen/tir
 
 `git clone git@github.com:teemuoksanen/tiralabra-huffman.git`
 
-Siirry hakemistoon, jonne purit paketin tai kloonasit sisällön, ja käynnistä ohjelma komennolla
+Siirry alihakemistoon *pakkaaja* siinä hakemistossa, jonne purit paketin tai kloonasit sisällön, ja käynnistä ohjelma komennolla
 
 `gradle -q –console plain run`
 
