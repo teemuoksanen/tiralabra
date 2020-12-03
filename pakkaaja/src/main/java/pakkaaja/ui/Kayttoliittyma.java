@@ -4,6 +4,7 @@ package pakkaaja.ui;
 import java.io.*;
 import java.util.Scanner;
 import pakkaaja.logiikka.LzwPakkaaja;
+import pakkaaja.logiikka.LzwPurkaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
 import pakkaaja.tietorakenteet.lista.Lista;
@@ -52,6 +53,9 @@ public class Kayttoliittyma {
                     break;
                 case "4":
                     this.lzwPakkaa();
+                    break;
+                case "5":
+                    this.lzwPura();
                     break;
                 default:
                     System.out.println("Virheellinen komento: " + komento);
@@ -125,6 +129,32 @@ public class Kayttoliittyma {
             System.out.println("Puretaan tiedosto '" + tiedosto.getName() + "'...\n");
             long alku = System.nanoTime();
             Purkaja purkaja = new Purkaja(tiedosto);
+            File purettu = purkaja.puraTiedosto();
+            long loppu = System.nanoTime();
+            System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
+            System.out.println(purettu.getAbsoluteFile());
+            if (tilastot) {
+                tulostaTilastot(alku, loppu, null, null);
+            }
+        } catch (Exception ex) {
+            kasittelePoikkeus(ex);
+        }
+    }
+
+    
+    /**
+     * Ajaa purkutoiminnallisuuden.
+     */
+    private void lzwPura() {
+        File tiedosto = kysyTiedostonimi(true);
+        if (tiedosto == null) {
+            return;
+        }
+
+        try {
+            System.out.println("Puretaan tiedosto '" + tiedosto.getName() + "'...\n");
+            long alku = System.nanoTime();
+            LzwPurkaja purkaja = new LzwPurkaja(tiedosto);
             File purettu = purkaja.puraTiedosto();
             long loppu = System.nanoTime();
             System.out.println("Tiedosto on purettu ja tallennettu nimellä:");

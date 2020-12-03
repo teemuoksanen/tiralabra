@@ -34,7 +34,7 @@ public class Purkaja {
     
     private String muodostaPurettuNimi() {
         String polku = this.tiedostoPakattu.getParent() + "/";
-        String nimi = this.tiedostoPakattu.getName().replace(".pakattu", "");
+        String nimi = this.tiedostoPakattu.getName().replace(".huff", "");
         String paate = "";
         int erotin = nimi.lastIndexOf('.');
         if (erotin != -1) {

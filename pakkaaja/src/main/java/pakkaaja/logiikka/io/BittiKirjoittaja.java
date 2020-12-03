@@ -79,6 +79,15 @@ public class BittiKirjoittaja {
             }
         }
     }
+
+    /**
+     * Metodi kirjoittaa parametrina annetun merkkijonon binäärimuodossa.
+     * @param jono kirjoitettava merkkijono
+     * @throws IOException Heittää IOException -poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     */
+    public void kirjoitaMerkkijono(String jono) throws IOException {
+        stream.write(jono.getBytes());
+    }
     
     /**
      * Metodi täyttää tarvittaessa kesken olevan tavun nollilla ja sulkee sen jälkeen tavuvirran.

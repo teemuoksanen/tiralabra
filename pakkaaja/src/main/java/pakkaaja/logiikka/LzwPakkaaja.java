@@ -14,6 +14,7 @@ import pakkaaja.tietorakenteet.lista.Lista;
  */
 public class LzwPakkaaja {
     
+    private final static int MAKSIMIKOKO_KOODISTO = 65535;
     private File tiedostoPakattava;
     private File tiedostoPakattu;
     private Lista<Character> tiedostoMerkkeina;
@@ -27,7 +28,6 @@ public class LzwPakkaaja {
         this.tiedostoPakattu = new File(tiedostoPakattuNimi);
         this.tiedostoMerkkeina = this.lueTiedostoMerkkilistaksi();
         this.koodisto = this.alustaKoodisto();
-        this.koodistonPituus = 256;
         this.pakattu = this.pakkaaMerkit(this.tiedostoMerkkeina);
     }
 
@@ -67,6 +67,9 @@ public class LzwPakkaaja {
                 pakattu.lisaa(this.koodisto.hae(w));
                 this.koodisto.lisaa(wc, this.koodistonPituus++);
                 w = "" + c;
+                if (this.koodisto.koko() >= MAKSIMIKOKO_KOODISTO) {
+                    this.koodisto = this.alustaKoodisto();
+                }
             }
         }
         
@@ -83,6 +86,8 @@ public class LzwPakkaaja {
     private void kirjoitaTiedosto(BittiKirjoittaja kirjoittaja) throws IOException {
         for (int i = 0; i < this.pakattu.koko(); i++) {
             char merkki = (char)(int) this.pakattu.hae(i);
+            int ensimmainenTavu = merkki >> 8;
+            kirjoittaja.kirjoitaTavu((char) ensimmainenTavu);
             kirjoittaja.kirjoitaTavu(merkki);
         }
     }
@@ -96,6 +101,7 @@ public class LzwPakkaaja {
             String merkki = "" + (char) i;
             koodisto.lisaa(merkki, i);
         }
+        this.koodistonPituus = 256;
         return koodisto;
     }
     
