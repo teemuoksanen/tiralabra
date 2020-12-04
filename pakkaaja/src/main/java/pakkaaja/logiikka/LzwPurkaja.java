@@ -69,6 +69,9 @@ public class LzwPurkaja {
         return uusiNimi;
     }
     
+    /**
+     * Apumetodi, joka alustaa LZW-algoritmin koodistoon ASCII-aakkoset.
+     */
     private Hajautustaulu<Integer, String> alustaKoodisto() {
         Hajautustaulu<Integer, String> koodisto = new Hajautustaulu();
         for (int i = 0; i < 256; i++) {
@@ -78,7 +81,10 @@ public class LzwPurkaja {
         this.koodistonPituus = 256;
         return koodisto;
     }
-    
+
+    /**
+     * Apumetodi, joka purkaa LZW-algoritmin avulla kokonaislukulistana annetut merkit ja palauttaa ne merkkijonolistana.
+     */    
     private Lista<String> puraMerkit(Lista<Integer> pakattu) {
         Lista<String> purettu = new Lista();
         String w = "" + (char) (int) pakattu.hae(0);
@@ -104,6 +110,9 @@ public class LzwPurkaja {
         return purettu;
     }
     
+    /**
+     * Apumetodi, joka kirjoittaa puretut merkit tiedostoon.
+     */
     private void kirjoitaPurettu(Lista<String> purettu) throws FileNotFoundException, IOException {
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
         for (int i = 0; i < purettu.koko(); i++) {
