@@ -66,7 +66,7 @@ public class Kayttoliittyma {
 
     
     /**
-     * Ajaa pakaamistoiminnallisuuden.
+     * Ajaa pakaamistoiminnallisuuden Huffman-algoritmilla.
      */
     private void pakkaa() {
         File tiedosto = kysyTiedostonimi(false);
@@ -91,7 +91,7 @@ public class Kayttoliittyma {
     }
     
     /**
-     * Ajaa pakaamistoiminnallisuuden LZW-menetelmällä - KESKEN.
+     * Ajaa pakaamistoiminnallisuuden LZW-algoritmilla - KESKEN.
      */
     private void lzwPakkaa() {
         File tiedosto = kysyTiedostonimi(false);
@@ -117,7 +117,7 @@ public class Kayttoliittyma {
 
     
     /**
-     * Ajaa purkutoiminnallisuuden.
+     * Ajaa purkutoiminnallisuuden Huffman-algoritmilla.
      */
     private void pura() {
         File tiedosto = kysyTiedostonimi(true);
@@ -143,7 +143,7 @@ public class Kayttoliittyma {
 
     
     /**
-     * Ajaa purkutoiminnallisuuden.
+     * Ajaa purkutoiminnallisuuden LZW-algortimilla.
      */
     private void lzwPura() {
         File tiedosto = kysyTiedostonimi(true);
@@ -169,7 +169,7 @@ public class Kayttoliittyma {
     
     
     /**
-     * 
+     * Kysyy käyttäjältä pakattavan/purettavan tiedoston nimen.
      */
     private File kysyTiedostonimi(boolean purkaja) {
         String tiedostonimi = "";
