@@ -11,6 +11,8 @@ import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
  * LZW-PURKAJA - VIELÄ KESKEN
+ * Luokka ourkaa sille syötteenä annetun Lempel-Ziv-Welch -algoritmilla (LZW) pakatun tiedoston.
+ * HUOM! Luokka on vielä keskeneräinen - pakkaus ja purku eivät vielä toimi kunnolla!
  */
 public class LzwPurkaja {
     
@@ -20,7 +22,11 @@ public class LzwPurkaja {
     private Lista<Integer> pakattu;
     private Hajautustaulu<Integer, String> koodisto;
     private int koodistonPituus;
-    
+        
+    /**
+     * Purkajan konstruktori, joka alustaa tarvittavat muuttujat ja oliot.
+     * @param tiedosto purettava tiedosto
+     */
     public LzwPurkaja(File tiedosto) {
         this.tiedostoPakattu = tiedosto;
         String tiedostoPurettuNimi = muodostaPurettuNimi();
@@ -70,9 +76,9 @@ public class LzwPurkaja {
         return koodisto;
     }
     
-    public Lista<String> puraMerkit(Lista<Integer> pakattu) {
+    private Lista<String> puraMerkit(Lista<Integer> pakattu) {
         Lista<String> purettu = new Lista();
-        String w = "" + (char)(int) pakattu.hae(0);
+        String w = "" + (char) (int) pakattu.hae(0);
         
         for (int i = 0; i < pakattu.koko(); i++) {
             int nykyinen = pakattu.hae(i);

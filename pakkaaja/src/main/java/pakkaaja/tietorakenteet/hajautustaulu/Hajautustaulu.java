@@ -81,6 +81,11 @@ public class Hajautustaulu<K, V> {
         return arvo;
     }
     
+    /**
+     * Tarkistaa, sisältääkö taulu syötteenä annetun avaimen.
+     * @param avain haettava avain
+     * @return true, jos löytyy; muuten false
+     */
     public boolean sisaltaaAvaimen(K avain) {
         if (this.hae(avain) != null) {
             return true;

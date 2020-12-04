@@ -10,7 +10,8 @@ import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
- * LZW-PAKKAAJA - VIELÄ KESKEN
+ * Luokka pakkaa sille syötteenä annetun tiedoston Lempel-Ziv-Welch -algoritmin (LZW) mukaisesti.
+ * HUOM! Luokka on vielä keskeneräinen - pakkaus ja purku eivät vielä toimi kunnolla!
  */
 public class LzwPakkaaja {
     
@@ -22,6 +23,12 @@ public class LzwPakkaaja {
     private int koodistonPituus;
     private Lista<Integer> pakattu;
     
+    /**
+     * Pakkaajan konstruktori, joka kutsuttaessa samalla luo koodiston syötteenä annetusta tiedostosta ja lukee tiedoston merkkilistaksi.
+     * @param tiedosto pakattava tiedosto
+     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     */
     public LzwPakkaaja(File tiedosto) throws IOException {
         this.tiedostoPakattava = tiedosto;
         String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".lzw";
@@ -31,6 +38,13 @@ public class LzwPakkaaja {
         this.pakattu = this.pakkaaMerkit(this.tiedostoMerkkeina);
     }
 
+    /**
+     * Metodi hoitaa tiedoston pakkaamisen apumetodiensa avulla ja ilmoittaa pakatun tiedoston nimen, kun pakkaminen on valmis.
+     * @return pakattu tiedosto
+     * @throws TiedostoOlemassaPoikkeus Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen pakattu tiedosto on jo olemassa.
+     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     */
     public File pakkaaTiedosto() throws FileNotFoundException, IOException, TiedostoOlemassaPoikkeus {
         if (tiedostoPakattu.exists()) {
             throw new TiedostoOlemassaPoikkeus(tiedostoPakattu, "pakkaaja");
@@ -54,6 +68,7 @@ public class LzwPakkaaja {
     /**
      * Apumetodi, joka kokoaa pakattavasta merkkilistasta koodiston ja pakattavan listan.
      */
+    // HUOM! Metodi on yli 20 riviä - uudelleenfaktoroi, jos mahdollista.
     private Lista<Integer> pakkaaMerkit(Lista<Character> merkkilista) {
         Lista<Integer> pakattu = new Lista();
         String w = "" + (char) merkkilista.hae(0);
@@ -85,7 +100,7 @@ public class LzwPakkaaja {
      */
     private void kirjoitaTiedosto(BittiKirjoittaja kirjoittaja) throws IOException {
         for (int i = 0; i < this.pakattu.koko(); i++) {
-            char merkki = (char)(int) this.pakattu.hae(i);
+            char merkki = (char) (int) this.pakattu.hae(i);
             int ensimmainenTavu = merkki >> 8;
             kirjoittaja.kirjoitaTavu((char) ensimmainenTavu);
             kirjoittaja.kirjoitaTavu(merkki);
