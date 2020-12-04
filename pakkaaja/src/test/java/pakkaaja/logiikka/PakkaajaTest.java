@@ -101,7 +101,7 @@ public class PakkaajaTest {
     
     @Test(expected = TiedostoOlemassaPoikkeus.class)
     public void joPuretunTiedostonPurkaminenHeittaaPoikkeuksen() throws IOException, FileNotFoundException, TiedostoOlemassaPoikkeus {
-        File tiedosto = new File("src/test/resources/olemassa.txt.pakattu");
+        File tiedosto = new File("src/test/resources/olemassa.txt.huff");
         Purkaja olemassa = new Purkaja(tiedosto);
         olemassa.puraTiedosto();
     }
