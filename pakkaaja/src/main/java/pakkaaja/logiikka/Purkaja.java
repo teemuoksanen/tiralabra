@@ -32,6 +32,9 @@ public class Purkaja {
         this.koodisto = new Hajautustaulu();
     }
     
+    /**
+     * Apumetodi, joka lukee muodostaa puretun tiedoston nimen (".huff"-pääte pois ja "-purettu" osaksi tiedostonimeä).
+     */
     private String muodostaPurettuNimi() {
         String polku = this.tiedostoPakattu.getParent() + "/";
         String nimi = this.tiedostoPakattu.getName().replace(".huff", "");

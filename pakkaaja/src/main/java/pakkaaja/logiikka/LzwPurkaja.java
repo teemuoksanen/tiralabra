@@ -53,6 +53,9 @@ public class LzwPurkaja {
         return this.tiedostoPurettu;
     }
     
+    /**
+     * Apumetodi, joka lukee muodostaa puretun tiedoston nimen (".lzw"-pääte pois ja "-purettu" osaksi tiedostonimeä).
+     */
     private String muodostaPurettuNimi() {
         String polku = this.tiedostoPakattu.getParent() + "/";
         String nimi = this.tiedostoPakattu.getName().replace(".lzw", "");
