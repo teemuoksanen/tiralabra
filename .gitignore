@@ -1,7 +1,8 @@
 .gradle
 /build/
-*.pakattu
-*/puretut/*
+*.huff
+*.lzw
+*-purettu*
 */lisaesimerkit/*
 
 # Ignore Gradle GUI config
