@@ -74,14 +74,14 @@ public class LzwPakkaaja {
         String w = "" + (char) merkkilista.hae(0);
         
         for (int i = 1; i < merkkilista.koko(); i++) {
-            Character c = (char) merkkilista.hae(i);
-            String wc = w + c;
+            Character nykyinen = (char) merkkilista.hae(i);
+            String wc = w + nykyinen;
             if (this.koodisto.sisaltaaAvaimen(wc)) {
                 w = wc;
             } else {
                 pakattu.lisaa(this.koodisto.hae(w));
                 this.koodisto.lisaa(wc, this.koodistonPituus++);
-                w = "" + c;
+                w = "" + nykyinen;
                 if (this.koodisto.koko() >= MAKSIMIKOKO_KOODISTO) {
                     this.koodisto = this.alustaKoodisto();
                 }

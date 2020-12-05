@@ -20,6 +20,7 @@ public class LzwPurkaja {
     private File tiedostoPakattu;
     private File tiedostoPurettu;
     private Lista<Integer> pakattu;
+    private Lista<String> purettu;
     private Hajautustaulu<Integer, String> koodisto;
     private int koodistonPituus;
         
@@ -43,12 +44,12 @@ public class LzwPurkaja {
      */
     public File puraTiedosto() throws FileNotFoundException, IOException, TiedostoOlemassaPoikkeus {
         if (tiedostoPurettu.exists()) {
-            throw new TiedostoOlemassaPoikkeus(tiedostoPurettu, "pakkaaja");
+            throw new TiedostoOlemassaPoikkeus(tiedostoPurettu, "purkaja");
         }
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
         this.pakattu = lueTiedosto(lukija);
         lukija.close();
-        Lista<String> purettu = this.puraMerkit(pakattu);
+        this.purettu = this.puraMerkit(pakattu);
         this.kirjoitaPurettu(purettu);
         return this.tiedostoPurettu;
     }
@@ -73,41 +74,46 @@ public class LzwPurkaja {
      * Apumetodi, joka alustaa LZW-algoritmin koodistoon ASCII-aakkoset.
      */
     private Hajautustaulu<Integer, String> alustaKoodisto() {
-        Hajautustaulu<Integer, String> koodisto = new Hajautustaulu();
+        Hajautustaulu<Integer, String> alustettuKoodisto = new Hajautustaulu();
         for (int i = 0; i < 256; i++) {
             String merkki = "" + (char) i;
-            koodisto.lisaa(i, merkki);
+            alustettuKoodisto.lisaa(i, merkki);
         }
         this.koodistonPituus = 256;
-        return koodisto;
+        return alustettuKoodisto;
     }
 
     /**
      * Apumetodi, joka purkaa LZW-algoritmin avulla kokonaislukulistana annetut merkit ja palauttaa ne merkkijonolistana.
      */    
     private Lista<String> puraMerkit(Lista<Integer> pakattu) {
-        Lista<String> purettu = new Lista();
+        Lista<String> purettuLista = new Lista();
         String w = "" + (char) (int) pakattu.hae(0);
+        purettuLista.lisaa(w);
         
-        for (int i = 0; i < pakattu.koko(); i++) {
+        for (int i = 1; i < pakattu.koko(); i++) {
             int nykyinen = pakattu.hae(i);
-            String purku;
+            String purettuMerkki;
             if (this.koodisto.sisaltaaAvaimen(nykyinen)) {
-                purku = this.koodisto.hae(nykyinen);
+                purettuMerkki = this.koodisto.hae(nykyinen);
             } else if (nykyinen == this.koodistonPituus) {
-                purku = w + w.charAt(0);
+                purettuMerkki = w + w.charAt(0);
             } else {
                 throw new IllegalArgumentException("Virheellinen pakkaus kohdassa: " + nykyinen);
             }
             
-            purettu.lisaa(purku);
+            purettuLista.lisaa(purettuMerkki);
             
-            this.koodisto.lisaa(this.koodistonPituus++, w + purku.charAt(0));
+            this.koodisto.lisaa(this.koodistonPituus++, w + purettuMerkki.charAt(0));
+
+            if (this.koodisto.koko() >= MAKSIMIKOKO_KOODISTO) {
+                this.koodisto = this.alustaKoodisto();
+            }
             
-            w = purku;
+            w = purettuMerkki;
         }
         
-        return purettu;
+        return purettuLista;
     }
     
     /**
