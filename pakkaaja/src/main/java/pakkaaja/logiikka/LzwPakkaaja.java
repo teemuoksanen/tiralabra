@@ -11,7 +11,6 @@ import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
  * Luokka pakkaa sille syötteenä annetun tiedoston Lempel-Ziv-Welch -algoritmin (LZW) mukaisesti.
- * HUOM! Luokka on vielä keskeneräinen - pakkaus ja purku eivät vielä toimi kunnolla!
  */
 public class LzwPakkaaja {
     
@@ -41,13 +40,14 @@ public class LzwPakkaaja {
     /**
      * Metodi hoitaa tiedoston pakkaamisen apumetodiensa avulla ja ilmoittaa pakatun tiedoston nimen, kun pakkaminen on valmis.
      * @return pakattu tiedosto
-     * @throws TiedostoOlemassaPoikkeus Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen pakattu tiedosto on jo olemassa.
+     * @throws IllegalArgumentException Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen pakattu tiedosto on jo olemassa.
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public File pakkaaTiedosto() throws FileNotFoundException, IOException, TiedostoOlemassaPoikkeus {
+    public File pakkaaTiedosto() throws FileNotFoundException, IOException {
         if (tiedostoPakattu.exists()) {
-            throw new TiedostoOlemassaPoikkeus(tiedostoPakattu, "pakkaaja");
+            throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPakattu.getName() + "' on jo olemassa.\n"
+                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
         }
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
         kirjoitaTiedosto(kirjoittaja);
@@ -71,25 +71,25 @@ public class LzwPakkaaja {
     // HUOM! Metodi on yli 20 riviä - uudelleenfaktoroi, jos mahdollista.
     private Lista<Integer> pakkaaMerkit(Lista<Character> merkkilista) {
         Lista<Integer> pakattu = new Lista();
-        String w = "" + (char) merkkilista.hae(0);
+        String merkkipuskuri = "" + (char) merkkilista.hae(0);
         
         for (int i = 1; i < merkkilista.koko(); i++) {
-            Character nykyinen = (char) merkkilista.hae(i);
-            String wc = w + nykyinen;
-            if (this.koodisto.sisaltaaAvaimen(wc)) {
-                w = wc;
+            Character nykyinenMerkki = (char) merkkilista.hae(i);
+            String uusiPuskuri = merkkipuskuri + nykyinenMerkki;
+            if (this.koodisto.sisaltaaAvaimen(uusiPuskuri)) {
+                merkkipuskuri = uusiPuskuri;
             } else {
-                pakattu.lisaa(this.koodisto.hae(w));
-                this.koodisto.lisaa(wc, this.koodistonPituus++);
-                w = "" + nykyinen;
+                pakattu.lisaa(this.koodisto.hae(merkkipuskuri));
+                this.koodisto.lisaa(uusiPuskuri, this.koodistonPituus++);
+                merkkipuskuri = "" + nykyinenMerkki;
                 if (this.koodisto.koko() >= MAKSIMIKOKO_KOODISTO) {
                     this.koodisto = this.alustaKoodisto();
                 }
             }
         }
         
-        if (!w.equals("")) {
-            pakattu.lisaa(this.koodisto.hae(w));
+        if (!merkkipuskuri.equals("")) {
+            pakattu.lisaa(this.koodisto.hae(merkkipuskuri));
         }
         
         return pakattu;

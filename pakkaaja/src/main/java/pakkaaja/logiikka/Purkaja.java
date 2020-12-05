@@ -51,13 +51,14 @@ public class Purkaja {
     /**
      * Metodi hoitaa pakatun tiedoston purkamisen apumetodiensa avulla ja ilmoittaa puretun tiedoston nimen, kun purkaminen on valmis.
      * @return purettu tiedosto
-     * @throws TiedostoOlemassaPoikkeus Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen purettu tiedosto on jo olemassa.
+     * @throws IllegalArgumentException Heittää IllegalArgumentException-poikkeuksen, jos samanniminen purettu tiedosto on jo olemassa.
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public File puraTiedosto() throws FileNotFoundException, IOException, TiedostoOlemassaPoikkeus {
+    public File puraTiedosto() throws FileNotFoundException, IOException {
         if (tiedostoPurettu.exists()) {
-            throw new TiedostoOlemassaPoikkeus(tiedostoPurettu, "pakkaaja");
+            throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPurettu.getName() + "' on jo olemassa.\n"
+                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston purkamista.");
         }
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
         lueMerkkimaara(lukija);

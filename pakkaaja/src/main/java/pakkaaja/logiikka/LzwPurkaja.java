@@ -10,9 +10,7 @@ import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
- * LZW-PURKAJA - VIELÄ KESKEN
- * Luokka ourkaa sille syötteenä annetun Lempel-Ziv-Welch -algoritmilla (LZW) pakatun tiedoston.
- * HUOM! Luokka on vielä keskeneräinen - pakkaus ja purku eivät vielä toimi kunnolla!
+ * Luokka purkaa sille syötteenä annetun Lempel-Ziv-Welch -algoritmilla (LZW) pakatun tiedoston.
  */
 public class LzwPurkaja {
     
@@ -20,7 +18,7 @@ public class LzwPurkaja {
     private File tiedostoPakattu;
     private File tiedostoPurettu;
     private Lista<Integer> pakattu;
-    private Lista<String> purettu;
+    private Lista<Character> purettu;
     private Hajautustaulu<Integer, String> koodisto;
     private int koodistonPituus;
         
@@ -38,13 +36,14 @@ public class LzwPurkaja {
     /**
      * Metodi hoitaa pakatun tiedoston purkamisen apumetodiensa avulla ja ilmoittaa puretun tiedoston nimen, kun purkaminen on valmis.
      * @return purettu tiedosto
-     * @throws TiedostoOlemassaPoikkeus Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen purettu tiedosto on jo olemassa.
+     * @throws IllegalArgumentException Heittää IllegalArgumentException-poikkeuksen, jos samanniminen purettu tiedosto on jo olemassa.
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public File puraTiedosto() throws FileNotFoundException, IOException, TiedostoOlemassaPoikkeus {
-        if (tiedostoPurettu.exists()) {
-            throw new TiedostoOlemassaPoikkeus(tiedostoPurettu, "purkaja");
+    public File puraTiedosto() throws FileNotFoundException, IOException {
+        if (this.tiedostoPurettu.exists()) {
+            throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPurettu.getName() + "' on jo olemassa.\n"
+                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston purkamista.");
         }
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
         this.pakattu = lueTiedosto(lukija);
@@ -84,45 +83,48 @@ public class LzwPurkaja {
     }
 
     /**
-     * Apumetodi, joka purkaa LZW-algoritmin avulla kokonaislukulistana annetut merkit ja palauttaa ne merkkijonolistana.
+     * Apumetodi, joka purkaa LZW-algoritmin avulla pakatut merkit ja palauttaa ne merkkilistana.
      */    
-    private Lista<String> puraMerkit(Lista<Integer> pakattu) {
-        Lista<String> purettuLista = new Lista();
-        String w = "" + (char) (int) pakattu.hae(0);
-        purettuLista.lisaa(w);
+    private Lista<Character> puraMerkit(Lista<Integer> pakattu) { 
+        Lista<Character> purettu = new Lista();
+        Character ensimmainenKoodi = (char) (int) pakattu.hae(0);
+        String koodipuskuri = "" + ensimmainenKoodi;
+        purettu.lisaa(ensimmainenKoodi);
         
         for (int i = 1; i < pakattu.koko(); i++) {
-            int nykyinen = pakattu.hae(i);
-            String purettuMerkki;
-            if (this.koodisto.sisaltaaAvaimen(nykyinen)) {
-                purettuMerkki = this.koodisto.hae(nykyinen);
-            } else if (nykyinen == this.koodistonPituus) {
-                purettuMerkki = w + w.charAt(0);
+            int nykyinenKoodi = pakattu.hae(i);
+            String uusiPuskuri;
+            if (this.koodisto.sisaltaaAvaimen(nykyinenKoodi)) {
+                uusiPuskuri = this.koodisto.hae(nykyinenKoodi);
+            } else if (nykyinenKoodi == this.koodistonPituus) {
+                uusiPuskuri = koodipuskuri + koodipuskuri.charAt(0);
             } else {
-                throw new IllegalArgumentException("Virheellinen pakkaus kohdassa: " + nykyinen);
+                throw new IllegalArgumentException("Virheellinen pakkaus kohdassa: " + nykyinenKoodi);
             }
             
-            purettuLista.lisaa(purettuMerkki);
+            for (int j = 0; j < uusiPuskuri.length(); j++) {
+                purettu.lisaa(uusiPuskuri.charAt(j));
+            }
             
-            this.koodisto.lisaa(this.koodistonPituus++, w + purettuMerkki.charAt(0));
-
+            this.koodisto.lisaa(this.koodistonPituus++, koodipuskuri + uusiPuskuri.charAt(0));
+            
             if (this.koodisto.koko() >= MAKSIMIKOKO_KOODISTO) {
                 this.koodisto = this.alustaKoodisto();
             }
             
-            w = purettuMerkki;
+            koodipuskuri = uusiPuskuri;
         }
         
-        return purettuLista;
+        return purettu;
     }
     
     /**
      * Apumetodi, joka kirjoittaa puretut merkit tiedostoon.
      */
-    private void kirjoitaPurettu(Lista<String> purettu) throws FileNotFoundException, IOException {
+    private void kirjoitaPurettu(Lista<Character> purettu) throws FileNotFoundException, IOException {
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
         for (int i = 0; i < purettu.koko(); i++) {
-            kirjoittaja.kirjoitaMerkkijono(purettu.hae(i));
+            kirjoittaja.kirjoitaTavu(purettu.hae(i));
         }
         kirjoittaja.close();
     }
@@ -136,7 +138,6 @@ public class LzwPurkaja {
         while ((int) (ensimmainenTavu = lukija.lueTavu()) != MAKSIMIKOKO_KOODISTO) {
             char toinenTavu = lukija.lueTavu();
             int merkki = (ensimmainenTavu << 8) | toinenTavu;
-            // System.out.println((int) ensimmainenTavu + "\t" + (int) toinenTavu + "\t" + merkki + "\t" + (char) merkki);
             merkit.lisaa(merkki);
         }
         return merkit;

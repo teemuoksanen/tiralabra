@@ -238,8 +238,7 @@ public class Kayttoliittyma {
      */
     private void kasittelePoikkeus(Exception ex) {
         System.out.println("VIRHE:");
-        System.out.println(ex.toString());
-        ex.printStackTrace();
+        System.out.println(ex.getMessage());
     }
     
     
