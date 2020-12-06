@@ -4,6 +4,7 @@ package pakkaaja.logiikka;
 import java.io.*;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
+import pakkaaja.tietorakenteet.keko.*;
 import pakkaaja.logiikka.io.BittiKirjoittaja;
 
 /**
@@ -12,9 +13,11 @@ import pakkaaja.logiikka.io.BittiKirjoittaja;
 public class HuffmanPakkaaja implements Pakkaaja {
     
     private File tiedostoPakattava;
+    private Lista<Character> merkkilista;
+    private int[] aakkosto;
+    private Puu juurisolmu;
     private Hajautustaulu<Character, String> koodisto;
     private Lista<Object> avain;
-    private Lista<Character> merkkilista;
     
     /**
      * Pakkaajan konstruktori.
@@ -22,6 +25,8 @@ public class HuffmanPakkaaja implements Pakkaaja {
      */
     public HuffmanPakkaaja(File tiedosto) {
         this.tiedostoPakattava = tiedosto;
+        this.koodisto = new Hajautustaulu<Character, String>();
+        this.avain = new Lista();
     }
     
     /**
@@ -35,15 +40,74 @@ public class HuffmanPakkaaja implements Pakkaaja {
     public File pakkaaTiedosto() throws FileNotFoundException, IOException {
         File tiedostoPakattu = muodostaPakattuTiedosto(this.tiedostoPakattava, "huff");
         this.merkkilista = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
-        HuffmanPakkaajaApuri huffman = new HuffmanPakkaajaApuri(this.merkkilista);
-        this.koodisto = huffman.getKoodisto();
-        this.avain = huffman.getAvain();
+        this.aakkosto = this.luoAakkosto();
+        this.juurisolmu = this.rakennaPuu();
+        this.luoKoodisto(juurisolmu, "");
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPakattu);
         kirjoitaMerkkimaara(kirjoittaja);
         kirjoitaAvain(kirjoittaja);
         kirjoitaTiedosto(kirjoittaja);
         kirjoittaja.close();
         return tiedostoPakattu;
+    }
+    
+    /**
+     * Apumetodi, joka laskee kunkin merkin määrät annetusta merkkilistasta.
+     */
+    private int[] luoAakkosto() {
+        int[] abc = new int[256];
+        
+        for (int i = 0; i < this.merkkilista.koko(); i++) {
+            char merkki = (char) this.merkkilista.hae(i);
+            abc[merkki]++;
+        }
+        
+        return abc;
+    }
+    
+    /**
+     * Apumetodi, joka rakentaa Puun ja palauttaa sen juurisolmun.
+     */
+    private Puu rakennaPuu() {
+        Keko puut = new Keko();
+        
+        for (int i = 0; i < aakkosto.length; i++) {
+            char merkki = (char) i;
+            Lehti lehti = new Lehti(merkki, aakkosto[i]);
+            puut.lisaa(lehti);
+        }
+        
+        while (puut.koko() > 1) {
+            Puu a = puut.poista();
+            Puu b = puut.poista();
+            
+            Solmu uusiSolmu = new Solmu(a, b);
+            puut.lisaa(uusiSolmu);
+        }
+        
+        return puut.poista();
+    }
+
+    /**
+     * Apumetodi, joka luo Huffman-koodiston ja -avaimen.
+     */
+    private void luoKoodisto(Puu puu, String koodijono) {
+        if (puu instanceof Lehti) {
+            Lehti lehti = (Lehti) puu;
+            this.koodisto.lisaa(lehti.getMerkki(), koodijono);
+            this.avain.lisaa((int) 1);
+            this.avain.lisaa((char) lehti.getMerkki());
+        } else {
+            Solmu solmu = (Solmu) puu;
+            
+            this.avain.lisaa((int) 0);
+            
+            String koodijonoVasen = koodijono + "0";
+            luoKoodisto(solmu.getVasen(), koodijonoVasen);
+            
+            String koodijonoOikea = koodijono + "1";
+            luoKoodisto(solmu.getOikea(), koodijonoOikea);
+        }
     }
     
     /**
