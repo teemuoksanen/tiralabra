@@ -1,12 +1,13 @@
 
-package pakkaaja.logiikka;
+package pakkaaja.logiikka.huffman;
 
 import java.io.*;
+import pakkaaja.logiikka.Purkaja;
 import pakkaaja.tietorakenteet.keko.Lehti;
 import pakkaaja.tietorakenteet.keko.Puu;
 import pakkaaja.tietorakenteet.keko.Solmu;
-import pakkaaja.logiikka.io.BittiKirjoittaja;
-import pakkaaja.logiikka.io.BittiLukija;
+import pakkaaja.io.BittiKirjoittaja;
+import pakkaaja.io.BittiLukija;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 
 /**

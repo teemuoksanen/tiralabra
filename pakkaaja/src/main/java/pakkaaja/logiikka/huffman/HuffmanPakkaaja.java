@@ -1,11 +1,12 @@
 
-package pakkaaja.logiikka;
+package pakkaaja.logiikka.huffman;
 
 import java.io.*;
+import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
 import pakkaaja.tietorakenteet.keko.*;
-import pakkaaja.logiikka.io.BittiKirjoittaja;
+import pakkaaja.io.BittiKirjoittaja;
 
 /**
  * Luokka pakkaa sille syötteenä annetun tiedoston Huffman-algoritmin mukaisesti.
@@ -40,14 +41,19 @@ public class HuffmanPakkaaja implements Pakkaaja {
     public File pakkaaTiedosto() throws FileNotFoundException, IOException {
         File tiedostoPakattu = muodostaPakattuTiedosto(this.tiedostoPakattava, "huff");
         this.merkkilista = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
+        
+        // Luodaan Huffman-algoritmiin liittyvä aakkosto, puu ja koodisto
         this.aakkosto = this.luoAakkosto();
         this.juurisolmu = this.rakennaPuu();
         this.luoKoodisto(juurisolmu, "");
+        
+        // Kirjoitetaan pakattu tiedosto
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPakattu);
         kirjoitaMerkkimaara(kirjoittaja);
         kirjoitaAvain(kirjoittaja);
         kirjoitaTiedosto(kirjoittaja);
         kirjoittaja.close();
+        
         return tiedostoPakattu;
     }
     

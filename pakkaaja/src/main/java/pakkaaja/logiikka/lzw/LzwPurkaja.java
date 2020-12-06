@@ -1,11 +1,12 @@
 
-package pakkaaja.logiikka;
+package pakkaaja.logiikka.lzw;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import pakkaaja.logiikka.io.BittiKirjoittaja;
-import pakkaaja.logiikka.io.BittiLukija;
+import pakkaaja.logiikka.Purkaja;
+import pakkaaja.io.BittiKirjoittaja;
+import pakkaaja.io.BittiLukija;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
 

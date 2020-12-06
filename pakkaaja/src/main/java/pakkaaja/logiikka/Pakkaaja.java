@@ -3,7 +3,7 @@ package pakkaaja.logiikka;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import pakkaaja.logiikka.io.BittiLukija;
+import pakkaaja.io.BittiLukija;
 import pakkaaja.tietorakenteet.lista.Lista;
 
 /**

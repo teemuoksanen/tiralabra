@@ -1,10 +1,11 @@
 
-package pakkaaja.logiikka;
+package pakkaaja.logiikka.lzw;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import pakkaaja.logiikka.io.BittiKirjoittaja;
+import pakkaaja.logiikka.Pakkaaja;
+import pakkaaja.io.BittiKirjoittaja;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
 
@@ -39,11 +40,16 @@ public class LzwPakkaaja implements Pakkaaja {
     public File pakkaaTiedosto() throws FileNotFoundException, IOException {
         File tiedostoPakattu = muodostaPakattuTiedosto(this.tiedostoPakattava, "lzw");
         this.tiedostoMerkkeina = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
+        
+        // Pakataan merkkilista LZW-algoritmilla
         this.koodisto = this.alustaKoodisto();
         this.pakattu = this.pakkaaMerkit(this.tiedostoMerkkeina);
+        
+        // Kirjoitetaan pakattu tiedosto
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPakattu);
         kirjoitaTiedosto(kirjoittaja);
         kirjoittaja.close();
+        
         return tiedostoPakattu;
     }
     

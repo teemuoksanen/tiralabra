@@ -1,5 +1,7 @@
 package pakkaaja.logiikka;
 
+import pakkaaja.logiikka.huffman.HuffmanPakkaaja;
+import pakkaaja.logiikka.huffman.HuffmanPurkaja;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -7,8 +9,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.PriorityQueue;
-import pakkaaja.logiikka.io.BittiKirjoittaja;
-import pakkaaja.logiikka.io.BittiLukija;
+import pakkaaja.io.BittiKirjoittaja;
+import pakkaaja.io.BittiLukija;
 
 import pakkaaja.tietorakenteet.keko.Lehti;
 import pakkaaja.tietorakenteet.keko.Puu;

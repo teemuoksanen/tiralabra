@@ -1,4 +1,4 @@
-package pakkaaja.logiikka.io;
+package pakkaaja.io;
 
 import java.io.InputStream;
 import java.io.BufferedInputStream;

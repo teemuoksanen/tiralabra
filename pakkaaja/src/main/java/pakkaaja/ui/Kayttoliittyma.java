@@ -3,10 +3,10 @@ package pakkaaja.ui;
 
 import java.io.*;
 import java.util.Scanner;
-import pakkaaja.logiikka.LzwPakkaaja;
-import pakkaaja.logiikka.LzwPurkaja;
-import pakkaaja.logiikka.HuffmanPakkaaja;
-import pakkaaja.logiikka.HuffmanPurkaja;
+import pakkaaja.logiikka.lzw.LzwPakkaaja;
+import pakkaaja.logiikka.lzw.LzwPurkaja;
+import pakkaaja.logiikka.huffman.HuffmanPakkaaja;
+import pakkaaja.logiikka.huffman.HuffmanPurkaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
 
