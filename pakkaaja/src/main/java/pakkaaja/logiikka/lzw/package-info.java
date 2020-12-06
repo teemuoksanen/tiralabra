@@ -1,4 +1,4 @@
-/*
+/**
  * Lempel-Ziv-Welch -pakkausalgortimin (LZW) toteutus.
  */
 
