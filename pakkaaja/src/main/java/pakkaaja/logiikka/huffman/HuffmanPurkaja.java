@@ -49,6 +49,7 @@ public class HuffmanPurkaja implements Purkaja {
         // Luetaan pakatun tiedoston sisältö ja kirjoitetaan se samalla purettuun tiedostoon
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
         lueJaKirjoitaTiedosto(lukija, kirjoittaja);
+        kirjoittaja.close();
         lukija.close();
         
         return tiedostoPurettu;
@@ -109,7 +110,6 @@ public class HuffmanPurkaja implements Purkaja {
             }
             char merkki = this.koodisto.hae(avain);
             kirjoittaja.kirjoitaTavu(merkki);
-            kirjoittaja.close();
         }
     }
     
