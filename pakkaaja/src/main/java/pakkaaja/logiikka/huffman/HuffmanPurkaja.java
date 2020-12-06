@@ -1,14 +1,13 @@
 
 package pakkaaja.logiikka.huffman;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import pakkaaja.logiikka.Purkaja;
-import pakkaaja.tietorakenteet.keko.Lehti;
-import pakkaaja.tietorakenteet.keko.Puu;
-import pakkaaja.tietorakenteet.keko.Solmu;
-import pakkaaja.io.BittiKirjoittaja;
-import pakkaaja.io.BittiLukija;
+import pakkaaja.tietorakenteet.keko.*;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
+import pakkaaja.io.*;
 
 /**
  * Luokka purkaa sille syötteenä annetun Huffman-algoritmilla pakatun tiedoston.

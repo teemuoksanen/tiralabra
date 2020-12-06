@@ -1,7 +1,9 @@
 
 package pakkaaja.logiikka.huffman;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
