@@ -20,7 +20,7 @@ public class LzwTest {
     LzwPakkaaja pakkaaja1;
     LzwPakkaaja pakkaaja2;
     
-    /* @Before
+    @Before
     public void setUpClass() {
         testitiedosto1 = new File("src/test/resources/test.txt");
         testitiedosto2 = new File("src/test/resources/test2.txt");
@@ -59,9 +59,9 @@ public class LzwTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void joPuretunTiedostonPurkaminenHeittaaPoikkeuksen() throws IOException, FileNotFoundException {
-        File tiedosto = new File("src/test/resources/olemassa.txt.huff");
+        File tiedosto = new File("src/test/resources/olemassa.txt.lzw");
         LzwPurkaja olemassa = new LzwPurkaja(tiedosto);
         olemassa.puraTiedosto();
-    } */
+    }
     
 }
