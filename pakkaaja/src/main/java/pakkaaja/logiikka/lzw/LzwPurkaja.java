@@ -17,8 +17,6 @@ public class LzwPurkaja implements Purkaja {
     
     private final static int MAKSIMIKOKO_KOODISTO = 65535;
     private File tiedostoPakattu;
-    private Lista<Integer> pakattu;
-    private Lista<Character> purettu;
     private Hajautustaulu<Integer, String> koodisto;
     private int koodistonPituus;
         
@@ -41,12 +39,20 @@ public class LzwPurkaja implements Purkaja {
     @Override
     public File puraTiedosto() throws FileNotFoundException, IOException {
         File tiedostoPurettu = muodostaPurettuTiedosto(this.tiedostoPakattu);
+        
+        // Luetaan pakattu tiedosto
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
-        this.pakattu = lueTiedosto(lukija);
+        Lista<Integer> pakatutMerkit = lueTiedosto(lukija);
         lukija.close();
-        this.purettu = this.puraMerkit(pakattu);
+        
+        // Käydään pakattu merkistö läpi ja puretaan se
+        Lista<Character> puretutMerkit = this.puraMerkit(pakatutMerkit);
+        
+        // Kirjoitetaan purettu tiedosto
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
-        this.kirjoitaPurettu(purettu, kirjoittaja);
+        this.kirjoitaPurettu(puretutMerkit, kirjoittaja);
+        kirjoittaja.close();
+        
         return tiedostoPurettu;
     }
     
@@ -105,7 +111,6 @@ public class LzwPurkaja implements Purkaja {
         for (int i = 0; i < purettu.koko(); i++) {
             kirjoittaja.kirjoitaTavu(purettu.hae(i));
         }
-        kirjoittaja.close();
     }
     
     /**

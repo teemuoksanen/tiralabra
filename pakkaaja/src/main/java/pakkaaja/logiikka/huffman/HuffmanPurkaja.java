@@ -41,13 +41,17 @@ public class HuffmanPurkaja implements Purkaja {
     public File puraTiedosto() throws FileNotFoundException, IOException {
         File tiedostoPurettu = muodostaPurettuTiedosto(this.tiedostoPakattu);
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
+        
+        // Luetaan pakatun tiedoston otsakkeet ja luodaan niiden perusteella Huffman-koodisto
         lueMerkkimaara(lukija);
         this.puu = luePuu(lukija);
         luoKoodisto(this.puu, "");
+        
+        // Luetaan pakatun tiedoston sisältö ja kirjoitetaan se samalla purettuun tiedostoon
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
         lueJaKirjoitaTiedosto(lukija, kirjoittaja);
         lukija.close();
-        kirjoittaja.close();
+        
         return tiedostoPurettu;
     }
     
@@ -106,6 +110,7 @@ public class HuffmanPurkaja implements Purkaja {
             }
             char merkki = this.koodisto.hae(avain);
             kirjoittaja.kirjoitaTavu(merkki);
+            kirjoittaja.close();
         }
     }
     

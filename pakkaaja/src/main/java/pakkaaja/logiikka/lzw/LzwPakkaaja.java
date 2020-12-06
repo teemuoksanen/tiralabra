@@ -16,7 +16,6 @@ public class LzwPakkaaja implements Pakkaaja {
     
     private final static int MAKSIMIKOKO_KOODISTO = 65535;
     private File tiedostoPakattava;
-    private Lista<Character> tiedostoMerkkeina;
     private Hajautustaulu<String, Integer> koodisto;
     private int koodistonPituus;
     private Lista<Integer> pakattu;
@@ -32,18 +31,18 @@ public class LzwPakkaaja implements Pakkaaja {
     /**
      * Metodi hoitaa tiedoston pakkaamisen apumetodiensa avulla ja palauttaa pakatun tiedoston, kun pakkaminen on valmis.
      * @return pakattu tiedosto
-     * @throws IllegalArgumentException Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen pakattu tiedosto on jo olemassa.
+     * @throws IllegalArgumentException Heittää IllegalArgumentException-poikkeuksen, jos samanniminen pakattu tiedosto on jo olemassa.
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
     @Override
     public File pakkaaTiedosto() throws FileNotFoundException, IOException {
         File tiedostoPakattu = muodostaPakattuTiedosto(this.tiedostoPakattava, "lzw");
-        this.tiedostoMerkkeina = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
+        Lista<Character> tiedostoMerkkeina = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
         
         // Pakataan merkkilista LZW-algoritmilla
         this.koodisto = this.alustaKoodisto();
-        this.pakattu = this.pakkaaMerkit(this.tiedostoMerkkeina);
+        this.pakattu = this.pakkaaMerkit(tiedostoMerkkeina);
         
         // Kirjoitetaan pakattu tiedosto
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPakattu);
