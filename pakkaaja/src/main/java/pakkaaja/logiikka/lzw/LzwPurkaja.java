@@ -17,7 +17,6 @@ public class LzwPurkaja implements Purkaja {
     
     private final static int MAKSIMIKOKO_KOODISTO = 65535;
     private File tiedostoPakattu;
-    private File tiedostoPurettu;
     private Lista<Integer> pakattu;
     private Lista<Character> purettu;
     private Hajautustaulu<Integer, String> koodisto;
@@ -29,7 +28,6 @@ public class LzwPurkaja implements Purkaja {
      */
     public LzwPurkaja(File tiedosto) {
         this.tiedostoPakattu = tiedosto;
-        this.tiedostoPurettu = new File(muodostaPurettuNimi(this.tiedostoPakattu));
         this.koodisto = this.alustaKoodisto();
     }
     
@@ -42,16 +40,14 @@ public class LzwPurkaja implements Purkaja {
      */
     @Override
     public File puraTiedosto() throws FileNotFoundException, IOException {
-        if (this.tiedostoPurettu.exists()) {
-            throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPurettu.getName() + "' on jo olemassa.\n"
-                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston purkamista.");
-        }
+        File tiedostoPurettu = muodostaPurettuTiedosto(this.tiedostoPakattu);
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
         this.pakattu = lueTiedosto(lukija);
         lukija.close();
         this.purettu = this.puraMerkit(pakattu);
-        this.kirjoitaPurettu(purettu);
-        return this.tiedostoPurettu;
+        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
+        this.kirjoitaPurettu(purettu, kirjoittaja);
+        return tiedostoPurettu;
     }
     
     /**
@@ -105,8 +101,7 @@ public class LzwPurkaja implements Purkaja {
     /**
      * Apumetodi, joka kirjoittaa puretut merkit tiedostoon.
      */
-    private void kirjoitaPurettu(Lista<Character> purettu) throws FileNotFoundException, IOException {
-        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
+    private void kirjoitaPurettu(Lista<Character> purettu, BittiKirjoittaja kirjoittaja) throws FileNotFoundException, IOException {
         for (int i = 0; i < purettu.koko(); i++) {
             kirjoittaja.kirjoitaTavu(purettu.hae(i));
         }

@@ -22,6 +22,7 @@ public interface Pakkaaja {
     /**
      * Metodi muodostaa alkuperäisen tiedoston nimestä pakattavan tiedoston nimen ja palauttaa sen.
      * @param tiedostoPakattava pakattava tiedosto
+     * @param paate pakattavan tiedoston tunniste
      * @return pakattu tiedosto
      */
     default File muodostaPakattuTiedosto(File tiedostoPakattava, String paate) {
@@ -34,6 +35,13 @@ public interface Pakkaaja {
         return tiedostoPakattu;
     }
     
+    /**
+     * Metodi lukee pakattavan tiedoston ja palauttaa sen merkkilistana.
+     * @param tiedostoPakattava pakattava tiedosto
+     * @return pakattava tiedosto merkkilistana
+     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     */
     default Lista<Character> lueTiedostoMerkkilistaksi(File tiedostoPakattava) throws FileNotFoundException, IOException {        
         BittiLukija lukija = new BittiLukija(tiedostoPakattava);
         Lista<Character> lista = lukija.lueTiedosto();

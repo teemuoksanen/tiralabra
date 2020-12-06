@@ -16,7 +16,6 @@ import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 public class HuffmanPurkaja implements Purkaja {
     
     private File tiedostoPakattu;
-    private File tiedostoPurettu;
     private long merkit;
     private Hajautustaulu<String, Character> koodisto;
     private Puu puu;
@@ -27,7 +26,6 @@ public class HuffmanPurkaja implements Purkaja {
      */
     public HuffmanPurkaja(File tiedosto) {
         this.tiedostoPakattu = tiedosto;
-        this.tiedostoPurettu = new File(muodostaPurettuNimi(this.tiedostoPakattu));
         this.merkit = 0;
         this.koodisto = new Hajautustaulu();
     }
@@ -41,17 +39,16 @@ public class HuffmanPurkaja implements Purkaja {
      */
     @Override
     public File puraTiedosto() throws FileNotFoundException, IOException {
-        if (tiedostoPurettu.exists()) {
-            throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPurettu.getName() + "' on jo olemassa.\n"
-                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston purkamista.");
-        }
+        File tiedostoPurettu = muodostaPurettuTiedosto(this.tiedostoPakattu);
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
         lueMerkkimaara(lukija);
         this.puu = luePuu(lukija);
         luoKoodisto(this.puu, "");
-        lueTiedosto(lukija);
+        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
+        lueJaKirjoitaTiedosto(lukija, kirjoittaja);
         lukija.close();
-        return this.tiedostoPurettu;
+        kirjoittaja.close();
+        return tiedostoPurettu;
     }
     
     /**
@@ -99,11 +96,9 @@ public class HuffmanPurkaja implements Purkaja {
     }
     
     /**
-     * Apumetodi, joka lukee alkuperäisen tiedoston sisällön pakatusta tiedostosta.
+     * Apumetodi, joka lukee alkuperäisen tiedoston sisällön pakatusta tiedostosta ja kirjoittaa puretun tiedoston.
      */
-    private void lueTiedosto(BittiLukija lukija) throws IOException {
-        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPurettu);
-        
+    private void lueJaKirjoitaTiedosto(BittiLukija lukija, BittiKirjoittaja kirjoittaja) throws IOException {
         for (int i = 0; i < this.merkit; i++) {
             String avain = String.valueOf(lukija.lueBitti());
             while (this.koodisto.hae(avain) == null) {
@@ -112,7 +107,6 @@ public class HuffmanPurkaja implements Purkaja {
             char merkki = this.koodisto.hae(avain);
             kirjoittaja.kirjoitaTavu(merkki);
         }
-        kirjoittaja.close();
     }
     
 }

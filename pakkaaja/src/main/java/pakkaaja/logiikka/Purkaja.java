@@ -19,9 +19,10 @@ public interface Purkaja {
     
     /**
      * Metodi muodostaa pakatun tiedoston nimestä purettavan tiedoston nimen ja palauttaa sen.
-     * @return puretun tiedoston nimi
+     * @param tiedostoPakattu purettava tiedosto
+     * @return purettu tiedosto
      */
-    default String muodostaPurettuNimi(File tiedostoPakattu) {
+    default File muodostaPurettuTiedosto(File tiedostoPakattu) {
         String polku = tiedostoPakattu.getParent() + "/";
         String nimi = tiedostoPakattu.getName().replace(".huff", "");
         nimi = nimi.replace(".lzw", "");
@@ -31,8 +32,13 @@ public interface Purkaja {
             paate = nimi.substring(erotin);
             nimi = nimi.substring(0, erotin);
         }
-        String uusiNimi = polku + nimi + "-purettu" + paate;
-        return uusiNimi;
+        String purettuNimi = polku + nimi + "-purettu" + paate;
+        File tiedostoPurettu = new File(purettuNimi);
+        if (tiedostoPurettu.exists()) {
+            throw new IllegalArgumentException("Tiedosto '" + tiedostoPurettu.getName() + "' on jo olemassa.\n"
+                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston purkamista.");
+        }
+        return tiedostoPurettu;
     }
     
 }
