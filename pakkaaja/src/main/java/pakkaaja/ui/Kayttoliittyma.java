@@ -9,7 +9,6 @@ import pakkaaja.logiikka.HuffmanPakkaaja;
 import pakkaaja.logiikka.HuffmanPurkaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
-import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.
@@ -240,7 +239,7 @@ public class Kayttoliittyma {
      */
     private void kasittelePoikkeus(Exception ex) {
         System.out.println("VIRHE:");
-        System.out.println(ex.getMessage());
+        System.out.println(ex.toString());
     }
     
     

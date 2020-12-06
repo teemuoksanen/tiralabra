@@ -28,8 +28,7 @@ public class LzwPurkaja implements Purkaja {
      */
     public LzwPurkaja(File tiedosto) {
         this.tiedostoPakattu = tiedosto;
-        String tiedostoPurettuNimi = muodostaPurettuNimi();
-        this.tiedostoPurettu = new File(tiedostoPurettuNimi);
+        this.tiedostoPurettu = new File(muodostaPurettuNimi(this.tiedostoPakattu));
         this.koodisto = this.alustaKoodisto();
     }
     
@@ -52,22 +51,6 @@ public class LzwPurkaja implements Purkaja {
         this.purettu = this.puraMerkit(pakattu);
         this.kirjoitaPurettu(purettu);
         return this.tiedostoPurettu;
-    }
-    
-    /**
-     * Apumetodi, joka lukee muodostaa puretun tiedoston nimen (".lzw"-pääte pois ja "-purettu" osaksi tiedostonimeä).
-     */
-    private String muodostaPurettuNimi() {
-        String polku = this.tiedostoPakattu.getParent() + "/";
-        String nimi = this.tiedostoPakattu.getName().replace(".lzw", "");
-        String paate = "";
-        int erotin = nimi.lastIndexOf('.');
-        if (erotin != -1) {
-            paate = nimi.substring(erotin);
-            nimi = nimi.substring(0, erotin);
-        }
-        String uusiNimi = polku + nimi + "-purettu" + paate;
-        return uusiNimi;
     }
     
     /**

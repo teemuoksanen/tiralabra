@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import pakkaaja.logiikka.io.BittiKirjoittaja;
-import pakkaaja.logiikka.io.BittiLukija;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
 
@@ -16,22 +15,17 @@ public class LzwPakkaaja implements Pakkaaja {
     
     private final static int MAKSIMIKOKO_KOODISTO = 65535;
     private File tiedostoPakattava;
-    private File tiedostoPakattu;
     private Lista<Character> tiedostoMerkkeina;
     private Hajautustaulu<String, Integer> koodisto;
     private int koodistonPituus;
     private Lista<Integer> pakattu;
     
     /**
-     * Pakkaajan konstruktori, joka kutsuttaessa samalla luo koodiston syötteenä annetusta tiedostosta ja lukee tiedoston merkkilistaksi.
+     * Pakkaajan konstruktori.
      * @param tiedosto pakattava tiedosto
-     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
-     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public LzwPakkaaja(File tiedosto) throws IOException {
+    public LzwPakkaaja(File tiedosto) {
         this.tiedostoPakattava = tiedosto;
-        String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".lzw";
-        this.tiedostoPakattu = new File(tiedostoPakattuNimi);
     }
 
     /**
@@ -41,28 +35,16 @@ public class LzwPakkaaja implements Pakkaaja {
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
+    @Override
     public File pakkaaTiedosto() throws FileNotFoundException, IOException {
-        if (tiedostoPakattu.exists()) {
-            throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPakattu.getName() + "' on jo olemassa.\n"
-                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
-        }
-        this.tiedostoMerkkeina = this.lueTiedostoMerkkilistaksi();
+        File tiedostoPakattu = muodostaPakattuTiedosto(this.tiedostoPakattava, "lzw");
+        this.tiedostoMerkkeina = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
         this.koodisto = this.alustaKoodisto();
         this.pakattu = this.pakkaaMerkit(this.tiedostoMerkkeina);
-        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
+        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPakattu);
         kirjoitaTiedosto(kirjoittaja);
         kirjoittaja.close();
-        return this.tiedostoPakattu;
-    }
-    
-    /**
-     * Apumetodi, joka lukee annetun tiedoston sisällön merkkilistaksi.
-     */
-    private Lista<Character> lueTiedostoMerkkilistaksi() throws FileNotFoundException, IOException {        
-        BittiLukija lukija = new BittiLukija(this.tiedostoPakattava);
-        Lista<Character> lista = lukija.lueTiedosto();
-        lukija.close();
-        return lista;
+        return tiedostoPakattu;
     }
     
     /**

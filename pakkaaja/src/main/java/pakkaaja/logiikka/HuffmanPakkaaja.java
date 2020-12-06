@@ -5,7 +5,6 @@ import java.io.*;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
 import pakkaaja.tietorakenteet.lista.Lista;
 import pakkaaja.logiikka.io.BittiKirjoittaja;
-import pakkaaja.logiikka.io.BittiLukija;
 
 /**
  * Luokka pakkaa sille syötteenä annetun tiedoston Huffman-algoritmin mukaisesti.
@@ -13,21 +12,16 @@ import pakkaaja.logiikka.io.BittiLukija;
 public class HuffmanPakkaaja implements Pakkaaja {
     
     private File tiedostoPakattava;
-    private File tiedostoPakattu;
     private Hajautustaulu<Character, String> koodisto;
     private Lista<Object> avain;
     private Lista<Character> merkkilista;
     
     /**
-     * Pakkaajan konstruktori, joka kutsuttaessa samalla luo aakoston, koodiston ja avaimen syötteenä annetusta tiedostosta.
+     * Pakkaajan konstruktori.
      * @param tiedosto pakattava tiedosto
-     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
-     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public HuffmanPakkaaja(File tiedosto) throws FileNotFoundException, IOException {
+    public HuffmanPakkaaja(File tiedosto) {
         this.tiedostoPakattava = tiedosto;
-        String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".huff";
-        this.tiedostoPakattu = new File(tiedostoPakattuNimi);
     }
     
     /**
@@ -37,31 +31,19 @@ public class HuffmanPakkaaja implements Pakkaaja {
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
+    @Override
     public File pakkaaTiedosto() throws FileNotFoundException, IOException {
-        if (tiedostoPakattu.exists()) {
-            throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPakattu.getName() + "' on jo olemassa.\n"
-                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
-        }
-        this.merkkilista = lueTiedostoMerkkilistaksi();
+        File tiedostoPakattu = muodostaPakattuTiedosto(this.tiedostoPakattava, "huff");
+        this.merkkilista = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
         HuffmanPakkaajaApuri huffman = new HuffmanPakkaajaApuri(this.merkkilista);
         this.koodisto = huffman.getKoodisto();
         this.avain = huffman.getAvain();
-        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
+        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(tiedostoPakattu);
         kirjoitaMerkkimaara(kirjoittaja);
         kirjoitaAvain(kirjoittaja);
         kirjoitaTiedosto(kirjoittaja);
         kirjoittaja.close();
-        return this.tiedostoPakattu;
-    }
-    
-    /**
-     * Apumetodi, joka lukee annetun tiedoston sisällön merkkilistaksi.
-     */
-    private Lista<Character> lueTiedostoMerkkilistaksi() throws FileNotFoundException, IOException {        
-        BittiLukija lukija = new BittiLukija(this.tiedostoPakattava);
-        Lista<Character> lista = lukija.lueTiedosto();
-        lukija.close();
-        return lista;
+        return tiedostoPakattu;
     }
     
     /**
@@ -73,7 +55,7 @@ public class HuffmanPakkaaja implements Pakkaaja {
     }
     
     /**
-     * Apumetodi, joka kirjoituttaa HuffmanPakkaajaApuri-puun avaimen pakattuun tiedstoon.
+     * Apumetodi, joka kirjoituttaa Huffman-puun avaimen pakattuun tiedstoon.
      */
     private void kirjoitaAvain(BittiKirjoittaja kirjoittaja) throws IOException {
         for (int i = 0; i < this.avain.koko(); i++) {

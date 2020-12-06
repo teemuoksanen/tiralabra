@@ -14,7 +14,7 @@ import pakkaaja.tietorakenteet.keko.Lehti;
 import pakkaaja.tietorakenteet.keko.Puu;
 import pakkaaja.tietorakenteet.keko.Solmu;
 
-public class PakkaajaTest {
+public class HuffmanTest {
     
     File testitiedosto1;
     File testitiedosto2;
@@ -26,14 +26,8 @@ public class PakkaajaTest {
         testitiedosto1 = new File("src/test/resources/test.txt");
         testitiedosto2 = new File("src/test/resources/test2.txt");
         
-        try {
-            pakkaaja1 = new HuffmanPakkaaja(testitiedosto1);
-            pakkaaja2 = new HuffmanPakkaaja(testitiedosto2);
-        } catch (FileNotFoundException ex) {
-            System.out.println("VIRHE! Testitiedostoja ei löytynyt.");
-        } catch (IOException ex) {
-            System.out.println("VIRHE! Bittivirran lukeminen tai kirjoittaminen ei onnistunut.");
-        }
+        pakkaaja1 = new HuffmanPakkaaja(testitiedosto1);
+        pakkaaja2 = new HuffmanPakkaaja(testitiedosto2);
     }
     
     @Before
@@ -80,11 +74,9 @@ public class PakkaajaTest {
     @Test
     public void sisaltoMuuttumatonPakkaamisenJaPurkamisenJalkeen() throws IOException, FileNotFoundException {
         File alkuperainen = testitiedosto1;
-        pakkaaja1.pakkaaTiedosto();
-        File pakattu = pakkaaja1.getTiedostoPakattu();
+        File pakattu = pakkaaja1.pakkaaTiedosto();
         HuffmanPurkaja purkaja1 = new HuffmanPurkaja(pakattu);
-        purkaja1.puraTiedosto();
-        File purettu = purkaja1.getTiedostoPurettu();
+        File purettu = purkaja1.puraTiedosto();
         byte[] alkuperainenByte = Files.readAllBytes(alkuperainen.toPath());
         byte[] purettuByte = Files.readAllBytes(purettu.toPath());
         assertTrue(Arrays.equals(alkuperainenByte, purettuByte));

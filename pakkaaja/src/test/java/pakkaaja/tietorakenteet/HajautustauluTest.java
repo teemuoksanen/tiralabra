@@ -103,6 +103,16 @@ public class HajautustauluTest {
     }
     
     @Test
+    public void sisaltaaAvaimenPalauttaaTrueJosAvainOlemassa() {
+        assertTrue(numerotaulu.sisaltaaAvaimen(3));
+    }
+    
+    
+    @Test
+    public void sisaltaaAvaimenPalauttaaFalseJosAvaintaEiOlemassa() {
+        assertFalse(numerotaulu.sisaltaaAvaimen(9));
+    }
+    @Test
     public void vakiohakuPalauttaaVakionJosAlkiotaEiOle() {
         assertEquals(numerotaulu.haeTaiPalautaVakio(9, "tyhjä"), "tyhjä");
     }

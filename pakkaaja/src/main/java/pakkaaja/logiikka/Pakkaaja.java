@@ -3,6 +3,8 @@ package pakkaaja.logiikka;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import pakkaaja.logiikka.io.BittiLukija;
+import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
  * Rajapinta eri pakkausalgoritmeja käyttäville pakkaajaluokille.
@@ -16,5 +18,27 @@ public interface Pakkaaja {
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
     File pakkaaTiedosto() throws FileNotFoundException, IOException;
+    
+    /**
+     * Metodi muodostaa alkuperäisen tiedoston nimestä pakattavan tiedoston nimen ja palauttaa sen.
+     * @param tiedostoPakattava pakattava tiedosto
+     * @return pakattu tiedosto
+     */
+    default File muodostaPakattuTiedosto(File tiedostoPakattava, String paate) {
+        String pakattuNimi = tiedostoPakattava.getAbsoluteFile() + "." + paate;
+        File tiedostoPakattu = new File(pakattuNimi);
+        if (tiedostoPakattu.exists()) {
+            throw new IllegalArgumentException("Tiedosto '" + tiedostoPakattu.getName() + "' on jo olemassa.\n"
+                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
+        }
+        return tiedostoPakattu;
+    }
+    
+    default Lista<Character> lueTiedostoMerkkilistaksi(File tiedostoPakattava) throws FileNotFoundException, IOException {        
+        BittiLukija lukija = new BittiLukija(tiedostoPakattava);
+        Lista<Character> lista = lukija.lueTiedosto();
+        lukija.close();
+        return lista;
+    }
     
 }

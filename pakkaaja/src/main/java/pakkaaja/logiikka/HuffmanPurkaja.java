@@ -26,8 +26,7 @@ public class HuffmanPurkaja implements Purkaja {
      */
     public HuffmanPurkaja(File tiedosto) {
         this.tiedostoPakattu = tiedosto;
-        String tiedostoPurettuNimi = muodostaPurettuNimi();
-        this.tiedostoPurettu = new File(tiedostoPurettuNimi);
+        this.tiedostoPurettu = new File(muodostaPurettuNimi(this.tiedostoPakattu));
         this.merkit = 0;
         this.koodisto = new Hajautustaulu();
     }
@@ -52,22 +51,6 @@ public class HuffmanPurkaja implements Purkaja {
         lueTiedosto(lukija);
         lukija.close();
         return this.tiedostoPurettu;
-    }
-    
-    /**
-     * Apumetodi, joka lukee muodostaa puretun tiedoston nimen (".huff"-pääte pois ja "-purettu" osaksi tiedostonimeä).
-     */
-    private String muodostaPurettuNimi() {
-        String polku = this.tiedostoPakattu.getParent() + "/";
-        String nimi = this.tiedostoPakattu.getName().replace(".huff", "");
-        String paate = "";
-        int erotin = nimi.lastIndexOf('.');
-        if (erotin != -1) {
-            paate = nimi.substring(erotin);
-            nimi = nimi.substring(0, erotin);
-        }
-        String uusiNimi = polku + nimi + "-purettu" + paate;
-        return uusiNimi;
     }
     
     /**

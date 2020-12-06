@@ -17,4 +17,22 @@ public interface Purkaja {
      */
     File puraTiedosto() throws FileNotFoundException, IOException;
     
+    /**
+     * Metodi muodostaa pakatun tiedoston nimestä purettavan tiedoston nimen ja palauttaa sen.
+     * @return puretun tiedoston nimi
+     */
+    default String muodostaPurettuNimi(File tiedostoPakattu) {
+        String polku = tiedostoPakattu.getParent() + "/";
+        String nimi = tiedostoPakattu.getName().replace(".huff", "");
+        nimi = nimi.replace(".lzw", "");
+        String paate = "";
+        int erotin = nimi.lastIndexOf('.');
+        if (erotin != -1) {
+            paate = nimi.substring(erotin);
+            nimi = nimi.substring(0, erotin);
+        }
+        String uusiNimi = polku + nimi + "-purettu" + paate;
+        return uusiNimi;
+    }
+    
 }
