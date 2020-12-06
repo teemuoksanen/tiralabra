@@ -12,7 +12,7 @@ import pakkaaja.tietorakenteet.lista.Lista;
 /**
  * Luokka pakkaa sille syötteenä annetun tiedoston Lempel-Ziv-Welch -algoritmin (LZW) mukaisesti.
  */
-public class LzwPakkaaja {
+public class LzwPakkaaja implements Pakkaaja {
     
     private final static int MAKSIMIKOKO_KOODISTO = 65535;
     private File tiedostoPakattava;
@@ -32,13 +32,10 @@ public class LzwPakkaaja {
         this.tiedostoPakattava = tiedosto;
         String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".lzw";
         this.tiedostoPakattu = new File(tiedostoPakattuNimi);
-        this.tiedostoMerkkeina = this.lueTiedostoMerkkilistaksi();
-        this.koodisto = this.alustaKoodisto();
-        this.pakattu = this.pakkaaMerkit(this.tiedostoMerkkeina);
     }
 
     /**
-     * Metodi hoitaa tiedoston pakkaamisen apumetodiensa avulla ja ilmoittaa pakatun tiedoston nimen, kun pakkaminen on valmis.
+     * Metodi hoitaa tiedoston pakkaamisen apumetodiensa avulla ja palauttaa pakatun tiedoston, kun pakkaminen on valmis.
      * @return pakattu tiedosto
      * @throws IllegalArgumentException Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen pakattu tiedosto on jo olemassa.
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
@@ -49,6 +46,9 @@ public class LzwPakkaaja {
             throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPakattu.getName() + "' on jo olemassa.\n"
                     + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
         }
+        this.tiedostoMerkkeina = this.lueTiedostoMerkkilistaksi();
+        this.koodisto = this.alustaKoodisto();
+        this.pakattu = this.pakkaaMerkit(this.tiedostoMerkkeina);
         BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
         kirjoitaTiedosto(kirjoittaja);
         kirjoittaja.close();
@@ -68,7 +68,6 @@ public class LzwPakkaaja {
     /**
      * Apumetodi, joka kokoaa pakattavasta merkkilistasta koodiston ja pakattavan listan.
      */
-    // HUOM! Metodi on yli 20 riviä - uudelleenfaktoroi, jos mahdollista.
     private Lista<Integer> pakkaaMerkit(Lista<Character> merkkilista) {
         Lista<Integer> pakattu = new Lista();
         String merkkipuskuri = "" + (char) merkkilista.hae(0);

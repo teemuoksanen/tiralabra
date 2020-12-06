@@ -12,7 +12,7 @@ import pakkaaja.tietorakenteet.lista.Lista;
 /**
  * Luokka purkaa sille syötteenä annetun Lempel-Ziv-Welch -algoritmilla (LZW) pakatun tiedoston.
  */
-public class LzwPurkaja {
+public class LzwPurkaja implements Purkaja {
     
     private final static int MAKSIMIKOKO_KOODISTO = 65535;
     private File tiedostoPakattu;
@@ -40,6 +40,7 @@ public class LzwPurkaja {
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
+    @Override
     public File puraTiedosto() throws FileNotFoundException, IOException {
         if (this.tiedostoPurettu.exists()) {
             throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPurettu.getName() + "' on jo olemassa.\n"
@@ -84,12 +85,11 @@ public class LzwPurkaja {
 
     /**
      * Apumetodi, joka purkaa LZW-algoritmin avulla pakatut merkit ja palauttaa ne merkkilistana.
-     */    
+     */
     private Lista<Character> puraMerkit(Lista<Integer> pakattu) { 
         Lista<Character> purettu = new Lista();
-        Character ensimmainenKoodi = (char) (int) pakattu.hae(0);
-        String koodipuskuri = "" + ensimmainenKoodi;
-        purettu.lisaa(ensimmainenKoodi);
+        String koodipuskuri = "" + (char) (int) pakattu.hae(0);
+        purettu.lisaa((char) (int) pakattu.hae(0));
         
         for (int i = 1; i < pakattu.koko(); i++) {
             int nykyinenKoodi = pakattu.hae(i);

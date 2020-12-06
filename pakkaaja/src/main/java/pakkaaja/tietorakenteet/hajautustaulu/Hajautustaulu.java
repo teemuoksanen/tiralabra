@@ -37,7 +37,6 @@ public class Hajautustaulu<K, V> {
      * @param avain lisättävän alkion avain
      * @param arvo lisättävän alkion arvo
      */
-    // Metodin pituus ylittää 20 riviä, mutta mielestäni pilkkominen ennemmin vaikeuttaisi logiikan ymmärtämistä.
     public void lisaa(K avain, V arvo) {
         Alkio<K, V> alkio = new Alkio<>(avain, arvo, null);
         alkioidenMaara++;

@@ -1,109 +1,98 @@
 
 package pakkaaja.logiikka;
 
-import pakkaaja.tietorakenteet.keko.Lehti;
-import pakkaaja.tietorakenteet.keko.Solmu;
-import pakkaaja.tietorakenteet.keko.Puu;
+import java.io.*;
 import pakkaaja.tietorakenteet.hajautustaulu.Hajautustaulu;
-import pakkaaja.tietorakenteet.keko.Keko;
 import pakkaaja.tietorakenteet.lista.Lista;
+import pakkaaja.logiikka.io.BittiKirjoittaja;
+import pakkaaja.logiikka.io.BittiLukija;
 
 /**
- * Luokka muodostaa aakkostolle HuffmanPakkaaja-koodiston (merkki- ja HuffmanPakkaaja-binäärikoodi -pari hajautustauluna).
+ * Luokka pakkaa sille syötteenä annetun tiedoston Huffman-algoritmin mukaisesti.
  */
-public class HuffmanPakkaaja {
+public class HuffmanPakkaaja implements Pakkaaja {
     
-    private int[] aakkosto;
+    private File tiedostoPakattava;
+    private File tiedostoPakattu;
     private Hajautustaulu<Character, String> koodisto;
-    private Puu puu;
-    private Lista<Character> merkkilista;
     private Lista<Object> avain;
+    private Lista<Character> merkkilista;
     
     /**
-     * HuffmanKoodaajan konstruktori, joka kutsuttaessa samalla luo Huffman-puun sekä -koodiston sille syötteenä annetusta aakkostosta.
-     * @param merkkilista merkkilista, josta Huffman-koodisto muodostetaan
+     * Pakkaajan konstruktori, joka kutsuttaessa samalla luo aakoston, koodiston ja avaimen syötteenä annetusta tiedostosta.
+     * @param tiedosto pakattava tiedosto
+     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public HuffmanPakkaaja(Lista<Character> merkkilista) {
-        this.merkkilista = merkkilista;
-        this.aakkosto = luoAakkosto();
-        this.puu = rakennaPuu();
-        this.koodisto = new Hajautustaulu();
-        this.avain = new Lista();
-        luoKoodisto(this.puu, "");
+    public HuffmanPakkaaja(File tiedosto) throws FileNotFoundException, IOException {
+        this.tiedostoPakattava = tiedosto;
+        String tiedostoPakattuNimi = this.tiedostoPakattava.getAbsoluteFile() + ".huff";
+        this.tiedostoPakattu = new File(tiedostoPakattuNimi);
     }
     
     /**
-     * Palauttaa HuffmanPakkaaja-koodiston.
-     * @return koodisto eli merkki- ja HuffmanPakkaaja-binäärikoodi -pari hajautustauluna
+     * Metodi hoitaa tiedoston pakkaamisen apumetodiensa avulla ja palauttaa pakatun tiedoston, kun pakkaminen on valmis.
+     * @return pakattu tiedosto
+     * @throws IllegalArgumentException Heittää TiedostoOlemassaPoikkeus-poikkeuksen, jos samanniminen pakattu tiedosto on jo olemassa.
+     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    public Hajautustaulu<Character, String> getKoodisto() {
-        return this.koodisto;
+    public File pakkaaTiedosto() throws FileNotFoundException, IOException {
+        if (tiedostoPakattu.exists()) {
+            throw new IllegalArgumentException("Tiedosto '" + this.tiedostoPakattu.getName() + "' on jo olemassa.\n"
+                    + "Poista kyseinen tiedosto tai siirrä se talteen ennen samannimisen tiedoston pakkaamista.");
+        }
+        this.merkkilista = lueTiedostoMerkkilistaksi();
+        HuffmanPakkaajaApuri huffman = new HuffmanPakkaajaApuri(this.merkkilista);
+        this.koodisto = huffman.getKoodisto();
+        this.avain = huffman.getAvain();
+        BittiKirjoittaja kirjoittaja = new BittiKirjoittaja(this.tiedostoPakattu);
+        kirjoitaMerkkimaara(kirjoittaja);
+        kirjoitaAvain(kirjoittaja);
+        kirjoitaTiedosto(kirjoittaja);
+        kirjoittaja.close();
+        return this.tiedostoPakattu;
     }
     
     /**
-     * Palauttaa HuffmanPakkaaja-avaimen.
-     * @return avain eli HuffmanPakkaaja-puu lyhyeksi koodattuna
+     * Apumetodi, joka lukee annetun tiedoston sisällön merkkilistaksi.
      */
-    public Lista<Object> getAvain() {
-        return this.avain;
+    private Lista<Character> lueTiedostoMerkkilistaksi() throws FileNotFoundException, IOException {        
+        BittiLukija lukija = new BittiLukija(this.tiedostoPakattava);
+        Lista<Character> lista = lukija.lueTiedosto();
+        lukija.close();
+        return lista;
     }
     
     /**
-     * Apumetodi, joka laskee kunkin merkin määrät annetusta merkkilistasta.
+     * Apumetodi, joka kirjoituttaa pakattavan tiedoston merkkimäärän pakattuun tiedstoon.
      */
-    private int[] luoAakkosto() {
-        int[] abc = new int[256];
-        
+    private void kirjoitaMerkkimaara(BittiKirjoittaja kirjoittaja) throws IOException {
+        String merkitBitteina = String.format("%32s", Integer.toBinaryString(this.merkkilista.koko())).replaceAll(" ", "0");
+        kirjoittaja.kirjoitaBittijono(merkitBitteina);
+    }
+    
+    /**
+     * Apumetodi, joka kirjoituttaa HuffmanPakkaajaApuri-puun avaimen pakattuun tiedstoon.
+     */
+    private void kirjoitaAvain(BittiKirjoittaja kirjoittaja) throws IOException {
+        for (int i = 0; i < this.avain.koko(); i++) {
+            Object o = this.avain.listaa()[i];
+            if (o instanceof Integer) {
+                kirjoittaja.kirjoitaBitti((int) o);
+            } else {
+                kirjoittaja.kirjoitaTavu((char) o);
+            }
+        }
+    }
+    
+    /**
+     * Apumetodi, joka kirjoituttaa varsinaisen tiedoston sisällön pakattuun tiedstoon.
+     */
+    private void kirjoitaTiedosto(BittiKirjoittaja kirjoittaja) throws IOException {
         for (int i = 0; i < this.merkkilista.koko(); i++) {
             char merkki = (char) this.merkkilista.hae(i);
-            abc[merkki]++;
-        }
-        
-        return abc;
-    }
-    
-    /**
-     * Apumetodi, joka rakentaa Puun ja palauttaa sen juurisolmun.
-     */
-    private Puu rakennaPuu() {
-        Keko puut = new Keko();
-        
-        for (int i = 0; i < aakkosto.length; i++) {
-            char merkki = (char) i;
-            Lehti lehti = new Lehti(merkki, aakkosto[i]);
-            puut.lisaa(lehti);
-        }
-        
-        while (puut.koko() > 1) {
-            Puu a = puut.poista();
-            Puu b = puut.poista();
-            
-            Solmu uusiSolmu = new Solmu(a, b);
-            puut.lisaa(uusiSolmu);
-        }
-        
-        return puut.poista();
-    }
-
-    /**
-     * Apumetodi, joka luo HuffmanPakkaaja-koodiston ja -avaimen.
-     */
-    private void luoKoodisto(Puu puu, String koodijono) {
-        if (puu instanceof Lehti) {
-            Lehti lehti = (Lehti) puu;
-            this.koodisto.lisaa(lehti.getMerkki(), koodijono);
-            this.avain.lisaa((int) 1);
-            this.avain.lisaa((char) lehti.getMerkki());
-        } else {
-            Solmu solmu = (Solmu) puu;
-            
-            this.avain.lisaa((int) 0);
-            
-            String koodijonoVasen = koodijono + "0";
-            luoKoodisto(solmu.getVasen(), koodijonoVasen);
-            
-            String koodijonoOikea = koodijono + "1";
-            luoKoodisto(solmu.getOikea(), koodijonoOikea);
+            kirjoittaja.kirjoitaBittijono(this.koodisto.hae(merkki));
         }
     }
     

@@ -18,8 +18,8 @@ public class PakkaajaTest {
     
     File testitiedosto1;
     File testitiedosto2;
-    Pakkaaja pakkaaja1;
-    Pakkaaja pakkaaja2;
+    HuffmanPakkaaja pakkaaja1;
+    HuffmanPakkaaja pakkaaja2;
     
     @Before
     public void setUpClass() {
@@ -27,8 +27,8 @@ public class PakkaajaTest {
         testitiedosto2 = new File("src/test/resources/test2.txt");
         
         try {
-            pakkaaja1 = new Pakkaaja(testitiedosto1);
-            pakkaaja2 = new Pakkaaja(testitiedosto2);
+            pakkaaja1 = new HuffmanPakkaaja(testitiedosto1);
+            pakkaaja2 = new HuffmanPakkaaja(testitiedosto2);
         } catch (FileNotFoundException ex) {
             System.out.println("VIRHE! Testitiedostoja ei löytynyt.");
         } catch (IOException ex) {
@@ -82,7 +82,7 @@ public class PakkaajaTest {
         File alkuperainen = testitiedosto1;
         pakkaaja1.pakkaaTiedosto();
         File pakattu = pakkaaja1.getTiedostoPakattu();
-        Purkaja purkaja1 = new Purkaja(pakattu);
+        HuffmanPurkaja purkaja1 = new HuffmanPurkaja(pakattu);
         purkaja1.puraTiedosto();
         File purettu = purkaja1.getTiedostoPurettu();
         byte[] alkuperainenByte = Files.readAllBytes(alkuperainen.toPath());
@@ -95,14 +95,14 @@ public class PakkaajaTest {
     @Test(expected = IllegalArgumentException.class)
     public void joPakatunTiedostonPakkaaminenHeittaaPoikkeuksen() throws IOException, FileNotFoundException {
         File tiedosto = new File("src/test/resources/olemassa.txt");
-        Pakkaaja olemassa = new Pakkaaja(tiedosto);
+        HuffmanPakkaaja olemassa = new HuffmanPakkaaja(tiedosto);
         olemassa.pakkaaTiedosto();
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void joPuretunTiedostonPurkaminenHeittaaPoikkeuksen() throws IOException, FileNotFoundException {
         File tiedosto = new File("src/test/resources/olemassa.txt.huff");
-        Purkaja olemassa = new Purkaja(tiedosto);
+        HuffmanPurkaja olemassa = new HuffmanPurkaja(tiedosto);
         olemassa.puraTiedosto();
     }
     

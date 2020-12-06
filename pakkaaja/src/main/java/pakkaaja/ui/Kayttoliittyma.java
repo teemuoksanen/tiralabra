@@ -5,6 +5,8 @@ import java.io.*;
 import java.util.Scanner;
 import pakkaaja.logiikka.LzwPakkaaja;
 import pakkaaja.logiikka.LzwPurkaja;
+import pakkaaja.logiikka.HuffmanPakkaaja;
+import pakkaaja.logiikka.HuffmanPurkaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
 import pakkaaja.tietorakenteet.lista.Lista;
@@ -52,10 +54,6 @@ public class Kayttoliittyma {
                     this.vaihdaTilastot();
                     break;
                 case "4":
-                    this.lzwPakkaa();
-                    break;
-                case "5":
-                    this.lzwPura();
                     break;
                 default:
                     System.out.println("Virheellinen komento: " + komento);
@@ -66,18 +64,22 @@ public class Kayttoliittyma {
 
     
     /**
-     * Ajaa pakaamistoiminnallisuuden Huffman-algoritmilla.
+     * Ajaa pakaamistoiminnallisuuden.
      */
     private void pakkaa() {
         File tiedosto = kysyTiedostonimi(false);
         if (tiedosto == null) {
             return;
         }
-
+        
         try {
+            Pakkaaja pakkaaja = kysyPakkausalgoritmi(tiedosto);
+            if (pakkaaja == null) {
+                return;
+            }
+
             System.out.println("Pakataan tiedosto '" + tiedosto.getName() + "'...\n");
             long alku = System.nanoTime();
-            Pakkaaja pakkaaja = new Pakkaaja(tiedosto);
             File pakattu = pakkaaja.pakkaaTiedosto();
             long loppu = System.nanoTime();
             System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
@@ -89,72 +91,40 @@ public class Kayttoliittyma {
             kasittelePoikkeus(ex);
         }
     }
-    
-    /**
-     * Ajaa pakaamistoiminnallisuuden LZW-algoritmilla - KESKEN.
-     */
-    private void lzwPakkaa() {
-        File tiedosto = kysyTiedostonimi(false);
-        if (tiedosto == null) {
-            return;
-        }
-
-        try {
-            System.out.println("Pakataan tiedosto '" + tiedosto.getName() + "'...\n");
-            long alku = System.nanoTime();
-            LzwPakkaaja lzwPakkaaja = new LzwPakkaaja(tiedosto);
-            File pakattu = lzwPakkaaja.pakkaaTiedosto();
-            long loppu = System.nanoTime();
-            System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
-            System.out.println(pakattu.getAbsoluteFile());
-            if (tilastot) {
-                tulostaTilastot(alku, loppu, tiedosto, pakattu);
-            }
-        } catch (Exception ex) {
-            kasittelePoikkeus(ex);
-        }
-    }
 
     
     /**
-     * Ajaa purkutoiminnallisuuden Huffman-algoritmilla.
+     * Ajaa purkutoiminnallisuuden.
      */
     private void pura() {
-        File tiedosto = kysyTiedostonimi(true);
-        if (tiedosto == null) {
-            return;
-        }
-
         try {
-            System.out.println("Puretaan tiedosto '" + tiedosto.getName() + "'...\n");
-            long alku = System.nanoTime();
-            Purkaja purkaja = new Purkaja(tiedosto);
-            File purettu = purkaja.puraTiedosto();
-            long loppu = System.nanoTime();
-            System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
-            System.out.println(purettu.getAbsoluteFile());
-            if (tilastot) {
-                tulostaTilastot(alku, loppu, null, null);
+            File tiedosto = null;
+            Purkaja purkaja = null;
+            
+            while (purkaja == null) {
+                tiedosto = kysyTiedostonimi(true);
+                if (tiedosto == null) {
+                    return;
+                }
+                
+                String nimi = tiedosto.getName();
+                String paate = "";
+                int erotin = nimi.lastIndexOf('.');
+                if (erotin != -1) {
+                    paate = nimi.substring(erotin);
+                }
+
+                if (paate.equals(".huff")) {
+                    purkaja = new HuffmanPurkaja(tiedosto);
+                } else if (paate.equals(".lzw")) {
+                    purkaja = new LzwPurkaja(tiedosto);
+                } else {
+                    System.out.println("VIRHE: Purettavaksi valitun tiedoston on oltava tyyppiä .huff tai .lzw.\n");
+                }   
             }
-        } catch (Exception ex) {
-            kasittelePoikkeus(ex);
-        }
-    }
-
-    
-    /**
-     * Ajaa purkutoiminnallisuuden LZW-algortimilla.
-     */
-    private void lzwPura() {
-        File tiedosto = kysyTiedostonimi(true);
-        if (tiedosto == null) {
-            return;
-        }
-
-        try {
+            
             System.out.println("Puretaan tiedosto '" + tiedosto.getName() + "'...\n");
             long alku = System.nanoTime();
-            LzwPurkaja purkaja = new LzwPurkaja(tiedosto);
             File purettu = purkaja.puraTiedosto();
             long loppu = System.nanoTime();
             System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
@@ -200,6 +170,38 @@ public class Kayttoliittyma {
                 return tiedosto;
             }
         }
+    }
+    
+    
+    /**
+     * Kysyy käyttäjältä käytettävän pakkausalgoritmin ja palauttaa sen.
+     */
+    private Pakkaaja kysyPakkausalgoritmi(File tiedosto) throws IOException {
+        Pakkaaja pakkaaja = null;
+        
+        while (pakkaaja == null) {
+            System.out.println("Valitse pakkausalgoritmi:\n");
+            System.out.println("[1]\tHuffman");
+            System.out.println("[2]\tLZW");
+            System.out.println("[0]\tPalaa päävalikkoon\n");
+            System.out.println("Komento + enter:");
+            String algoritmiKomento = lukija.nextLine();
+            System.out.println("");
+            switch (algoritmiKomento) {
+                case "1":
+                    pakkaaja = new HuffmanPakkaaja(tiedosto);
+                    break;
+                case "2":
+                    pakkaaja = new LzwPakkaaja(tiedosto);
+                    break;
+                case "0":
+                    return null;
+                default:
+                    System.out.println("Virheellinen komento: " + algoritmiKomento);
+            }
+        }
+        
+        return pakkaaja;
     }
     
     
