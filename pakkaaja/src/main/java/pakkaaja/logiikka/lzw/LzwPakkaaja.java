@@ -56,7 +56,7 @@ public class LzwPakkaaja implements Pakkaaja {
      * Apumetodi, joka kokoaa pakattavasta merkkilistasta koodiston ja pakattavan listan.
      */
     private Lista<Integer> pakkaaMerkit(Lista<Character> merkkilista) {
-        Lista<Integer> pakattu = new Lista();
+        Lista<Integer> pakattu = new Lista(merkkilista.koko());
         String merkkipuskuri = "" + (char) merkkilista.hae(0);
         
         for (int i = 1; i < merkkilista.koko(); i++) {
@@ -97,7 +97,7 @@ public class LzwPakkaaja implements Pakkaaja {
      * Apumetodi, joka alustaa peruskoodiston (ensimmäiset 256 merkkiä).
      */
     private Hajautustaulu<String, Integer> alustaKoodisto() {
-        Hajautustaulu<String, Integer> koodisto = new Hajautustaulu();
+        Hajautustaulu<String, Integer> koodisto = new Hajautustaulu(MAKSIMIKOKO_KOODISTO);
         for (int i = 0; i < 256; i++) {
             String merkki = "" + (char) i;
             koodisto.lisaa(merkki, i);

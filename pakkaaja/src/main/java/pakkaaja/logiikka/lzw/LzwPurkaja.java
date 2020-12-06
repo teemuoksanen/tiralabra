@@ -59,7 +59,7 @@ public class LzwPurkaja implements Purkaja {
      * Apumetodi, joka alustaa LZW-algoritmin koodistoon ASCII-aakkoset.
      */
     private Hajautustaulu<Integer, String> alustaKoodisto() {
-        Hajautustaulu<Integer, String> alustettuKoodisto = new Hajautustaulu();
+        Hajautustaulu<Integer, String> alustettuKoodisto = new Hajautustaulu(MAKSIMIKOKO_KOODISTO);
         for (int i = 0; i < 256; i++) {
             String merkki = "" + (char) i;
             alustettuKoodisto.lisaa(i, merkki);
