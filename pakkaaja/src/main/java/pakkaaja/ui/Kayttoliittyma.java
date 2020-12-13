@@ -32,7 +32,9 @@ public class Kayttoliittyma {
      * Tekstikäyttöliittymän käynnistävä luokka.
      */
     public void kaynnista() {
-        System.out.println("TERVETULOA KÄYTTÄMÄÄN PAKKAAJAA!");
+        System.out.println("\n************************************");
+        System.out.println("* TERVETULOA KÄYTTÄMÄÄN PAKKAAJAA! *");
+        System.out.println("************************************");
         
         while (true) {
             this.tulostaKomennot();
@@ -338,7 +340,7 @@ public class Kayttoliittyma {
      * Sulkee ohjelman.
      */
     private void exit() {
-        System.out.println("Kiitos, kun käytit Pakkaajaa.");
+        System.out.println("Kiitos, kun käytit Pakkaajaa.\n");
         System.exit(0);
     }
     

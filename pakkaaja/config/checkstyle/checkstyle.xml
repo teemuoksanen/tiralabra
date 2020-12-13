@@ -5,6 +5,10 @@
     <!-- asetetaan kieliasetukset englanniksi. -->
     <property name="localeCountry" value="EN"/>
     <property name="localeLanguage" value="en"/>
+    
+    <module name="SuppressionFilter">
+        <property name="file" value="${config_loc}/suppressions.xml"/>
+    </module>
 
     <module name='TreeWalker'>
 
