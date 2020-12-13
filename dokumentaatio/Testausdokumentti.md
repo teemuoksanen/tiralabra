@@ -18,33 +18,65 @@ __ListaTest__ testaa puhtaasti Lista-luokan toiminnallisuuksia: alkioiden lisä�
 
 Ohjelman suorituskykyä on testattu erilaisilla testitiedostoilla. Osa tulee ohjelman mukana (ks. *Testimateriaali*), jolloin testit voi toistaa.
 
-|  **Tiedosto** | **Koko (kt)** | **Pakattu (kt)** | **Pakkausteho** | **Pakkausaika (s)** | **Purkuaika (s)** | **Aikojen suhde** |
-| --- | --- | --- | --- | --- | --- | --- |
-|  lyhyt.txt | 0.015 | 0.321 | -2093.33% | 0.0053 | 0.0263 | 5.0 |
-|  testikuva2.png | 11.471 | 5.173 | 54.90% | 0.0072 | 0.0181 | 2.5 |
-|  loremipsum.txt | 11.947 | 6.689 | 44.01% | 0.0100 | 0.0719 | 7.2 |
-|  gitohje.html | 21.363 | 13.546 | 36.59% | 0.0061 | 0.0111 | 1.8 |
-|  pitkaloremipsum.txt | 88.269 | 47.487 | 46.20% | 0.0129 | 0.1145 | 8.8 |
-|  testikuva.png | 101.799 | 98.884 | 2.86% | 0.0344 | 0.1457 | 4.2 |
-|  kalevala.txt | 642.938 | 363.236 | 43.50% | 0.0789 | 0.3109 | 3.9 |
-|  englishkalevala.txt | 885.753 | 508.848 | 42.55% | 0.0936 | 0.3834 | 4.1 |
-|  kirja2.pdf | 2698.243 | 2418.905 | 10.35% | 0.3416 | 1.9192 | 5.6 |
-|  tuomiokirkko.jpg | 2709.832 | 2707.048 | 0.10% | 0.3901 | 1.8949 | 4.9 |
-|  podcast.mp3 | 22879.771 | 21992.152 | 3.88% | 3.2811 | 16.4045 | 5.0 |
-|  video.mp4 | 31861.565 | 31824.021 | 0.12% | 4.5843 | 22.9726 | 5.0 |
-|  kirja.pdf | 39344.890 | 36061.028 | 8.35% | 4.0606 | 23.6578 | 5.8 |
+Alla on taulukkomuodossa eri algoritmien testitulokset järjestettynä pakkaustehon mukaan huonoimmasta parhaimpaan tulokseen.
+
+### Huffman-algoritmi
+
+|  **Tiedosto** | **Koko (kt)** | **Pakattu (kt)** | **Pakkausteho** | **Pakkausaika (s)** | **Purkuaika (s)** |
+| --- | --- | --- | --- | --- | --- |
+|  lyhyt.txt | 0.01 | 0.32 | -2093.3% | 0.392 | 0.023 |
+|  tuomiokirkko.jpg | 2709.83 | 2707.05 | 0.1% | 1.167 | 1.895 |
+|  video.mp4 | 31861.57 | 31824.02 | 0.1% | 6.607 | 19.217 |
+|  pakkaaja.jar | 28.89 | 28.81 | 0.3% | 0.015 | 0.224 |
+|  testikuva.png | 101.80 | 98.88 | 2.9% | 0.343 | 0.089 |
+|  podcast.mp3 | 22879.77 | 21992.15 | 3.9% | 4.973 | 18.338 |
+|  kirja.pdf | 39344.89 | 36061.03 | 8.3% | 6.393 | 30.263 |
+|  kirja2.pdf | 2698.24 | 2418.91 | 10.4% | 0.576 | 2.571 |
+|  gitohje.html | 21.36 | 13.55 | 36.6% | 0.200 | 0.025 |
+|  englishkalevala.txt | 885.75 | 508.85 | 42.6% | 0.222 | 0.467 |
+|  kalevala.txt | 642.94 | 363.24 | 43.5% | 0.349 | 0.394 |
+|  loremipsum.txt | 11.95 | 6.69 | 44.0% | 0.153 | 0.011 |
+|  pitkaloremipsum.txt | 88.27 | 47.49 | 46.2% | 0.088 | 0.070 |
+|  testikuva2.png | 11.47 | 5.17 | 54.9% | 0.168 | 0.010 |
+
+### LZW-algoritmi
+
+|  **Tiedosto** | **Koko (kt)** | **Pakattu (kt)** | **Pakkausteho** | **Pakkausaika (s)** | **Purkuaika (s)** |
+| --- | --- | --- | --- | --- | --- |
+|  pakkaaja.jar | 28.89 | 45.35 | -57.0% | 0.012 | 0.043 |
+|  lyhyt.txt | 0.01 | 0.02 | -46.7% | 0.023 | 0.005 |
+|  video.mp4 | 31861.57 | 46020.34 | -44.4% | 13.639 | 7.020 |
+|  tuomiokirkko.jpg | 2709.83 | 3760.83 | -38.8% | 1.167 | 1.274 |
+|  podcast.mp3 | 22879.77 | 29924.67 | -30.8% | 8.806 | 4.729 |
+|  testikuva.png | 101.80 | 115.45 | -13.4% | 0.062 | 0.027 |
+|  kirja2.pdf | 2698.24 | 2355.17 | 12.7% | 0.870 | 0.458 |
+|  kirja.pdf | 39344.89 | 28613.35 | 27.3% | 11.724 | 5.716 |
+|  gitohje.html | 21.36 | 13.95 | 34.7% | 0.009 | 0.028 |
+|  loremipsum.txt | 11.95 | 7.26 | 39.2% | 0.027 | 0.007 |
+|  kalevala.txt | 642.94 | 263.77 | 59.0% | 0.149 | 0.063 |
+|  englishkalevala.txt | 885.75 | 359.13 | 59.5% | 0.182 | 0.116 |
+|  pitkaloremipsum.txt | 88.27 | 32.06 | 63.7% | 0.041 | 0.033 |
+|  testikuva2.png | 11.47 | 3.63 | 68.4% | 0.006 | 0.030 |
 
 ### Pakkausteho
 
-Testien perusteella näyttäisi siltä, että puhtaissa tekstitiedostoissa pakkausteho on noin 44-47 % riipumatta kielestä (testattu suomeksi, englanniksi ja lorem ipsum -tekstillä). Kun mukana on muutakin kuin tekstiä, alkaa pakkausteho pienentyä nopeasti. HTML-tiedosto pakkautuu vielä melko tehokkaasti, mutta esimerkiksi tekstin lisäksi kuvia ja muotoilua sisältävissä PDF-tiedostoissa pakkausteho on enää 10 % luokka. Kuvien, äänen ja videon pakkaamisessa pakkausteho on enää alle 5 %, ja suurikokoista valokuvaa sekä videokuvaa ei Huffman-algoritmilla saatu juurikaan pakattua. Tämä selittynee sillä, että valokuvien ja videon sisällössä on huomattavaa vaihtelua.
+Testien perusteella näyttäisi siltä, että puhtaissa tekstitiedostoissa Huffman-algortimin pakkausteho on noin 45 % ja LZW-algoritmin vastaavasti noin 55 %. LZW-algoritmin teho korostui erityisesti pitemmissä teksteissä.
 
-Poikkeuksena yleislinjasta on esimerkiksi hyvin lyhyt 15-merkkinen testitiedosto, jonka koko kasvoi suhteessa huomattavasti pakattuna. Tämä on ymmärrettävää, koska pakatun tiedoston alussa on vakiona 32-bittiä pitkä osuus merkkimäärän tallentamiseksi sekä koodattuna Huffman-koodisto - vasta tämän jälkeen tallennetaan itse tiedosto pakatussa muodossa. Pakkaus ei ole myöskään kovin tehokasta, koska merkit eivät lyhyessä tiedostossa toistu kovin paljoa.
+Kun mukana on muutakin kuin tekstiä, alkaa pakkausteho pienentyä molemmilla algoritmeilla nopeasti. HTML-tiedosto pakkautuu molemmilla vielä melko tehokkaasti (n. 35 % pakkausteho), mutta esimerkiksi tekstin lisäksi kuvia ja muotoilua sisältävissä PDF-tiedostoissa pakkausteho on Huffman-algoritmilla enää 10 % luokka ja LZW-algoritmillakin 13-27 % luokkaa. Kuvien, äänen ja videon pakkaamisessa pakkausteho Huffman-algortimilla on enää alle 5 %, ja suurikokoista valokuvaa sekä videokuvaa ei Huffman-algoritmilla saatu juurikaan pakattua. Tämä selittynee sillä, että valokuvien ja videon sisällössä on huomattavaa vaihtelua. LZW-algoritmilla tehon pudotus tekstiä sisältäneistä PDF-tiedostoista kuva-, ääni- ja videotiedostoihin oli vielä huomattavasti selkeämpi: LZW ei onnistunut pakkaamaan niitä ollenkaan, vaan "pakattujen" tiedostojen koot suurenivat.
 
-Positiivinen yllätys oli "graafisempi" PNG-muotoinen testikuva, joka muodostui pääosin suurista erivärisistä suorakulmioista. Sen pakkausteho oli lähes 55 % eli selvästi enemmän kuin tekstitiedostojen. Tätä selittänee se, että kuvan sisällössä oli huomattavan paljon toistoa.
+Poikkeuksena yleislinjasta on esimerkiksi hyvin lyhyt 15-merkkinen testitiedosto, jonka koko Huffman-algoritmilla kasvoi suhteessa hyvin huomattavasti pakattuna. Tämä on ymmärrettävää, koska pakatun tiedoston alussa on vakiona 32-bittiä pitkä osuus merkkimäärän tallentamiseksi sekä koodattuna Huffman-koodisto - vasta tämän jälkeen tallennetaan itse tiedosto pakatussa muodossa. Pakkaus ei ole myöskään kovin tehokasta, koska merkit eivät lyhyessä tiedostossa toistu kovin paljoa. Myös LZW-algortimilla "pakatun" tiedoston koko paisui noin 1,5-kertaiseksi.
+
+Positiivinen yllätys oli "graafisempi" PNG-muotoinen testikuva, joka muodostui pääosin suurista erivärisistä suorakulmioista. Sen pakkausteho oli molemmilla algortimeilla testin parhaimistoa: Huffman-algortimilla lähes 55 % ja LZW-algoritmilla jopa yli 68 % eli selvästi enemmän kuin tekstitiedostoilla. Tätä selittänee se, että kuvan sisällössä oli huomattavan paljon toistoa.
+
+Mielenkiintoinen huomio oli se, että JAR-muotoinen Pakkaaja (eli ohjelma itse) pakkautui LZW-algoritmilla huonommin kuin mikään muu tiedosto. Huffman-algoritmi sai siitä nipistettyä sentään muutamia tavuja.
+
+Yhteenvetona voitaneen todeta, että LZW-pakkauksen teho korostuu erityisesti pitkissä tekstitiedostoissa. Sen sijaan monissa muissa tiedostoissa se on melko tehoton - tähän saattaa hyvinkin olla syynä se, että LZW-pakkausta käytetään valmiiksi monissa kuvan- ja äänenpakkaustekniikoissa. Huffman-algoritmi pystyy yleensä pakkaamaan näitäkin ainakin jossain määrin, ja ilmeisesti Huffman-algoritmia käytetäänkin joskus "viimeisenä silauksena" vielä muiden pakkausalgoritmien käyttämisen jälkeen.
 
 ### Suoritusaika
 
-Suoritusajan testaaminen ei tässä ohjelmassa ole yhtä keskeisessä osassa kuin pakkausteho. Yleishuomiona voidaan kuitenkin todeta, että pakatun tiedoston purkaminen oli selkeästi alkuperäisen tiedon pakkaamista hitaampaa. Purkaminen kesti keskimäärin viisi kertaa niin kauan kuin pakkaaminen.
+Suoritusajan testaaminen ei tässä ohjelmassa ole yhtä keskeisessä osassa kuin pakkausteho. Tästä syytä en testauksessa keskittynyt toistamaan saman tiedoston pakkaamista ja purkamista useita kertoja.
+
+Yleishuomiona voidaan kuitenkin todeta, että pakatun tiedoston purkaminen Huffman-algortimilla oli useimmissa tapauksissa alkuperäisen tiedon pakkaamista hitaampaa. Sen sijaan LZW-algoritmilla purkaminen oli yleensä noin puolet pakkaamista nopeampaa.
 
 ## Testimateriaali
 
@@ -56,6 +88,7 @@ Ohjelman mukana tulee pieni määrä testitiedostoja, joilla tehdyt testit voi h
 - __kalevala.txt__: Kalevala tekstitiedostona.
 - __englishkalevala.txt__: Kalevala tekstitiedostona englanninkielisenä.
 - __gitohje.html__: Tiralabran GIT-ohjesivu HTML-muodossa. Lähde: (https://tiralabra.github.io/2020_p2/fi/git-ohje/)
+- __pakkaaja.jar__: Pakkaajan suorituskelpoinen JAR-pakkaus - eli ohjelma itse.
 - __testikuva.png__: TV:n testikuva PNG-muodossa.
 - __testikuva2.png__: Yksinkertaisempi TV:n testikuva PNG-muodossa.
 - __tuomiokirkko.jpg__: JPEG-muotoinen valokuva Helsingin tuomiokirkosta. (c) Kallerna, lähde: (https://commons.wikimedia.org/wiki/File:Helsingin_tuomiokirkko.jpg)
