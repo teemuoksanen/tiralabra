@@ -2,6 +2,18 @@
 
 ## Asentaminen ja käynnistäminen
 
+### Julkaistu versio
+
+Lataa viimeisin julkaistu versio tästä: *(lisätään linkki julkaisun jälkeen)*
+
+Siirry hakemistoon, jonne latasit ohjelman, ja käynnistä ohjelma komennolla
+
+`java -jar pakkaaja.jar`
+
+Ohjelman voit sulkea sen päävalikosta komennolla __q__. 
+
+### Lähdekoodista käännettävä versio
+
 Lataa repositorion sisältö [ZIP-pakettina](https://github.com/teemuoksanen/tiralabra-huffman/archive/main.zip) tai kloonaa sisältö komennolla
 
 `git clone git@github.com:teemuoksanen/tiralabra-huffman.git`
@@ -11,8 +23,6 @@ Siirry alihakemistoon *pakkaaja* siinä hakemistossa, jonne purit paketin tai kl
 `gradle -q –console plain run`
 
 Ohjelman voit sulkea sen päävalikosta komennolla __q__. 
-
-*(Ohjelman lopullinen versio tulee saataville myös JAR-muodossa, jolloin ohjelma on yksinkertaisempi käynnistää.)*
 
 ## Tiedoston pakkaaminen
 
