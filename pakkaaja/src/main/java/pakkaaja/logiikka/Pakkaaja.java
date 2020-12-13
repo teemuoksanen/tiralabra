@@ -7,17 +7,45 @@ import pakkaaja.io.BittiLukija;
 import pakkaaja.tietorakenteet.lista.Lista;
 
 /**
- * Rajapinta eri pakkausalgoritmeja käyttäville pakkaajaluokille.
+ * Abstrakti luokka eri pakkausalgoritmeja käyttäville pakkaajaluokille.
  */
-public interface Pakkaaja {
+public abstract class Pakkaaja {
+    
+    protected File tiedostoPakattava;
+    private Tilasto tilasto;
     
     /**
-     * Metodi hoitaa tiedoston pakkaamisen  ja palauttaa pakatun tiedoston, kun pakkaminen on valmis.
+     * Metodi hoitaa tiedoston pakkaamisen ja tilastoinnin. Palauttaa pakatun tiedoston, kun pakkaminen on valmis.
      * @return pakattu tiedosto
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    File pakkaaTiedosto() throws FileNotFoundException, IOException;
+    public File pakkaaTiedosto() throws FileNotFoundException, IOException {
+        long aikaAlku = System.nanoTime();
+        File tiedostoPakattu = this.suoritaPakkaaminen();
+        long aikaLoppu = System.nanoTime();
+        double kesto = aikaLoppu - aikaAlku;
+        double kokoAlkuperainen = tiedostoPakattava.length();
+        double kokoPakattu = tiedostoPakattu.length();
+        this.tilasto = new Tilasto(kesto, kokoAlkuperainen, kokoPakattu);
+        return tiedostoPakattu;
+    }
+    
+    /**
+     * Metodi palauttaa tilastotiedot Tilasto-oliona.
+     * @return tilastot
+     */
+    public Tilasto getTilasto() {
+        return this.tilasto;
+    }
+    
+    /**
+     * Abstrakti metodi hoitaa tiedoston pakkaamisen ja palauttaa pakatun tiedoston, kun pakkaminen on valmis.
+     * @return pakattu tiedosto
+     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     */
+    public abstract File suoritaPakkaaminen() throws FileNotFoundException, IOException;
     
     /**
      * Metodi muodostaa alkuperäisen tiedoston nimestä pakattavan tiedoston nimen ja palauttaa sen.
@@ -25,7 +53,7 @@ public interface Pakkaaja {
      * @param paate pakattavan tiedoston tunniste
      * @return pakattu tiedosto
      */
-    default File muodostaPakattuTiedosto(File tiedostoPakattava, String paate) {
+    protected File muodostaPakattuTiedosto(File tiedostoPakattava, String paate) {
         String pakattuNimi = tiedostoPakattava.getAbsoluteFile() + "." + paate;
         File tiedostoPakattu = new File(pakattuNimi);
         if (tiedostoPakattu.exists()) {
@@ -42,7 +70,7 @@ public interface Pakkaaja {
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    default Lista<Character> lueTiedostoMerkkilistaksi(File tiedostoPakattava) throws FileNotFoundException, IOException {        
+    protected Lista<Character> lueTiedostoMerkkilistaksi(File tiedostoPakattava) throws FileNotFoundException, IOException {        
         BittiLukija lukija = new BittiLukija(tiedostoPakattava);
         Lista<Character> lista = lukija.lueTiedosto();
         lukija.close();

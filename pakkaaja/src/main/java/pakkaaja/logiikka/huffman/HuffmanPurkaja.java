@@ -12,9 +12,8 @@ import pakkaaja.io.*;
 /**
  * Luokka purkaa sille syötteenä annetun Huffman-algoritmilla pakatun tiedoston.
  */
-public class HuffmanPurkaja implements Purkaja {
+public class HuffmanPurkaja extends Purkaja {
     
-    private File tiedostoPakattu;
     private long merkit;
     private Hajautustaulu<String, Character> koodisto;
     private Puu puu;
@@ -37,7 +36,7 @@ public class HuffmanPurkaja implements Purkaja {
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
     @Override
-    public File puraTiedosto() throws FileNotFoundException, IOException {
+    public File suoritaPurkaminen() throws FileNotFoundException, IOException {
         File tiedostoPurettu = muodostaPurettuTiedosto(this.tiedostoPakattu);
         BittiLukija lukija = new BittiLukija(this.tiedostoPakattu);
         

@@ -13,9 +13,8 @@ import pakkaaja.io.BittiKirjoittaja;
 /**
  * Luokka pakkaa sille syötteenä annetun tiedoston Huffman-algoritmin mukaisesti.
  */
-public class HuffmanPakkaaja implements Pakkaaja {
+public class HuffmanPakkaaja extends Pakkaaja {
     
-    private File tiedostoPakattava;
     private Lista<Character> merkkilista;
     private int[] aakkosto;
     private Puu juurisolmu;
@@ -40,7 +39,7 @@ public class HuffmanPakkaaja implements Pakkaaja {
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
     @Override
-    public File pakkaaTiedosto() throws FileNotFoundException, IOException {
+    public File suoritaPakkaaminen() throws FileNotFoundException, IOException {
         File tiedostoPakattu = muodostaPakattuTiedosto(this.tiedostoPakattava, "huff");
         this.merkkilista = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
         

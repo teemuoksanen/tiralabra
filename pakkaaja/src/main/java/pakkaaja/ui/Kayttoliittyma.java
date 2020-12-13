@@ -9,7 +9,6 @@ import pakkaaja.logiikka.huffman.HuffmanPakkaaja;
 import pakkaaja.logiikka.huffman.HuffmanPurkaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
-import pakkaaja.logiikka.Tilasto;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.
@@ -80,14 +79,11 @@ public class Kayttoliittyma {
             }
 
             System.out.println("Pakataan tiedosto '" + tiedosto.getName() + "'...\n");
-            long alku = System.nanoTime();
             File pakattu = pakkaaja.pakkaaTiedosto();
-            long loppu = System.nanoTime();
             System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
             System.out.println(pakattu.getAbsoluteFile());
             if (tilastot) {
-                Tilasto tilasto = kirjaaTilastot(alku, loppu, tiedosto, pakattu);
-                System.out.println("\n" + tilasto);
+                System.out.println("\n" + pakkaaja.getTilasto());
             }
         } catch (Exception ex) {
             kasittelePoikkeus(ex);
@@ -126,14 +122,11 @@ public class Kayttoliittyma {
             }
             
             System.out.println("Puretaan tiedosto '" + tiedosto.getName() + "'...\n");
-            long alku = System.nanoTime();
             File purettu = purkaja.puraTiedosto();
-            long loppu = System.nanoTime();
             System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
             System.out.println(purettu.getAbsoluteFile());
             if (tilastot) {
-                Tilasto tilasto = kirjaaTilastot(alku, loppu, null, null);
-                System.out.println("\n" + tilasto);
+                System.out.println("\n" + purkaja.getTilasto());
             }
         } catch (Exception ex) {
             kasittelePoikkeus(ex);
@@ -230,22 +223,6 @@ public class Kayttoliittyma {
         }
         
         return pakkaaja;
-    }
-    
-    
-    /**
-     * Tallentaa tilastot (käytetty aika ja, jos pakataan, pakkausteho).
-     * Anna tiedosto ja pakattu syötteeksi "null", jos kyse purkamisesta.
-     */
-    private Tilasto kirjaaTilastot(long alku, long loppu, File tiedosto, File pakattu) {
-        double aika = (loppu - alku);
-        if (tiedosto != null) {
-            double kokoAlkuperainen = tiedosto.length();
-            double kokoPakattu = pakattu.length();
-            return new Tilasto(aika, kokoAlkuperainen, kokoPakattu);
-        } else {
-            return new Tilasto(aika);
-        }
     }
     
     

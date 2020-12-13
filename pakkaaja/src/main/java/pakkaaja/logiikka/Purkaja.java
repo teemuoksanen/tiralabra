@@ -5,24 +5,50 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Rajapinta eri pakkausalgoritmeja käyttäville purkajaluokille.
+ * Abstrakti luokka eri pakkausalgoritmeja käyttäville purkajaluokille.
  */
-public interface Purkaja {
+public abstract class Purkaja {
+    
+    protected File tiedostoPakattu;
+    private Tilasto tilasto;
     
     /**
-     * Metodi hoitaa tiedoston purkamisen ja palauttaa puretun tiedoston, kun purkaminen on valmis.
+     * Metodi hoitaa tiedoston purkamisen ja tilastoinnin. Palauttaa puretun tiedoston, kun purkaminen on valmis.
      * @return purettu tiedosto
      * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
-    File puraTiedosto() throws FileNotFoundException, IOException;
+    public File puraTiedosto() throws FileNotFoundException, IOException {
+        long aikaAlku = System.nanoTime();
+        File tiedostoPurettu = this.suoritaPurkaminen();
+        long aikaLoppu = System.nanoTime();
+        double kesto = aikaLoppu - aikaAlku;
+        this.tilasto = new Tilasto(kesto);
+        return tiedostoPurettu;
+    }
+    
+    /**
+     * Abstrakti metodi hoitaa tiedoston purkamisen ja palauttaa puretun tiedoston, kun purkaminen on valmis.
+     * @return purettu tiedosto
+     * @throws FileNotFoundException Heittää FileNotFoundException-poikkeuksen, jos tiedostoa ei löydy.
+     * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
+     */
+    public abstract File suoritaPurkaminen() throws FileNotFoundException, IOException;
+    
+    /**
+     * Metodi palauttaa tilastotiedot Tilasto-oliona.
+     * @return tilastot
+     */
+    public Tilasto getTilasto() {
+        return this.tilasto;
+    }
     
     /**
      * Metodi muodostaa pakatun tiedoston nimestä purettavan tiedoston nimen ja palauttaa sen.
      * @param tiedostoPakattu purettava tiedosto
      * @return purettu tiedosto
      */
-    default File muodostaPurettuTiedosto(File tiedostoPakattu) {
+    protected File muodostaPurettuTiedosto(File tiedostoPakattu) {
         String polku = tiedostoPakattu.getParent() + "/";
         String nimi = tiedostoPakattu.getName().replace(".huff", "");
         nimi = nimi.replace(".lzw", "");

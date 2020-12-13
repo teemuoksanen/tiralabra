@@ -12,10 +12,9 @@ import pakkaaja.tietorakenteet.lista.Lista;
 /**
  * Luokka pakkaa sille syötteenä annetun tiedoston Lempel-Ziv-Welch -algoritmin (LZW) mukaisesti.
  */
-public class LzwPakkaaja implements Pakkaaja {
+public class LzwPakkaaja extends Pakkaaja {
     
     private final static int MAKSIMIKOKO_KOODISTO = 65535;
-    private File tiedostoPakattava;
     private Hajautustaulu<String, Integer> koodisto;
     private int koodistonPituus;
     private Lista<Integer> pakattu;
@@ -36,7 +35,7 @@ public class LzwPakkaaja implements Pakkaaja {
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
     @Override
-    public File pakkaaTiedosto() throws FileNotFoundException, IOException {
+    public File suoritaPakkaaminen() throws FileNotFoundException, IOException {
         File tiedostoPakattu = muodostaPakattuTiedosto(this.tiedostoPakattava, "lzw");
         Lista<Character> tiedostoMerkkeina = lueTiedostoMerkkilistaksi(this.tiedostoPakattava);
         

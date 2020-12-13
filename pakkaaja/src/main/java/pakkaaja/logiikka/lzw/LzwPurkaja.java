@@ -12,10 +12,9 @@ import pakkaaja.io.*;
 /**
  * Luokka purkaa sille syötteenä annetun Lempel-Ziv-Welch -algoritmilla (LZW) pakatun tiedoston.
  */
-public class LzwPurkaja implements Purkaja {
+public class LzwPurkaja extends Purkaja {
     
     private final static int MAKSIMIKOKO_KOODISTO = 65535;
-    private File tiedostoPakattu;
     private Hajautustaulu<Integer, String> koodisto;
     private int koodistonPituus;
         
@@ -36,7 +35,7 @@ public class LzwPurkaja implements Purkaja {
      * @throws IOException Heittää IOException-poikkeuksen, jos bittivirran kirjoittaminen ei onnistu.
      */
     @Override
-    public File puraTiedosto() throws FileNotFoundException, IOException {
+    public File suoritaPurkaminen() throws FileNotFoundException, IOException {
         File tiedostoPurettu = muodostaPurettuTiedosto(this.tiedostoPakattu);
         
         // Luetaan pakattu tiedosto
