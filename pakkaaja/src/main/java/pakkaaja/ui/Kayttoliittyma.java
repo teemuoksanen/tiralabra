@@ -9,6 +9,7 @@ import pakkaaja.logiikka.huffman.HuffmanPakkaaja;
 import pakkaaja.logiikka.huffman.HuffmanPurkaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
+import pakkaaja.logiikka.Tilasto;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.
@@ -53,6 +54,7 @@ public class Kayttoliittyma {
                     this.vaihdaTilastot();
                     break;
                 case "4":
+                    this.vertaaAlgoritmeja();
                     break;
                 default:
                     System.out.println("Virheellinen komento: " + komento);
@@ -84,7 +86,8 @@ public class Kayttoliittyma {
             System.out.println("Tiedosto on pakattu ja tallennettu nimellä:");
             System.out.println(pakattu.getAbsoluteFile());
             if (tilastot) {
-                tulostaTilastot(alku, loppu, tiedosto, pakattu);
+                Tilasto tilasto = kirjaaTilastot(alku, loppu, tiedosto, pakattu);
+                System.out.println("\n" + tilasto);
             }
         } catch (Exception ex) {
             kasittelePoikkeus(ex);
@@ -129,11 +132,37 @@ public class Kayttoliittyma {
             System.out.println("Tiedosto on purettu ja tallennettu nimellä:");
             System.out.println(purettu.getAbsoluteFile());
             if (tilastot) {
-                tulostaTilastot(alku, loppu, null, null);
+                Tilasto tilasto = kirjaaTilastot(alku, loppu, null, null);
+                System.out.println("\n" + tilasto);
             }
         } catch (Exception ex) {
             kasittelePoikkeus(ex);
         }
+    }
+    
+    
+    /**
+     * Ajaa algoritmien vertailutoiminnallisuuden.
+     */
+    private void vertaaAlgoritmeja() {
+        /* File tiedosto = kysyTiedostonimi(false);
+        if (tiedosto == null) {
+            return;
+        }
+        
+        try {
+            Pakkaaja pakkaaja = new HuffmanPakkaaja(tiedosto);
+            if (pakkaaja == null) {
+                return;
+            }
+
+            long alku = System.nanoTime();
+            File pakattu = pakkaaja.pakkaaTiedosto();
+            long loppu = System.nanoTime();
+            //tulostaTilastot(alku, loppu, tiedosto, pakattu);
+        } catch (Exception ex) {
+            kasittelePoikkeus(ex);
+        } */
     }
     
     
@@ -205,16 +234,17 @@ public class Kayttoliittyma {
     
     
     /**
-     * Tulostaa tilastot (käytetty aika ja pakkausteho).
+     * Tallentaa tilastot (käytetty aika ja, jos pakataan, pakkausteho).
+     * Anna tiedosto ja pakattu syötteeksi "null", jos kyse purkamisesta.
      */
-    private void tulostaTilastot(long alku, long loppu, File tiedosto, File pakattu) {
-        System.out.println("\nTILASTOT:");
-        System.out.println("Aikaa kului: " + (loppu - alku) / 1e9 + " s");
+    private Tilasto kirjaaTilastot(long alku, long loppu, File tiedosto, File pakattu) {
+        double aika = (loppu - alku);
         if (tiedosto != null) {
-            double pakkaus = 1.0 * pakattu.length() / tiedosto.length();
-            System.out.println("Aluperäinen tiedosto: " + (double) tiedosto.length() / 1024 + " kt");
-            System.out.println("Pakattu tiedosto: " + (double) pakattu.length() / 1024 + " kt");
-            System.out.println("Pakkausteho: " + (double) (1 - pakkaus) * 100 + " %");
+            double kokoAlkuperainen = tiedosto.length();
+            double kokoPakattu = pakattu.length();
+            return new Tilasto(aika, kokoAlkuperainen, kokoPakattu);
+        } else {
+            return new Tilasto(aika);
         }
     }
     
@@ -255,6 +285,7 @@ public class Kayttoliittyma {
         } else {
             System.out.println("[3]\t kytke tilastotulosteet päälle");
         }
+        System.out.println("[4]\t vertaa pakkausalgoritmeja");
         System.out.println("[q]\t poistu\n");
         System.out.println("Komento + enter: ");
     }
