@@ -11,8 +11,22 @@ public class TilastoTest {
     
     @Before
     public void setUpClass() {
-        pakkausTilasto = new Tilasto(0.001, 10000, 4000);
-        purkuTilasto = new Tilasto(0.01);
+        pakkausTilasto = new Tilasto(1000000000, 10000, 4000);
+        purkuTilasto = new Tilasto(10000000000L);
+    }
+
+    @Test
+    public void kestoSekunteinaPalauttaaOikein() {
+        double odotettu = 1;
+        double tulos = this.pakkausTilasto.kestoSekunteina();
+        assertEquals(odotettu, tulos, 0.000);
+    }
+
+    @Test
+    public void purkajanKestoSekunteinaPalauttaaOikein() {
+        double odotettu = 10;
+        double tulos = this.purkuTilasto.kestoSekunteina();
+        assertEquals(odotettu, tulos, 0.00);
     }
 
     @Test
@@ -55,6 +69,16 @@ public class TilastoTest {
         double odotettu = 0;
         double tulos = this.purkuTilasto.kokoPakattuKilotavuina();
         assertEquals(odotettu, tulos, 0.0);
+    }
+
+    @Test
+    public void pakkaajanToStringKertooPakkaustehon() {
+        assertTrue(this.pakkausTilasto.toString().contains("Pakkausteho:"));
+    }
+
+    @Test
+    public void purkajanToStringEiKerroPakkaustehoa() {
+        assertFalse(this.purkuTilasto.toString().contains("Pakkausteho:"));
     }
     
 }

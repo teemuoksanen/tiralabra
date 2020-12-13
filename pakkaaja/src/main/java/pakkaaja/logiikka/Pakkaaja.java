@@ -24,7 +24,7 @@ public abstract class Pakkaaja {
         long aikaAlku = System.nanoTime();
         File tiedostoPakattu = this.suoritaPakkaaminen();
         long aikaLoppu = System.nanoTime();
-        double kesto = aikaLoppu - aikaAlku;
+        long kesto = aikaLoppu - aikaAlku;
         double kokoAlkuperainen = tiedostoPakattava.length();
         double kokoPakattu = tiedostoPakattu.length();
         this.tilasto = new Tilasto(kesto, kokoAlkuperainen, kokoPakattu);

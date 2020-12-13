@@ -22,7 +22,7 @@ public abstract class Purkaja {
         long aikaAlku = System.nanoTime();
         File tiedostoPurettu = this.suoritaPurkaminen();
         long aikaLoppu = System.nanoTime();
-        double kesto = aikaLoppu - aikaAlku;
+        long kesto = aikaLoppu - aikaAlku;
         this.tilasto = new Tilasto(kesto);
         return tiedostoPurettu;
     }

@@ -5,7 +5,7 @@ package pakkaaja.logiikka;
  */
 public class Tilasto {
     
-    private double kesto;
+    private long kesto;
     private double kokoAlkuperainen;
     private double kokoPakattu;
     
@@ -13,7 +13,7 @@ public class Tilasto {
      * Tilasto-olion konstruktori, joka tallentaa vain keston; käytetään purkamisessa.
      * @param kesto purkamisen kesto millisekunneissa
      */
-    public Tilasto(double kesto) {
+    public Tilasto(long kesto) {
         this.kesto = kesto;
         this.kokoAlkuperainen = 0;
         this.kokoPakattu = 0;
@@ -25,7 +25,7 @@ public class Tilasto {
      * @param kokoAlkuperainen pakatun tiedoston alkuperäinen koko tavuina
      * @param kokoPakattu pakatun tiedoston koko pakkaamisen jälkeen tavuina
      */
-    public Tilasto(double kesto, double kokoAlkuperainen, double kokoPakattu) {
+    public Tilasto(long kesto, double kokoAlkuperainen, double kokoPakattu) {
         this.kesto = kesto;
         this.kokoAlkuperainen = kokoAlkuperainen;
         this.kokoPakattu = kokoPakattu;

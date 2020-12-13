@@ -9,6 +9,7 @@ import pakkaaja.logiikka.huffman.HuffmanPakkaaja;
 import pakkaaja.logiikka.huffman.HuffmanPurkaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
+import pakkaaja.logiikka.Tilasto;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.
@@ -138,24 +139,89 @@ public class Kayttoliittyma {
      * Ajaa algoritmien vertailutoiminnallisuuden.
      */
     private void vertaaAlgoritmeja() {
-        /* File tiedosto = kysyTiedostonimi(false);
+        File tiedosto = kysyTiedostonimi(false);
         if (tiedosto == null) {
             return;
         }
         
         try {
-            Pakkaaja pakkaaja = new HuffmanPakkaaja(tiedosto);
-            if (pakkaaja == null) {
+            // Testataan Huffman-pakkaus
+            System.out.print("Pakataan Huffman-algortimilla...");
+            Pakkaaja huffmanPakkaaja = new HuffmanPakkaaja(tiedosto);
+            if (huffmanPakkaaja == null) {
                 return;
             }
-
-            long alku = System.nanoTime();
-            File pakattu = pakkaaja.pakkaaTiedosto();
-            long loppu = System.nanoTime();
-            //tulostaTilastot(alku, loppu, tiedosto, pakattu);
+            File huffmanPakattu = huffmanPakkaaja.pakkaaTiedosto();
+            Tilasto huffmanPakkaajaTilasto = huffmanPakkaaja.getTilasto();
+            System.out.println(" Pakattu!");
+            
+            // Testataan Huffman-purkaminen
+            System.out.print("Puretaan Huffman-algortimilla...");
+            Purkaja huffmanPurkaja = new HuffmanPurkaja(huffmanPakattu);
+            File huffmanPurettu = huffmanPurkaja.puraTiedosto();
+            Tilasto huffmanPurkajaTilasto = huffmanPurkaja.getTilasto();
+            System.out.println(" Purettu!");
+            
+            // Poistetaan Huffman-tiedostot
+            boolean huffmanPakattuPoistettu = huffmanPakattu.delete();
+            boolean huffmanPurettuPoistettu = huffmanPurettu.delete();
+            if (!huffmanPakattuPoistettu || !huffmanPurettuPoistettu) {
+                throw new IOException("Vertailutiedoston (Huffman) poistaminen ei onnistunut!");
+            }
+            
+            // Testataan LZW-pakkaus
+            System.out.print("Pakataan LZW-algortimilla...");
+            Pakkaaja lzwPakkaaja = new LzwPakkaaja(tiedosto);
+            if (lzwPakkaaja == null) {
+                return;
+            }
+            File lzwPakattu = lzwPakkaaja.pakkaaTiedosto();
+            Tilasto lzwPakkaajaTilasto = lzwPakkaaja.getTilasto();
+            System.out.println(" Pakattu!");
+            
+            // Testataan LZW-purkaminen
+            System.out.print("Puretaan LZW-algortimilla...");
+            Purkaja lzwPurkaja = new LzwPurkaja(lzwPakattu);
+            File lzwPurettu = lzwPurkaja.puraTiedosto();
+            Tilasto lzwPurkajaTilasto = lzwPurkaja.getTilasto();
+            System.out.println(" Purettu!");
+            
+            // Poistetaan LZW-tiedostot
+            boolean lzwPakattuPoistettu = lzwPakattu.delete();
+            boolean lzwPurettuPoistettu = lzwPurettu.delete();
+            if (!lzwPakattuPoistettu || !lzwPurettuPoistettu) {
+                throw new IOException("Vertailutiedoston (LZW) poistaminen ei onnistunut!");
+            }
+            
+            // Tulostetaan tilastot
+            System.out.println("\nVERTAILUTILASTOT:\n");
+            System.out.println("Pakattu tiedosto:\t" + tiedosto.getName());
+            System.out.println("Tiedoston koko:\t\t"
+                    + huffmanPakkaajaTilasto.kokoAlkuperainenKilotavuina() + " kt\n");
+            System.out.println("\t\t\tHuffman\t\t\tLZW");
+            System.out.println("Pakkaamisen kesto:\t" 
+                    + huffmanPakkaajaTilasto.kestoSekunteina() + " s\t\t" 
+                    + lzwPakkaajaTilasto.kestoSekunteina() + " s");
+            System.out.println("Purkamisen kesto:\t" 
+                    + huffmanPurkajaTilasto.kestoSekunteina() + " s\t\t" 
+                    + lzwPurkajaTilasto.kestoSekunteina() + " s");
+            System.out.println("Pakattu koko:\t\t" 
+                    + huffmanPakkaajaTilasto.kokoPakattuKilotavuina() + " kt \t" 
+                    + lzwPakkaajaTilasto.kokoPakattuKilotavuina() + " kt");
+            System.out.println("Pakkausteho:\t\t" 
+                    + huffmanPakkaajaTilasto.pakkausteho() + " %\t" 
+                    + lzwPakkaajaTilasto.pakkausteho() + " %\n");
+            System.out.print("Tehokkaampi algoritmi:\t");
+            if (huffmanPakkaajaTilasto.pakkausteho() <= 0 && lzwPakkaajaTilasto.pakkausteho() <= 0) {
+                System.out.println("Kumpikaan algoritmi ei onnistunut pakkaamaan tiedostoa");
+            } else if (huffmanPakkaajaTilasto.pakkausteho() > lzwPakkaajaTilasto.pakkausteho()) {
+                System.out.println("Huffman");
+            } else {
+                System.out.println("LZW");
+            }
         } catch (Exception ex) {
             kasittelePoikkeus(ex);
-        } */
+        }
     }
     
     
