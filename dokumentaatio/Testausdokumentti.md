@@ -2,17 +2,29 @@
 
 ## Yksikkötestaus
 
-Ohjelman yksikkötestaus on toteutettu JUnitilla. Jokaiselle tietorakenteelle on luotu oma testiluokka. Lisäksi ohjelman logiikkaosio on testattu omalla testiluokallaan.
+Ohjelman yksikkötestaus on toteutettu JUnitilla. Jokaiselle tietorakenteelle on luotu oma testiluokka. Lisäksi ohjelman logiikkaosio sekä I/O-toiminnallisuus on testattu omilla testiluokillaan.
 
-__PakkaajaTest__ testaa yleisesti ohjelman toiminnallisuuksia. PakkaajaTest testaa sekä yksittäisiä metodeja, kuten puiden (sekä lehtien että solmujen) luomista ja puiden järjestämistä. Lisäksi PakkaajaTest testaa, että pakkaminen ja purkaminen todellisuudessa toimii, pakkaamalla esimerkkitiedoston ja purkamalla sen jälkeen kyseisen pakatun tiedoston. Testi tarkastaa, että alkuperäinen ja purettu tiedosto vastaavat toisiaan merkki merkiltä. Tämä testaa kerralla hyvin laajan osan koodista, koska muilta kuin edellisessä kappaleessa mainituilta osilta pakkaamis- ja purkamislogiikan osittainen testaaminen tuntui melko hankalalta.
+### Logiikka
 
-*(TODO: Mockito-testit voisi ottaa ehkä tässä käyttöön?)*
+Ohelman logiikkaosuus on testattu pitkälti integraatiotestauksena, joka kattaa ohjelman logiikan lisäksi sen käyttämät tietorakenteet sekä I/O-toiminnallisuudet. Ainoastaan käyttöliittymä on jätetty tässä testaamatta. Integraatiotestaus ilman varsinaisia yksikkötestejä on perusteltua, koska pakkaamis- ja purkamislogiikan osittainen testaaminen ei mielestäni tuo juuri lisäarvoa - ne ovat yksi kokonaisuus, jotka käyttävät hyödykseen ohjelman muita osia.
+
+__HuffmanTest__ testaa yksittäisiä metodeja, kuten puiden (sekä lehtien että solmujen) luomista ja puiden järjestämistä, sekä sitä, että pakkaminen ja purkaminen todellisuudessa toimii, pakkaamalla esimerkkitiedoston ja purkamalla sen jälkeen kyseisen pakatun tiedoston. Testi tarkastaa, että alkuperäinen ja purettu tiedosto vastaavat toisiaan merkki merkiltä. Lisäksi testit testaavat, että luokka heittää poikkeuksen esimerkiksi silloin, jos pakattavan/purettavan tiedoston kanssa samanniminen tiedosto on jo olemassa.
+
+__LzwTest__ keskittyy testaamaan vastaavalla tavalla sitä, että pakkaminen ja purkaminen todellisuudessa toimii ja että luokka heittää tarvittaessa poikkeuksen. LzwTest ei testaa HuffmanTest'in tavoin yksittäisiä metodeja, koska LzwPakkaajan (ja LzwPurkajan) keskeinen toimintalogiikka on puristettu oikeastaan yhteen ainoaan metodiin.
+
+### Tietorakenteet
 
 __HajautustauluTest__ testaa puhtaasti Hajautustaulu-luokan toiminnallisuuksia: arvojen hakemista, avain-arvo -parien lisäämistä, alkion arvon muuttamista, alkioiden poistamista, hajautustaulun koon (alkioiden määrä) ja avaintaulukon palauttamista. Lisäksi erikseen varmistetaan, että hajautustaulun koko voi kasvaa alunperin määritetystä lisäysten myötä, että olemattoman alkion poistaminen ei pienennä taulun kokoa ja että hajauttaminen toimii.
 
 __KekoTest__ testaa puhtaasti Keko-luokan toiminnallisuuksia: alkioiden lisäämistä, kurkistamista ja poistamista sekä sitä, että alkiot järjestyvät oikeaan suuruusjärjestykseen. Erikseen varmistetaan, että keon koko voi kasvaa alunperin määritetystä lisäysten myötä. Lisäksi testataan Puu-olioiden (Solmu- ja Lehti-luokat mukaanlukien) toimivuus niin, että esimerkiksi niiden vertailu toimii oikein.
 
 __ListaTest__ testaa puhtaasti Lista-luokan toiminnallisuuksia: alkioiden lisäämistä, listan koon palauttamista ja sitä, että listan koko voi kasvaa alunperin määritetystä lisäysten myötä.
+
+__TilastoTest__ testaa, että Tilasto-olio palauttaa eri tilanteissa oikeanlaiset tilastot.
+
+### I/O
+
+I/O-pakkauksen sisältö testataan pääosin osana sovelluslogiikan integraatiotestausta. Tämän lisäksi __IOTest__ testaa, että BittiKirjoittaja ja BittiLukija heittävät tietyissä tilanteissa poikkeuksen.
 
 ## Suorituskykytestaus
 
