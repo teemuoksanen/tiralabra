@@ -17,3 +17,4 @@ Pakkaaja on Helsingin yliopiston _Aineopintojen harjoitustyö: Tietorakenteet ja
 - [Viikkoraportti 4](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Viikkoraportti4.md)
 - [Viikkoraportti 5](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Viikkoraportti5.md)
 - [Viikkoraportti 6](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Viikkoraportti6.md)
+- ["Viikko"raportti 7](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Viikkoraportti7.md)
