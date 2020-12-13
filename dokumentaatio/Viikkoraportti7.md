@@ -1,6 +1,6 @@
-# Viikkoraportti "7" (eli viimeisen viikkopalautuksen jälkeen)
+# "Viikko"raportti 7 (eli viimeisen viikkopalautuksen jälkeen)
 
-Käytetyt tunnit: __20__
+Käytetyt tunnit: __22__
 
 ## Mitä tein tällä viikolla?
 
