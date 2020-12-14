@@ -72,6 +72,8 @@ Alla on taulukkomuodossa eri algoritmien testitulokset järjestettynä pakkauste
 
 ### Pakkausteho
 
+![Pakkausteho](https://github.com/teemuoksanen/tiralabra-huffman/blob/main/dokumentaatio/kuvat/pakkausteho.png?raw=true)
+
 Testien perusteella näyttäisi siltä, että puhtaissa tekstitiedostoissa Huffman-algortimin pakkausteho on noin 45 % ja LZW-algoritmin vastaavasti noin 55 %. LZW-algoritmin teho korostui erityisesti pitemmissä teksteissä.
 
 Kun mukana on muutakin kuin tekstiä, alkaa pakkausteho pienentyä molemmilla algoritmeilla nopeasti. HTML-tiedosto pakkautuu molemmilla vielä melko tehokkaasti (n. 35 % pakkausteho), mutta esimerkiksi tekstin lisäksi kuvia ja muotoilua sisältävissä PDF-tiedostoissa pakkausteho on Huffman-algoritmilla enää 10 % luokka ja LZW-algoritmillakin 13-27 % luokkaa. Kuvien, äänen ja videon pakkaamisessa pakkausteho Huffman-algortimilla on enää alle 5 %, ja suurikokoista valokuvaa sekä videokuvaa ei Huffman-algoritmilla saatu juurikaan pakattua. Tämä selittynee sillä, että valokuvien ja videon sisällössä on huomattavaa vaihtelua. LZW-algoritmilla tehon pudotus tekstiä sisältäneistä PDF-tiedostoista kuva-, ääni- ja videotiedostoihin oli vielä huomattavasti selkeämpi: LZW ei onnistunut pakkaamaan niitä ollenkaan, vaan "pakattujen" tiedostojen koot suurenivat.
@@ -89,6 +91,8 @@ Yhteenvetona voitaneen todeta, että LZW-pakkauksen teho korostuu erityisesti pi
 Suoritusajan testaaminen ei tässä ohjelmassa ole yhtä keskeisessä osassa kuin pakkausteho. Tästä syytä en testauksessa keskittynyt toistamaan saman tiedoston pakkaamista ja purkamista useita kertoja.
 
 Yleishuomiona voidaan kuitenkin todeta, että pakatun tiedoston purkaminen Huffman-algortimilla oli useimmissa tapauksissa alkuperäisen tiedon pakkaamista hitaampaa. Sen sijaan LZW-algoritmilla purkaminen oli yleensä noin puolet pakkaamista nopeampaa.
+
+Lisäksi testauksessa huomaa, että LZW-algoritmi on lähes aina Huffman-algoritmia nopeampi. Tämä olikin oletettava tulos, kun Huffman-algoritmin aikavaativuus on *O*(*n* log *n*) ja LZW-algoritmin taas *O*(*n*).
 
 ## Testimateriaali
 
