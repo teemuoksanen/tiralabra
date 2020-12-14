@@ -9,7 +9,7 @@ import pakkaaja.logiikka.huffman.HuffmanPakkaaja;
 import pakkaaja.logiikka.huffman.HuffmanPurkaja;
 import pakkaaja.logiikka.Pakkaaja;
 import pakkaaja.logiikka.Purkaja;
-import pakkaaja.logiikka.Tilasto;
+import pakkaaja.tietorakenteet.tilasto.Tilasto;
 
 /**
  * Pakkaajan tekstipohjainen käyttöliittymä.

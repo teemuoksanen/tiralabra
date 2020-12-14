@@ -1,5 +1,6 @@
-package pakkaaja.logiikka;
+package pakkaaja.tietorakenteet;
 
+import pakkaaja.tietorakenteet.tilasto.Tilasto;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;

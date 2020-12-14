@@ -1,4 +1,4 @@
-package pakkaaja.logiikka;
+package pakkaaja.tietorakenteet.tilasto;
 
 /**
  * Pakkaamisen ja purkamisen tilastotietojen tallentamisesta vastaava olio.

@@ -3,6 +3,7 @@ package pakkaaja.logiikka;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import pakkaaja.tietorakenteet.tilasto.Tilasto;
 
 /**
  * Abstrakti luokka eri pakkausalgoritmeja käyttäville purkajaluokille.

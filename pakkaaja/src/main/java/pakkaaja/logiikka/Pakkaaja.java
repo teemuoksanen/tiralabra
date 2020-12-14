@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import pakkaaja.io.BittiLukija;
 import pakkaaja.tietorakenteet.lista.Lista;
+import pakkaaja.tietorakenteet.tilasto.Tilasto;
 
 /**
  * Abstrakti luokka eri pakkausalgoritmeja käyttäville pakkaajaluokille.
