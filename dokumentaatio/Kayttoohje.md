@@ -4,7 +4,7 @@
 
 ### Julkaistu versio
 
-Lataa viimeisin julkaistu versio tästä: *(lisätään linkki julkaisun jälkeen)*
+Lataa viimeisin julkaistu versio tästä: [pakkaaja.jar](https://github.com/teemuoksanen/tiralabra-huffman/releases/download/1.0/pakkaaja.jar)
 
 Siirry hakemistoon, jonne latasit ohjelman, ja käynnistä ohjelma komennolla
 
