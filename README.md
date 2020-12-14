@@ -2,6 +2,10 @@
 
 Pakkaaja on Helsingin yliopiston _Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit_ -kurssilla ([Tiralabra - 2020 p2](https://tiralabra.github.io/2020_p2/)) toteuttamani harjoitustyö.
 
+## Julkaistu versio
+
+- Lataa [pakkaaja.jar](https://github.com/teemuoksanen/tiralabra-huffman/releases/download/1.0/pakkaaja.jar)
+
 ## Dokumentaatio
 
 - [Käyttöohje](https://github.com/teemuoksanen/tiralabra/blob/main/dokumentaatio/Kayttoohje.md)
